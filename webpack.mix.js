@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+require('laravel-mix-blade-reload');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,4 +12,16 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js');
+mix.sass('resources/css/styles.scss', 'public/css');
+
+mix.js('resources/js/scripts.js', 'public/js');
+mix.js('resources/js/jquery.js', 'public/js');
+mix.js('resources/js/bootstrap.js', 'public/js');
+
+var LiveReloadPlugin = require('@kooneko/livereload-webpack-plugin');
+
+mix.webpackConfig({
+    plugins: [new LiveReloadPlugin()]
+});
+
+mix.bladeReload();
