@@ -19,13 +19,6 @@
         <input id="email" class="block mt-1 w-full" type="email" name="email" value="{{ old('email') }}" required />
     </div>
 
-    <!-- Password -->
-    <div class="mt-4">
-        <label for="password">{{ __('Password') }}</label>
-
-        <input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-    </div>
-
     <!-- Role chooser -->
     <div class="mt-4">
         <label for="role">{{ __('Choose your role') }}</label>
@@ -39,6 +32,13 @@
             <option value="job-seeker">Job Seeker</option>
             <option value="job-poster">Job Poster</option>
         </select>
+    </div>    
+
+    <!-- Password -->
+    <div class="mt-4">
+        <label for="password">{{ __('Password') }}</label>
+
+        <input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
     </div>
 
     <!-- Confirm Password -->

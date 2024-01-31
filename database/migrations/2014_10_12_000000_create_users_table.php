@@ -20,7 +20,33 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum("role",["job-seeker","job-poster"])->default("job-seeker");
-            
+
+            // Onboarding
+            $table->string("address")->nullable();
+            $table->string("city")->nullable();
+            $table->string("state")->nullable();
+            $table->string("zip")->nullable();
+            $table->string("country")->nullable();
+
+            $table->string("phone")->nullable();
+
+            $table->string("profile_picture")->nullable();
+
+            $table->string("resume")->nullable();
+            $table->string("cover_letter")->nullable();
+            $table->string("skills")->nullable();
+
+            $table->string("linkedin")->nullable();
+            $table->string("github")->nullable();
+            $table->string("portfolio")->nullable();
+            $table->string("twitter")->nullable();
+            $table->string("facebook")->nullable();
+            $table->string("instagram")->nullable();
+
+            // Onboarding steps
+            $table->boolean("onboarding_step_1")->default(false);
+            $table->boolean("onboarding_step_2")->default(false);
+
             $table->rememberToken();
             $table->timestamps();
         });
