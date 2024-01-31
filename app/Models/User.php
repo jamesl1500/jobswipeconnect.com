@@ -21,7 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        "role"
+        'role'
     ];
 
     /**
@@ -42,4 +42,30 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the user's role.
+     *
+     * @return string
+     */
+    public function getRoleAttribute()
+    {
+        return $this->attributes['role'];
+    }
+
+    /** 
+     * Check to see if user has completed onboarding step 1
+     */
+    public function hasCompletedOnboardingStep1()
+    {
+        return $this->onboarding_step_1;
+    }
+
+    /** 
+     * Check to see if user has completed onboarding step 2
+     */
+    public function hasCompletedOnboardingStep2()
+    {
+        return $this->onboarding_step_2;
+    }
 }
