@@ -1,0 +1,93 @@
+@import 'bootstrap.css';
+
+/**
+* Global
+*/
+
+/**
+* Components
+*/
+
+/**
+* Forms
+*/
+
+/**
+* Header
+*/
+.header-main{
+    background: white;
+
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+
+    z-index: 1000;
+
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+
+    height: 75px;
+    width: 100%;
+
+    .header-main-inner{
+
+        .header-main-row{
+
+            .header-branding{
+
+                .header-branding-inner{
+                    
+                    a{
+
+                        img{
+                            max-width: 50px;
+                            border-radius: 50%;
+                        }
+                    }
+                }
+            }
+
+            .header-search{
+
+                .header-search-inner{
+
+                    form{
+
+                        input{
+                            border: 1px solid #e0e0e0;
+                            border-radius: 5px;
+                            padding: 10px;
+                            width: 100%;
+
+                            background: #e0e0e0;
+
+                            &:focus{
+                                background: white;
+                                outline: none;
+                            }
+                        }
+
+                        button{
+                            background: #f8f8f8;
+                            border: 1px solid #e0e0e0;
+                            border-radius: 5px;
+                            padding: 10px;
+                            margin-left: 10px;
+                            position: relative;
+                            top: -20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+* Footer
+*/
+
+/**
+* Pages
+*/

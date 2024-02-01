@@ -22,7 +22,7 @@ class OnboardingController extends Controller
             return redirect()->route('onboarding.step2');
         }
 
-        return view('onboarding.onboarding_step1');
+        return view('pages.onboarding.onboarding_step1');
     }
 
     /** ShowStep2
@@ -47,7 +47,7 @@ class OnboardingController extends Controller
             return redirect()->route('dashboard');
         }
          
-        return view('onboarding.onboarding_step2');
+        return view('pages.onboarding.onboarding_step2');
     }
 
     /**
