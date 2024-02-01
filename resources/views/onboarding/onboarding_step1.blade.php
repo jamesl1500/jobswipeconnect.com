@@ -9,8 +9,26 @@
     <div class="onboarding-content-box">
         <div class="onboarding-content-box-header">
             <!-- Wrap in a form element -->
-            <form action="{{ route('onboarding.step1.post') }}" method="post">
+            <form action="{{ route('onboarding.step1.post') }}" method="post" enctype="multipart/form-data">
                 @csrf
+                <?php 
+                    // Display errors
+                    if($errors->any()) {
+                        ?>
+                            <div class="alert alert-danger">
+                                <ul>
+                                    <?php
+                                    foreach($errors->all() as $error) {
+                                        ?>
+                                            <li>{{ $error }}</li>
+                                        <?php
+                                    }
+                                    ?>
+                                </ul>
+                            </div>
+                        <?php
+                    }
+                ?>
                 <!-- Profile Picture -->
                 <div class="onboarding-form-area area-1">
                     <h2>Step 1: Profile Picture</h2>
@@ -22,7 +40,7 @@
                         </div>
                         <div class="form-area-element">
                             <label for="profile_picture">Profile Picture</label>
-                            <input type="file" name="profile_picture" id="profile_picture">
+                            <input type="file" name="profile_picture" name="profile_picture" id="profile_picture">
                         </div>
                     </div>
                 </div>
@@ -37,25 +55,38 @@
                         <?php
                     }else {
                         ?>
-                            <p>This helps us find job seekers!</p>
+                            <p>This helps us find job seekers for you!</p>
                         <?php
                     }
                     ?>
 
                     <div class="form-area-elements">
                         <div class="form-area-element">
-                            <label for="first_name">First Name</label>
-                            <input type="text" name="first_name" id="first_name">
+                            <label for="address">Address</label>
+                            <input type="text" name="address" id="address" value="{{ old('address') }}">
                         </div>
                         <div class="form-area-element">
-                            <label for="last_name">Last Name</label>
-                            <input type="text" name="last_name" id="last_name">
+                            <label for="city">City</label>
+                            <input type="text" name="city" id="city" value="{{ old('city') }}">
                         </div>
                         <div class="form-area-element">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" id="email">
+                            <label for="state">State</label>
+                            <input type="text" name="state" id="state" value="{{ old('state') }}">
+                        </div>
+                        <div class="form-area-element">
+                            <label for="zip">Zip</label>
+                            <input type="text" name="zip" id="zip" value="{{ old('zip') }}">
+                        </div>
+                        <div class="form-area-element">
+                            <label for="country">Country</label>
+                            <input type="text" name="country" id="country" value="{{ old('country') }}">
                         </div>
                     </div>
+                    <!-- Add a submit button -->
+                    <div class="form-area-elements">
+                        <input type="submit" value="Next Step" class="btn btn-primary">
+                    </div>
+                </div>
             </form>
         </div>
     </div>

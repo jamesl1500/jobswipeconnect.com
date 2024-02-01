@@ -21,7 +21,25 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'role'
+        'role',
+        'onboarding_step_1',
+        'onboarding_step_2',
+        'phone',
+        'profile_picture',
+        'address',
+        'city',
+        'state',
+        'zip',
+        'country',
+        'resume',
+        'cover_letter',
+        'skills',
+        'linkedin',
+        'github',
+        'portfolio',
+        'twitter',
+        'facebook',
+        'instagram',
     ];
 
     /**
