@@ -78,7 +78,8 @@ class OnboardingController extends Controller
             'city' => 'required|string|max:255',
             'state' => 'required|string|max:255',
             'zip' => 'required|numeric|max:99999',
-            'country' => 'required|string|max:255'
+            'country' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users,username,'.$request->user()->id,
         ]);
         
         // Process step 1
@@ -89,7 +90,8 @@ class OnboardingController extends Controller
             'city' => $request->city,
             'state' => $request->state,
             'zip' => $request->zip,
-            'country' => $request->country
+            'country' => $request->country,
+            'username' => $request->username
         ]))
         {
             return redirect()->route('onboarding.step2');

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\ProfileController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -48,5 +49,10 @@ Route::post('/settings/change_password/post', [SettingsController::class, 'chang
 
 Route::get('/settings/privacy_settings', [SettingsController::class, 'privacySettings'])->middleware(['auth', 'verified', 'onboarding'])->name('settings.privacy_settings');
 Route::get('/settings/notifications', [SettingsController::class, 'notifications'])->middleware(['auth', 'verified', 'onboarding'])->name('settings.notifications');
+
+// Profile with username
+Route::get('/profile/{username}', [ProfileController::class, 'index'])->name('profile.index');
+Route::get('/profile/{username}/about', [ProfileController::class, 'about'])->name('profile.about');
+Route::get('/profile/{username}/resume', [ProfileController::class, 'resume'])->name('profile.resume');
 
 require __DIR__.'/auth.php';

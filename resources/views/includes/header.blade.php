@@ -12,15 +12,33 @@
                 <div class="header-search-inner">
                     <form action="{{ route('search') }}" method="get">
                         <input type="text" name="query" id="query" placeholder="Search for jobs, companies, and more">
-                        <button type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
                     </form>
                 </div>
             </div>
             <div class="header-navigation col-lg-4">
                 <div class="header-navigation-inner">
+                    <ul>
+                        @if (Auth::check())
+                            <li><a href="{{ route('home') }}">Home</a></li>
+                            <li><a href="">Jobs</a></li>
 
+                            <!-- User profile picture -->
+                            <li class="profile_picture">
+                                <a href="{{ route('profile.index', ['username' => Auth::user()->username]) }}">
+                                    <img src="{{ asset('storage/' . Auth::user()->profile_picture) }}" alt="Profile Picture" />
+                                </a>
+                            </li>
+                        @else
+                            <!-- If user is not logged in -->
+                            <li><a href="{{ route('home') }}">Home</a></li>
+                            <li><a href="">About</a></li>
+                            <li><a href="{{ route('login') }}">Login</a></li>
+                            <li><a href="{{ route('register') }}">Register</a></li>
+                        @endif
+
+                        <!-- Dropdown menu -->
+                        <li class="dropdown"><i class="fa-solid fa-bars"></i></li>
+                    </ul>
                 </div>
             </div>
         </div>
