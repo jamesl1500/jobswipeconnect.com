@@ -87,4 +87,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->onboarding_step_2;
     }
+
+    /**
+     * Get users privacy settings
+     */
+    public function privacySettings()
+    {
+        return $this->hasOne(PrivacySettings::class);
+    }
 }

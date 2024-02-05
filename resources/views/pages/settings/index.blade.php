@@ -34,6 +34,7 @@
                     <div class="settings-content-form-error">
                         @if($errors->any())
                             <div class="alert alert-danger">
+                                <h2>Errors</h2>
                                 <ul>
                                     @foreach($errors->all() as $error)
                                         <li>{{ $error }}</li>
@@ -64,7 +65,7 @@
                                     <img src="{{ asset('storage/' . auth()->user()->profile_picture) }}" alt="Profile Picture" id="profile_picture">
                                 </div>
                                 <label for="profile_picture">Profile Picture</label>
-                                <input type="file" name="profile_picture" id="profile_picture">
+                                <input type="file" name="profile_picture" id="profile_picture" class="form-control">
                             </div>
                         </div>
                         <!-- Edit name -->

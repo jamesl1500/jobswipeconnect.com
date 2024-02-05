@@ -48,11 +48,15 @@ Route::get('/settings/change_password', [SettingsController::class, 'changePassw
 Route::post('/settings/change_password/post', [SettingsController::class, 'changePasswordPost'])->middleware(['auth', 'verified', 'onboarding'])->name('settings.change_password.post');
 
 Route::get('/settings/privacy_settings', [SettingsController::class, 'privacySettings'])->middleware(['auth', 'verified', 'onboarding'])->name('settings.privacy_settings');
+Route::post('/settings/privacy_settings/post', [SettingsController::class, 'privacySettingsPost'])->middleware(['auth', 'verified', 'onboarding'])->name('settings.privacy_settings.post');
+
 Route::get('/settings/notifications', [SettingsController::class, 'notifications'])->middleware(['auth', 'verified', 'onboarding'])->name('settings.notifications');
 
 // Profile with username
 Route::get('/profile/{username}', [ProfileController::class, 'index'])->name('profile.index');
 Route::get('/profile/{username}/about', [ProfileController::class, 'about'])->name('profile.about');
+
 Route::get('/profile/{username}/resume', [ProfileController::class, 'resume'])->name('profile.resume');
+Route::post('/profile/{username}/resume/saveResume', [ProfileController::class, 'resumePost'])->name('profile.resume.post');
 
 require __DIR__.'/auth.php';

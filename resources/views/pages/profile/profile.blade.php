@@ -1,5 +1,5 @@
 @php($title = $user->name . ' | Profile')
-@extends('layouts.authorized')
+@extends('layouts.both')
 
 @section('content')
 <div class="profile-page page">
@@ -15,7 +15,7 @@
                             <h1>{{ $user->name }}</h1>
                         </div>
                         <div class="profile-page-header-content-subtitle">
-                            <h2>{{ $user->email }}</h2>
+                            <h2>{{ $user->username }}</h2>
                         </div>
                     </div>
                 </div>
@@ -26,9 +26,9 @@
         <div class="container">
             <div class="profile-page-inline-navigation-inner">
                 <ul>
-                    <li class="active"><a href="{{ route('profile.index', $user->id) }}">Posts</a></li>
-                    <li><a href="{{ route('profile.about', $user->id) }}">About</a></li>
-                    <li><a href="{{ route('profile.resume', $user->id) }}">Resume</a></li>
+                    <li class="active"><a href="{{ route('profile.index', $user->username) }}">Posts</a></li>
+                    <li><a href="{{ route('profile.about', $user->username) }}">About</a></li>
+                    <li><a href="{{ route('profile.resume', $user->username) }}">Resume</a></li>
                 </ul>
             </div>
         </div>

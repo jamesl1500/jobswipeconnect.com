@@ -34,6 +34,7 @@
                     <div class="settings-content-form-error">
                         @if($errors->any())
                             <div class="alert alert-danger">
+                                <h2>Errors</h2>
                                 <ul>
                                     @foreach($errors->all() as $error)
                                         <li>{{ $error }}</li>

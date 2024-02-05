@@ -22,6 +22,9 @@
 /**
 * Forms
 */
+.form-group {
+  margin-bottom: 20px;
+}
 .form-group h3 {
   font-size: 20px;
   margin-bottom: 20px;
@@ -49,6 +52,11 @@
 .form-group .form-input label {
   display: block;
   margin-bottom: 10px;
+  font-weight: 600;
+}
+.form-group .form-input p {
+  color: #333;
+  font-size: 14px;
 }
 .form-group .form-input input, .form-group .form-input textarea {
   width: 100%;
@@ -58,6 +66,9 @@
 }
 .form-group .form-input textarea {
   height: 100px;
+}
+.form-group:last-child {
+  margin-bottom: 0px;
 }
 
 /**
@@ -73,7 +84,6 @@
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin-bottom: 20px;
 }
 .btn.primary {
   background: #861657;
@@ -84,7 +94,7 @@
 }
 .btn.secondary {
   background: #ffa69e;
-  color: #333;
+  color: #fff;
   border: 1px solid #e0e0e0;
 }
 .btn.secondary:hover {
@@ -195,6 +205,7 @@
 }
 .page .page-header .page-header-container .page-header-title h1 {
   font-size: 40px;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   color: white;
 }
 .page .page-header .page-header-container .page-header-subtext h2 {
@@ -362,13 +373,31 @@
   padding: 20px;
   border-radius: 5px;
 }
-.profile-page .profile-page-header .page-header-container .profile-page-header-inner {
-  display: flex;
-  gap: 20px;
+.profile-page .profile-page-header .page-header-container .profile-page-header-inner .profile-page-header-image {
+  text-align: center;
 }
 .profile-page .profile-page-header .page-header-container .profile-page-header-inner .profile-page-header-image img {
   max-width: 200px;
   border-radius: 50%;
+}
+.profile-page .profile-page-header .page-header-container .profile-page-header-inner .profile-page-header-content .profile-page-header-content-inner {
+  padding-top: 20px;
+}
+.profile-page .profile-page-header .page-header-container .profile-page-header-inner .profile-page-header-content .profile-page-header-content-inner .profile-page-header-content-title {
+  margin-bottom: 10px;
+  text-align: center;
+}
+.profile-page .profile-page-header .page-header-container .profile-page-header-inner .profile-page-header-content .profile-page-header-content-inner .profile-page-header-content-title h1 {
+  font-size: 40px;
+  color: white;
+}
+.profile-page .profile-page-header .page-header-container .profile-page-header-inner .profile-page-header-content .profile-page-header-content-inner .profile-page-header-content-subtitle {
+  text-align: center;
+}
+.profile-page .profile-page-header .page-header-container .profile-page-header-inner .profile-page-header-content .profile-page-header-content-inner .profile-page-header-content-subtitle h2 {
+  font-size: 20px;
+  font-weight: 300;
+  color: white;
 }
 .profile-page .profile-page-inline-navigation {
   background: white;
@@ -386,7 +415,7 @@
 }
 .profile-page .profile-page-inline-navigation ul li {
   display: inline;
-  margin-right: 20px;
+  margin-right: 40px;
 }
 .profile-page .profile-page-inline-navigation ul li a {
   text-decoration: none;
@@ -398,4 +427,69 @@
 }
 .profile-page .profile-page-inline-navigation ul li:hover a, .profile-page .profile-page-inline-navigation ul li.active a {
   color: #861657;
+}
+.profile-page .profile-page-inline-navigation ul li:last-child {
+  margin-right: 0px;
+}
+.profile-page .profile-page-content {
+  padding: 20px;
+}
+.profile-page .profile-page-content .profile-page-content-inner .profile-page-resume-content-middle {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.profile-page .profile-page-content .profile-page-content-inner .profile-page-resume-content-middle .profile-page-content-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.profile-page .profile-page-content .profile-page-content-inner .profile-page-about-content-middle .profile-page-about-cover-letter {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.profile-page .profile-page-content .profile-page-content-inner .profile-page-about-content-middle .profile-page-about-cover-letter .profile-page-about-cover-letter-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+.profile-page .profile-page-content .profile-page-content-inner .profile-page-about-content-middle .profile-page-about-cover-letter .profile-page-about-cover-letter-header h2 {
+  position: relative;
+  top: 5px;
+}
+.profile-page .profile-page-content .profile-page-content-inner .profile-page-about-content-middle .profile-page-about-cover-letter .profile-page-about-cover-letter-content p {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+.profile-page .profile-page-content .profile-page-content-inner .profile-page-about-content-middle .profile-page-about-skills {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.profile-page .profile-page-content .profile-page-content-inner .profile-page-about-content-middle .profile-page-about-skills .profile-page-about-skills-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+.profile-page .profile-page-content .profile-page-content-inner .profile-page-about-content-middle .profile-page-about-skills .profile-page-about-skills-header h2 {
+  position: relative;
+  top: 5px;
+}
+.profile-page .profile-page-content .profile-page-content-inner .profile-page-about-content-middle .profile-page-about-skills .profile-page-about-skills-content p {
+  font-size: 16px;
+  margin-bottom: 0px;
 }

@@ -159,6 +159,38 @@ class SettingsController extends Controller
     }
 
     /**
+     * Privacy Settings Post | Profile settings page
+     * -------------------------------------
+     * Process the privacy settings page
+     */
+    public function privacySettingsPost(Request $request)
+    {
+        /**
+         * Form validation
+         * ----------------
+         * Here we validate the form data
+         */
+        $validated = request()->validate([
+            'show_email' => 'required|boolean',
+            'show_phone' => 'required|boolean',
+            'show_location' => 'required|boolean',
+            'show_resume' => 'required|boolean',
+        ]);
+
+        /**
+         * Update the user's privacy settings
+         * --------------------------
+         * Here we update the user's privacy settings with the new data
+         */
+        $request->user()->privacySettings()->update($validated);
+
+        /**
+         * Redirect back to the settings page
+         */
+        return redirect()->route('settings.privacy_settings')->with('success', 'Privacy settings updated successfully');
+    }
+
+    /**
      * Change Notification Settings | Profile settings page
      * -------------------------------------
      * Show the change notification settings page

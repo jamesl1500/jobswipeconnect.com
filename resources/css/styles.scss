@@ -32,6 +32,7 @@ $secondary-color: #ffa69e;
 * Forms
 */
 .form-group{
+    margin-bottom: 20px;
 
     h3{
         font-size: 20px;
@@ -65,6 +66,12 @@ $secondary-color: #ffa69e;
         label{
             display: block;
             margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        p{
+            color: #333;
+            font-size: 14px;
         }
 
         input, textarea{
@@ -77,6 +84,10 @@ $secondary-color: #ffa69e;
         textarea{
             height: 100px;
         }
+    }
+
+    &:last-child{
+        margin-bottom: 0px;
     }
 }
 
@@ -93,7 +104,6 @@ $secondary-color: #ffa69e;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin-bottom: 20px;
 
     &.primary{
         background: $primary-color;
@@ -106,7 +116,7 @@ $secondary-color: #ffa69e;
 
     &.secondary{
         background: $secondary-color;
-        color: #333;
+        color: #fff;
         border: 1px solid #e0e0e0;
 
         &:hover{
@@ -264,6 +274,7 @@ $secondary-color: #ffa69e;
     
                 h1{
                      font-size: 40px;
+                     text-shadow: $text-shadow;
                      color: white;
                 }
            }
@@ -508,14 +519,42 @@ $secondary-color: #ffa69e;
             border-radius: 5px;
 
             .profile-page-header-inner{
-                display: flex;
-                gap: 20px;
+
 
                 .profile-page-header-image{
+                    text-align: center;
 
                     img{
                         max-width: 200px;
                         border-radius: 50%;
+                    }
+                }
+
+                .profile-page-header-content{
+
+                    .profile-page-header-content-inner{
+                        padding-top: 20px;
+    
+                        .profile-page-header-content-title{
+                            margin-bottom: 10px;
+                            text-align: center;
+    
+                            h1{
+                                font-size: 40px;
+                                color: white;
+                            }
+                        }
+
+                        .profile-page-header-content-subtitle{
+                            text-align: center;
+    
+                            h2{
+                                font-size: 20px;
+                                font-weight: 300;
+    
+                                color: white;
+                            }
+                        }
                     }
                 }
             }
@@ -539,7 +578,7 @@ $secondary-color: #ffa69e;
 
             li{
                 display: inline;
-                margin-right: 20px;
+                margin-right: 40px;
 
                 a{
                     text-decoration: none;
@@ -555,6 +594,99 @@ $secondary-color: #ffa69e;
                     color: $background-color;
                 }
             }
+
+            li:last-child{
+                margin-right: 0px;
+            }
         }
     }   
+
+    .profile-page-content{
+        padding: 20px;
+
+        .profile-page-content-inner{
+
+            .profile-page-resume-content-middle{
+                background: white;
+                border-radius: 5px;
+                box-shadow: $box-shadow;
+                border: 1px solid #eee;
+                padding: 20px;
+                margin-bottom: 20px;
+
+                .profile-page-content-header{
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 20px;
+
+                    h1{
+
+                    }
+                }
+            }
+
+            .profile-page-about-content-middle{
+
+                .profile-page-about-cover-letter{
+                    background: white;
+                    border-radius: 5px;
+                    box-shadow: $box-shadow;
+                    border: 1px solid #eee;
+                    padding: 20px;
+                    margin-bottom: 20px;
+
+                    .profile-page-about-cover-letter-header{
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 20px;
+                        padding-bottom: 20px;
+                        border-bottom: 1px solid #eee;
+
+                        h2{
+                            position: relative;
+                            top: 5px;
+                        }
+                    }
+
+                    .profile-page-about-cover-letter-content{
+
+                        p{
+                            font-size: 16px;
+                            margin-bottom: 0px;
+                        }
+                    }
+                }
+
+                .profile-page-about-skills{
+                    background: white;
+                    border-radius: 5px;
+                    box-shadow: $box-shadow;
+                    border: 1px solid #eee;
+                    padding: 20px;
+                    margin-bottom: 20px;
+
+                    .profile-page-about-skills-header{
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 20px;
+                        padding-bottom: 20px;
+                        border-bottom: 1px solid #eee;
+
+                        h2{
+                            position: relative;
+                            top: 5px;
+                        }
+                    }
+
+                    .profile-page-about-skills-content{
+
+                        p{
+                            font-size: 16px;
+                            margin-bottom: 0px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
