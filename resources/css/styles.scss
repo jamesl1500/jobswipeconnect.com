@@ -74,7 +74,15 @@ $secondary-color: #ffa69e;
             font-size: 14px;
         }
 
-        input, textarea{
+        input[type="text"], 
+        input[type="email"],
+        input[type="password"],
+        input[type="file"],
+        input[type="date"],
+        input[type="number"],
+        input[type="tel"],
+        textarea, 
+        select{
             width: 100%;
             padding: 10px;
             border: 1px solid #e0e0e0;
@@ -83,6 +91,10 @@ $secondary-color: #ffa69e;
 
         textarea{
             height: 100px;
+        }
+
+        &:last-child{
+            margin-bottom: 0px;
         }
     }
 
@@ -122,6 +134,10 @@ $secondary-color: #ffa69e;
         &:hover{
             background: darken($secondary-color, 10%);
         }
+    }
+
+    &.skinny{
+        padding: 5px 10px;
     }
 }
 
@@ -680,11 +696,125 @@ $secondary-color: #ffa69e;
 
                     .profile-page-about-skills-content{
 
+                        .profile-page-about-skills-content-item{
+                            // Inline pill style
+                            display: inline-block;
+                            padding: 7px 12px;
+                            background: $primary-color;
+                            border-radius: 5px;
+                            margin-right: 5px;
+
+                            p{
+                                color: white;
+                                font-weight: 600;
+                            }
+                        }
+
                         p{
                             font-size: 16px;
                             margin-bottom: 0px;
                         }
                     }
+                }
+
+                .profile-page-about-experience{
+                    background: white;
+                    border-radius: 5px;
+                    box-shadow: $box-shadow;
+                    border: 1px solid #eee;
+                    padding: 20px;
+                    margin-bottom: 20px;
+
+                    .profile-page-about-experience-header{
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 20px;
+                        padding-bottom: 20px;
+                        border-bottom: 1px solid #eee;
+
+                        h2{
+                            position: relative;
+                            top: 5px;
+                        }
+                    }
+
+                    .profile-page-about-experience-content{
+
+                        .profile-page-about-experience-content-item{
+                            margin-bottom: 20px;
+
+                            h3{
+                                font-size: 20px;
+                                margin-bottom: 10px;
+                            }
+
+                            p{
+                                font-size: 16px;
+                                margin-bottom: 0px;
+                            }
+
+                            &:last-child{
+                                margin-bottom: 0px;
+                            }
+
+                            .experience-actions{
+                                margin-top: 10px;
+                            }
+                        }
+
+                        p.no_experience{
+                            font-size: 16px;
+                            margin-bottom: 0px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.tags{
+
+    .tag{
+        display: inline-block;
+        padding: 5px 10px;
+        background: $primary-color;
+        border-radius: 5px;
+        margin-right: 5px;
+        
+        p{
+            color: white;
+            font-weight: 600;
+        }
+    }
+}
+
+/**
+* Page: Auth
+*/
+.auth-page{
+    
+    .auth-page-header{
+        
+    }
+
+    .auth-page-content{
+
+        .auth-page-content-inner{
+            background: white;
+            border-radius: 5px;
+            box-shadow: $box-shadow;
+            border: 1px solid #eee;
+            padding: 20px;
+            margin: 0% auto;
+
+            width: 500px;
+
+            .auth-page-content-form-header{
+                margin-bottom: 20px;
+
+                h2{
+                    font-size: 30px;
                 }
             }
         }

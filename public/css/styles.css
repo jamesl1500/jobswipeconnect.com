@@ -58,7 +58,15 @@
   color: #333;
   font-size: 14px;
 }
-.form-group .form-input input, .form-group .form-input textarea {
+.form-group .form-input input[type=text],
+.form-group .form-input input[type=email],
+.form-group .form-input input[type=password],
+.form-group .form-input input[type=file],
+.form-group .form-input input[type=date],
+.form-group .form-input input[type=number],
+.form-group .form-input input[type=tel],
+.form-group .form-input textarea,
+.form-group .form-input select {
   width: 100%;
   padding: 10px;
   border: 1px solid #e0e0e0;
@@ -66,6 +74,9 @@
 }
 .form-group .form-input textarea {
   height: 100px;
+}
+.form-group .form-input:last-child {
+  margin-bottom: 0px;
 }
 .form-group:last-child {
   margin-bottom: 0px;
@@ -99,6 +110,9 @@
 }
 .btn.secondary:hover {
   background: #ff776b;
+}
+.btn.skinny {
+  padding: 5px 10px;
 }
 
 /**
@@ -489,7 +503,89 @@
   position: relative;
   top: 5px;
 }
+.profile-page .profile-page-content .profile-page-content-inner .profile-page-about-content-middle .profile-page-about-skills .profile-page-about-skills-content .profile-page-about-skills-content-item {
+  display: inline-block;
+  padding: 7px 12px;
+  background: #861657;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+.profile-page .profile-page-content .profile-page-content-inner .profile-page-about-content-middle .profile-page-about-skills .profile-page-about-skills-content .profile-page-about-skills-content-item p {
+  color: white;
+  font-weight: 600;
+}
 .profile-page .profile-page-content .profile-page-content-inner .profile-page-about-content-middle .profile-page-about-skills .profile-page-about-skills-content p {
   font-size: 16px;
   margin-bottom: 0px;
+}
+.profile-page .profile-page-content .profile-page-content-inner .profile-page-about-content-middle .profile-page-about-experience {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.profile-page .profile-page-content .profile-page-content-inner .profile-page-about-content-middle .profile-page-about-experience .profile-page-about-experience-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+.profile-page .profile-page-content .profile-page-content-inner .profile-page-about-content-middle .profile-page-about-experience .profile-page-about-experience-header h2 {
+  position: relative;
+  top: 5px;
+}
+.profile-page .profile-page-content .profile-page-content-inner .profile-page-about-content-middle .profile-page-about-experience .profile-page-about-experience-content .profile-page-about-experience-content-item {
+  margin-bottom: 20px;
+}
+.profile-page .profile-page-content .profile-page-content-inner .profile-page-about-content-middle .profile-page-about-experience .profile-page-about-experience-content .profile-page-about-experience-content-item h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.profile-page .profile-page-content .profile-page-content-inner .profile-page-about-content-middle .profile-page-about-experience .profile-page-about-experience-content .profile-page-about-experience-content-item p {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+.profile-page .profile-page-content .profile-page-content-inner .profile-page-about-content-middle .profile-page-about-experience .profile-page-about-experience-content .profile-page-about-experience-content-item:last-child {
+  margin-bottom: 0px;
+}
+.profile-page .profile-page-content .profile-page-content-inner .profile-page-about-content-middle .profile-page-about-experience .profile-page-about-experience-content .profile-page-about-experience-content-item .experience-actions {
+  margin-top: 10px;
+}
+.profile-page .profile-page-content .profile-page-content-inner .profile-page-about-content-middle .profile-page-about-experience .profile-page-about-experience-content p.no_experience {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+
+.tags .tag {
+  display: inline-block;
+  padding: 5px 10px;
+  background: #861657;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+.tags .tag p {
+  color: white;
+  font-weight: 600;
+}
+
+/**
+* Page: Auth
+*/
+.auth-page .auth-page-content .auth-page-content-inner {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  padding: 20px;
+  margin: 0% auto;
+  width: 500px;
+}
+.auth-page .auth-page-content .auth-page-content-inner .auth-page-content-form-header {
+  margin-bottom: 20px;
+}
+.auth-page .auth-page-content .auth-page-content-inner .auth-page-content-form-header h2 {
+  font-size: 30px;
 }

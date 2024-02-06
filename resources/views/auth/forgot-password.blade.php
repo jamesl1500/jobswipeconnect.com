@@ -2,20 +2,58 @@
 @extends('layouts.auth')
 
 @section('content')
-<form method="POST" action="{{ route('password.email') }}">
-    @csrf
-
-    <!-- Email Address -->
-    <div>
-        <label for="email">{{ __('Email') }}</label>
-
-        <input id="email" class="block mt-1 w-full" type="email" name="email" value="{{ old('email') }}" required autofocus />
+<div class="auth-page page">
+    <div class="auth-page-header page-header">
+        <div class="container page-header-container">
+            <div class="page-header-title">
+                <h1>Forgot Password</h1>
+            </div>
+            <div class="page-header-subtext">
+                <h2>Let's get you back into your account!</h2>
+            </div>
+        </div>
     </div>
+    <div class="auth-page-content page-content">
+        <div class="auth-page-content-inner">
+            <div class="auth-page-content-form-error">
+                @if($errors->any())
+                    <div class="alert alert-danger">
+                        <h2>Errors</h2>
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @elseif(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @elseif(session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+            </div>
+            <div class="auth-page-content-form-header">
+                <h2>Forgot Password?</h2>
+            </div>
+            <form method="POST" action="{{ route('password.email') }}">
+                @csrf
 
-    <div class="flex items-center justify-end mt-4">
-        <button>
-            {{ __('Email Password Reset Link') }}
-        </button>
+                <div class="form-group">
+                    <!-- Email Address -->
+                    <div class="form-input">
+                        <label for="email">Email</label>
+                        <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus />
+                    </div>
+
+                    <div class="form-input">
+                        <button class="btn primary">Email Password Reset Link</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-</form>
+</div>
 @endsection

@@ -54,7 +54,11 @@ Route::get('/settings/notifications', [SettingsController::class, 'notifications
 
 // Profile with username
 Route::get('/profile/{username}', [ProfileController::class, 'index'])->name('profile.index');
+
 Route::get('/profile/{username}/about', [ProfileController::class, 'about'])->name('profile.about');
+Route::post('/profile/{username}/about/editCoverLetterPost', [ProfileController::class, 'editCoverLetterPost'])->name('profile.about.cover_letter.post');
+Route::post('/profile/{username}/about/editSkillsPost', [ProfileController::class, 'editSkillsPost'])->name('profile.about.skills.post');
+Route::post('/profile/{username}/about/addExperiencePost', [ProfileController::class, 'addExperiencePost'])->name('profile.about.add_experience.post');
 
 Route::get('/profile/{username}/resume', [ProfileController::class, 'resume'])->name('profile.resume');
 Route::post('/profile/{username}/resume/saveResume', [ProfileController::class, 'resumePost'])->name('profile.resume.post');

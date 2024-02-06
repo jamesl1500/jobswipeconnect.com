@@ -95,4 +95,13 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(PrivacySettings::class);
     }
+
+    /**
+     * Get users experience
+     */
+    public function experiences()
+    {
+        // Order by position
+        return $this->hasMany(Experiences::class)->orderBy('position', 'asc');
+    }
 }

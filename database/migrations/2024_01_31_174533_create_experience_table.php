@@ -13,7 +13,7 @@ class CreateExperienceTable extends Migration
      */
     public function up()
     {
-        Schema::create('experience', function (Blueprint $table) {
+        Schema::create('experiences', function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->constrained();
             $table->string("title");
@@ -23,6 +23,10 @@ class CreateExperienceTable extends Migration
             $table->text("description")->nullable();
             $table->boolean("is_current_job")->default(false);
             $table->enum("employment_type",["full-time","part-time","internship","freelance","contract","temporary","remote","other"])->default("full-time");
+            
+            // Position in the list
+            $table->integer("position")->default(0);
+
             $table->timestamps();
         });
     }
