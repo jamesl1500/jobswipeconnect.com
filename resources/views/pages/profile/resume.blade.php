@@ -41,26 +41,6 @@
         <div class="profile-page-content-inner row">
             <div class="col-lg-3 profile-empty-space"></div>
             <div class="col-lg-6 profile-page-resume-content-middle">
-                <div class="profile-page-resume-content-errors">
-                    @if($errors->any())
-                        <div class="alert alert-danger">
-                            <h2>Errors</h2>
-                            <ul>
-                                @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @elseif(session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @elseif(session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
-                </div>
                 <div class="profile-page-content-header">
                     <h1>Resume</h1>
                     <?php

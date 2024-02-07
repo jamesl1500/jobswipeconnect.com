@@ -7,7 +7,119 @@
   \*********************************/
 /***/ (() => {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: A:\\Projects\\jobswipeconnect.com\\resources\\js\\scripts.js: Unexpected token (9:0)\n\n\u001b[0m \u001b[90m 7 |\u001b[39m \u001b[90m * If the request is successful, it will update the resume content on the page.\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 8 |\u001b[39m \u001b[90m */\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 9 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   |\u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n    at constructor (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:353:19)\n    at Parser.raise (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:3277:19)\n    at Parser.unexpected (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:3297:16)\n    at Parser.parseExprAtom (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10964:16)\n    at Parser.parseExprSubscripts (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10580:23)\n    at Parser.parseUpdate (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10563:21)\n    at Parser.parseMaybeUnary (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10541:23)\n    at Parser.parseMaybeUnaryOrPrivate (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10395:61)\n    at Parser.parseExprOps (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10400:23)\n    at Parser.parseMaybeConditional (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10377:23)\n    at Parser.parseMaybeAssign (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10338:21)\n    at Parser.parseExpressionBase (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10292:23)\n    at A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10288:39\n    at Parser.allowInAnd (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:11921:16)\n    at Parser.parseExpression (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10288:17)\n    at Parser.parseStatementContent (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:12362:23)\n    at Parser.parseStatementLike (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:12229:17)\n    at Parser.parseStatementListItem (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:12209:17)\n    at Parser.parseBlockOrModuleBlockBody (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:12786:61)\n    at Parser.parseBlockBody (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:12779:10)\n    at Parser.parseBlock (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:12767:10)\n    at Parser.parseFunctionBody (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:11606:24)\n    at Parser.parseFunctionBodyAndFinish (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:11592:10)\n    at A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:12909:12\n    at Parser.withSmartMixTopicForbiddingContext (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:11903:14)\n    at Parser.parseFunction (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:12908:10)\n    at Parser.parseFunctionOrFunctionSent (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:11079:17)\n    at Parser.parseExprAtom (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10868:21)\n    at Parser.parseExprSubscripts (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10580:23)\n    at Parser.parseUpdate (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10563:21)\n    at Parser.parseMaybeUnary (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10541:23)\n    at Parser.parseMaybeUnaryOrPrivate (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10395:61)\n    at Parser.parseExprOps (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10400:23)\n    at Parser.parseMaybeConditional (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10377:23)\n    at Parser.parseMaybeAssign (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10338:21)\n    at A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10308:39\n    at Parser.allowInAnd (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:11926:12)\n    at Parser.parseMaybeAssignAllowIn (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10308:17)\n    at Parser.parseExprListItem (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:11686:18)\n    at Parser.parseCallExpressionArguments (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10766:22)\n    at Parser.parseCoverCallAndAsyncArrowHead (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10683:29)\n    at Parser.parseSubscript (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10620:19)\n    at Parser.parseSubscripts (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10593:19)\n    at Parser.parseExprSubscripts (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10584:17)\n    at Parser.parseUpdate (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10563:21)\n    at Parser.parseMaybeUnary (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10541:23)\n    at Parser.parseMaybeUnaryOrPrivate (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10395:61)\n    at Parser.parseExprOps (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10400:23)\n    at Parser.parseMaybeConditional (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10377:23)\n    at Parser.parseMaybeAssign (A:\\Projects\\jobswipeconnect.com\\node_modules\\@babel\\parser\\lib\\index.js:10338:21)");
+$(document).ready(function () {
+  // CSRF
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
+  // If alert exists, fade it out after 5 seconds
+  if ($('.alert').length) {
+    setTimeout(function () {
+      $('.alert').fadeOut();
+    }, 5000);
+  }
+
+  // Alert
+  function Alert(message) {
+    var alert = '<div class="alert alert-success alert-dismissible fade show" role="alert">' + message + '</div>';
+    $('.alert-hold').html(alert);
+    $('.alert').fadeIn();
+    setTimeout(function () {
+      $('.alert').fadeOut();
+    }, 5000);
+  }
+
+  /**
+   * Edit Resume Form
+   * ----------------
+   * This script is used to handle the edit resume form on profiles.
+   * It will handle the form submission and make an AJAX request to the server.
+   * If the request is successful, it will update the resume content on the page.
+   */
+  $('#edit-resume-form').submit(function (e) {
+    e.preventDefault();
+    var form = $(this);
+    var url = form.attr('action');
+    var method = form.attr('method');
+    var data = form.serialize();
+    $.ajax({
+      url: url,
+      method: method,
+      data: data,
+      success: function success(response) {
+        $('#resume-content').html(response);
+        $('#edit-resume-modal').modal('hide');
+      },
+      error: function error(response) {
+        console.log(response);
+      }
+    });
+    return false;
+  });
+
+  /**
+   * Delete Experience
+   * ------------------
+   * This script is used to handle the delete experience button on profiles.
+   */
+  $('.delete-experience').click(function (e) {
+    e.preventDefault();
+    var action = $(this).data('action');
+    var expid = $(this).data('expid');
+    if (confirm('Are you sure you want to delete this experience?')) {
+      $.ajax({
+        url: action,
+        method: 'DELETE',
+        data: {
+          expid: expid
+        },
+        success: function success(response) {
+          $('#exp-' + expid).remove();
+
+          // Show alert
+          Alert('Experience deleted successfully.');
+        },
+        error: function error(response) {
+          console.log(response);
+        }
+      });
+    }
+    return false;
+  });
+
+  /**
+   * Delete Education
+   * ------------------
+   * This script is used to handle the delete education button on profiles.
+   */
+  $('.delete-education').click(function (e) {
+    e.preventDefault();
+    var action = $(this).data('action');
+    var eduid = $(this).data('eduid');
+    if (confirm('Are you sure you want to delete this education?')) {
+      $.ajax({
+        url: action,
+        method: 'DELETE',
+        data: {
+          eduid: eduid
+        },
+        success: function success(response) {
+          $('#edu-' + eduid).remove();
+
+          // Show alert
+          Alert('Education deleted successfully.');
+        },
+        error: function error(response) {
+          console.log(response);
+        }
+      });
+    }
+    return false;
+  });
+});
 
 /***/ }),
 

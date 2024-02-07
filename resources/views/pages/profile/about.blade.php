@@ -41,26 +41,6 @@
         <div class="profile-page-content-inner row">
             <div class="col-lg-2 profile-empty-space"></div>
             <div class="col-lg-8 profile-page-about-content-middle">
-                <div class="profile-page-content-errors">
-                    @if($errors->any())
-                        <div class="alert alert-danger">
-                            <h2>Errors</h2>
-                            <ul>
-                                @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @elseif(session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @elseif(session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
-                </div>
                 <!-- Cover Letter -->
                 <div class="profile-page-about-cover-letter">
                     <div class="profile-page-about-cover-letter-header">
@@ -114,20 +94,20 @@
                     </div>
                     <div class="profile-page-about-experience-content">
                         <?php
-                        if($user->experiences) {
+                        if(count($user->experiences) > 0) {
                             foreach($user->experiences as $experience) {
                                 ?>
-                                <div class="profile-page-about-experience-content-item">
+                                <div class="profile-page-about-experience-content-item" id="eduj-<?php echo $experience->id; ?>">
                                     <h3><?php echo $experience->title; ?></h3>
                                     <p><?php echo $experience->company; ?> &middot; <?php echo ucwords($experience->employment_type); ?></p>
-                                    <p><?php echo $experience->start_date; ?> - <?php if($experience->is_current_job){ ?> Current <?php } else { echo $experience->end_date; } ?></p>
+                                    <p class="dates"><?php echo $experience->start_date; ?> - <?php if($experience->is_current_job){ ?> Current <?php } else { echo $experience->end_date; } ?></p>
                                     <p><?php echo $experience->description; ?></p>
                                     <div class="experience-actions">
                                         <?php
                                         if(auth()->user() && $user->id == auth()->user()->id) {
                                             ?>
                                             <button class="btn skinny primary" data-bs-toggle="modal" data-bs-target="#editExperienceModal">Edit</button>
-                                            <button class="btn skinny primary" data-bs-toggle="modal" data-bs-target="#deleteExperienceModal">Delete</button>
+                                            <button class="btn skinny primary delete-education" data-eduid="<?php echo $experience->id; ?>" data-action="{{ route('profile.about.delete_education.post', $user->username) }}">Delete</button>
                                             <?php
                                         }
                                         ?>
@@ -137,6 +117,45 @@
                             }
                         } else {
                             echo '<p class="no_experience">No experience added</p>';
+                        }
+                        ?>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="profile-page-about-education">
+                    <div class="profile-page-about-education-header">
+                        <h2>Education</h2>
+                        @if(auth()->user() && $user->id == auth()->user()->id)
+                            <button class="btn primary" data-bs-toggle="modal" data-bs-target="#addEducationModal">Add Education</button>
+                        @endif
+                    </div>
+                    <div class="profile-page-about-education-content">
+                        <?php
+                        if(count($user->educations) > 0) {
+                            foreach($user->educations as $education) {
+                                ?>
+                                <div class="profile-page-about-education-content-item" id="exp-<?php echo $education->id; ?>">
+                                    <h3><?php echo $education->school; ?></h3>
+                                    <p><b><?php echo $education->degree; ?></b></p>
+                                    <p><?php echo $education->field_of_study; ?> &middot; <?php echo ucwords($education->education_level); ?></p>
+                                    <p class="dates"><?php echo $education->start_date; ?> - <?php if($education->is_current_education){ ?> Current <?php } else { echo $education->end_date; } ?></p>
+                                    <p><?php echo $education->description; ?></p>
+                                    <div class="education-actions">
+                                        <?php
+                                        if(auth()->user() && $user->id == auth()->user()->id) {
+                                            ?>
+                                            <button class="btn skinny primary" data-bs-toggle="modal" data-bs-target="#editEducationModal">Edit</button>
+                                            <button class="btn skinny primary delete-education" data-eduid="<?php echo $education->id; ?>" data-action="{{ route('profile.about.delete_education.post', $user->username) }}">Delete</button>
+                                            <?php
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                        } else {
+                            echo '<p class="no_education">'.$user->name.' has not added any education</p>';
                         }
                         ?>
                     </div>
@@ -156,7 +175,7 @@
                         <button class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="edit-resume-form" action="{{ route('profile.about.cover_letter.post', $user->username) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('profile.about.cover_letter.post', $user->username) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <div class="form-input">
@@ -165,7 +184,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn primary">Save</button>
+                                <input type="submit" class="btn primary" value="Save" />
                             </div>
                         </form>
                     </div>
@@ -249,6 +268,71 @@
                                     <select name="is_current_job" id="is_current_job">
                                         <option value="1">Yes</option>
                                         <option value="0">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn primary">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Experience Modal -->
+        <div class="modal" id="addEducationModal" tabindex="-1" aria-labelledby="addEducationModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Add Education</h2>
+                        <button class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="add-education-form" action="{{ route('profile.about.add_education.post', $user->username) }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <div class="form-input">
+                                    <label for="school">School</label>
+                                    <input type="text" name="school" id="school" autocomplete="false">
+                                </div>
+                                <div class="form-input">
+                                    <label for="degree">Degree</label>
+                                    <input type="text" name="degree" id="degree" autocomplete="false">  
+                                </div>
+                                <div class="form-input">
+                                    <label for="field_of_study">Field of Study</label>
+                                    <input type="text" name="field_of_study" id="field_of_study" autocomplete="false">
+                                </div>  
+                                <div class="form-input">
+                                    <label for="start_date">Start Date</label>
+                                    <input type="date" name="start_date" id="start_date" autocomplete="false">  
+                                </div>
+                                <div class="form-input">
+                                    <label for="end_date">End Date</label>
+                                    <input type="date" name="end_date" id="end_date" autocomplete="false">
+                                </div>
+                                <div class="form-input">
+                                    <label for="description">Description</label>
+                                    <textarea name="description" id="description" autocomplete="false" rows="10"></textarea>    
+                                </div>
+                                <div class="form-input">
+                                    <label for="is_current_education">Is this your current education?</label>
+                                    <select name="is_current_education" id="is_current_education">
+                                        <option value="1">Yes</option>
+                                        <option value="0">No</option>
+                                    </select>
+                                </div>
+                                <div class="form-input">
+                                    <label for="education_level">Education Level</label>
+                                    <select name="education_level" id="education_level">
+                                        <option value="high_-school">High School</option>
+                                        <option value="diploma">Diploma</option>
+                                        <option value="certificate">Certificate</option>
+                                        <option value="associate">Associates</option>
+                                        <option value="bachelor">Bachelors</option>
+                                        <option value="master">Masters</option>
+                                        <option value="other">Other</option>
                                     </select>
                                 </div>
                             </div>

@@ -13,7 +13,7 @@ class CreateEducationTable extends Migration
      */
     public function up()
     {
-        Schema::create('education', function (Blueprint $table) {
+        Schema::create('educations', function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->constrained();
             $table->string("school");
@@ -25,6 +25,7 @@ class CreateEducationTable extends Migration
             $table->boolean("is_current_study")->default(false);
             $table->enum("education_level",["high-school","diploma","certificate","associate","bachelor","master","doctorate","other"])->default("bachelor");
             $table->enum("grade",["A","B","C","D","E","F"])->nullable();
+            $table->integer("position")->default(0);
             $table->timestamps();
         });
     }

@@ -29,6 +29,7 @@
 <body>
 <div class="header-hold">
     @include('includes.header')
+    @include('includes.alerts')
 </div>
 <div class="content-hold">
     @yield('content')

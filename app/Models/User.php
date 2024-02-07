@@ -104,4 +104,13 @@ class User extends Authenticatable implements MustVerifyEmail
         // Order by position
         return $this->hasMany(Experiences::class)->orderBy('position', 'asc');
     }
+
+    /**
+     * Get users education
+     */
+    public function educations()
+    {
+        // Order by position
+        return $this->hasMany(Educations::class)->orderBy('position', 'asc');
+    }
 }

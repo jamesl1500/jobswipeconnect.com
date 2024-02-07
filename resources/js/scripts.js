@@ -1,4 +1,30 @@
 $(document).ready(function() {
+    // CSRF
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    // If alert exists, fade it out after 5 seconds
+    if ($('.alert').length) {
+        setTimeout(function() {
+            $('.alert').fadeOut();
+        }, 5000);
+    }
+
+    // Alert
+    function Alert(message) {
+        var alert = '<div class="alert alert-success alert-dismissible fade show" role="alert">' + message + '</div>';
+
+        $('.alert-hold').html(alert);
+        $('.alert').fadeIn();
+
+        setTimeout(function() {
+            $('.alert').fadeOut();
+        }, 5000);
+    }
+
     /**
      * Edit Resume Form
      * ----------------
@@ -30,3 +56,67 @@ $(document).ready(function() {
         return false;
     });
 
+    /**
+     * Delete Experience
+     * ------------------
+     * This script is used to handle the delete experience button on profiles.
+     */
+    $('.delete-experience').click(function(e) {
+        e.preventDefault();
+
+        var action = $(this).data('action');
+        var expid = $(this).data('expid');
+
+        if (confirm('Are you sure you want to delete this experience?')) 
+        {
+            $.ajax({
+                url: action,
+                method: 'DELETE',
+                data: { expid: expid },
+                success: function(response) {
+                    $('#exp-' + expid).remove();
+
+                    // Show alert
+                    Alert('Experience deleted successfully.');
+                },
+                error: function(response) {
+                    console.log(response);
+                }
+            });
+        }
+
+        return false;
+    });
+
+    /**
+     * Delete Education
+     * ------------------
+     * This script is used to handle the delete education button on profiles.
+     */
+        $('.delete-education').click(function(e) {
+            e.preventDefault();
+    
+            var action = $(this).data('action');
+            var eduid = $(this).data('eduid');
+    
+            if (confirm('Are you sure you want to delete this education?')) 
+            {
+                $.ajax({
+                    url: action,
+                    method: 'DELETE',
+                    data: { eduid: eduid },
+                    success: function(response) {
+                        $('#edu-' + eduid).remove();
+    
+                        // Show alert
+                        Alert('Education deleted successfully.');
+                    },
+                    error: function(response) {
+                        console.log(response);
+                    }
+                });
+            }
+    
+            return false;
+        });
+});
