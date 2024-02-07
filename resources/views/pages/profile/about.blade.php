@@ -116,7 +116,7 @@
                                 <?php
                             }
                         } else {
-                            echo '<p class="no_experience">No experience added</p>';
+                            echo '<p class="no_experience">'.$user->name.' hasnt added any education</p>';
                         }
                         ?>
                     </div>
@@ -155,7 +155,7 @@
                                 <?php
                             }
                         } else {
-                            echo '<p class="no_education">'.$user->name.' has not added any education</p>';
+                            echo '<p class="no_education">'.$user->name.' hasnt added any education</p>';
                         }
                         ?>
                     </div>
@@ -175,7 +175,7 @@
                         <button class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('profile.about.cover_letter.post', $user->username) }}" method="post" enctype="multipart/form-data">
+                        <form id="edit-cover-letter-form" action="{{ route('profile.about.cover_letter.post', $user->username) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <div class="form-input">
@@ -201,7 +201,7 @@
                         <button class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="edit-resume-form" action="{{ route('profile.about.skills.post', $user->username) }}" method="post" enctype="multipart/form-data">
+                        <form id="edit-skills-form" action="{{ route('profile.about.skills.post', $user->username) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <div class="form-input">

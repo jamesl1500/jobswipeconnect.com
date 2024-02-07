@@ -19,15 +19,20 @@
                 <div class="header-navigation-inner">
                     <ul>
                         @if (Auth::check())
-                            <li><a href="{{ route('home') }}">Home</a></li>
-                            <li><a href="">Jobs</a></li>
+                            <!-- Dont show if user hasn't completed onboarding step 1 -->
+                            @if (!Auth::user()->onboarding_step_2)
+                                <li><a href="{{ route('onboarding.step1') }}">Complete Onboarding</a></li>
+                            @else
+                                <li><a href="{{ route('home') }}">Home</a></li>
+                                <li><a href="">Jobs</a></li>
 
-                            <!-- User profile picture -->
-                            <li class="profile_picture">
-                                <a href="{{ route('profile.index', ['username' => Auth::user()->username]) }}">
-                                    <img src="{{ asset('storage/' . Auth::user()->profile_picture) }}" alt="Profile Picture" />
-                                </a>
-                            </li>
+                                <!-- User profile picture -->
+                                <li class="profile_picture">
+                                    <a href="{{ route('profile.index', ['username' => Auth::user()->username]) }}">
+                                        <img src="{{ asset('storage/' . Auth::user()->profile_picture) }}" alt="Profile Picture" />
+                                    </a>
+                                </li>
+                            @endif
                         @else
                             <!-- If user is not logged in -->
                             <li><a href="{{ route('home') }}">Home</a></li>
