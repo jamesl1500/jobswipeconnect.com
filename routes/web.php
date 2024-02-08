@@ -23,7 +23,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified', 'onboarding'])->name('dashboard');
+})->middleware(['auth', 'verified', 'onboarding'])->name('dashboard.index');
 
 // Search
 Route::get('/search', function () {

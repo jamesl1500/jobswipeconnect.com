@@ -656,3 +656,76 @@
 .auth-page .auth-page-content .auth-page-content-inner .auth-page-content-form-header h2 {
   font-size: 30px;
 }
+
+/**
+* Page: Dashboard
+*/
+.dashboard-page .dashboard-header {
+  background-color: #861657;
+  background-image: linear-gradient(326deg, #861657 0%, #ffa69e 74%);
+  width: 100%;
+  padding: 40px 0px;
+}
+.dashboard-page .dashboard-header .page-header-container {
+  padding: 20px;
+  border-radius: 5px;
+}
+.dashboard-page .dashboard-header .page-header-container .dashboard-page-header-inner .dashboard-page-header-content {
+  text-align: center;
+}
+.dashboard-page .dashboard-header .page-header-container .dashboard-page-header-inner .dashboard-page-header-content h1 {
+  font-size: 40px;
+  color: white;
+}
+.dashboard-page .dashboard-header .page-header-container .dashboard-page-header-inner .dashboard-page-header-content p {
+  font-size: 20px;
+  color: white;
+}
+.dashboard-page .dashboard-page-inline-navigation {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.dashboard-page .dashboard-page-inline-navigation ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+}
+.dashboard-page .dashboard-page-inline-navigation ul li {
+  display: inline;
+  margin-right: 40px;
+}
+.dashboard-page .dashboard-page-inline-navigation ul li a {
+  text-decoration: none;
+  color: #333;
+}
+.dashboard-page .dashboard-page-inline-navigation ul li:hover, .dashboard-page .dashboard-page-inline-navigation ul li.active {
+  border-bottom: 2px solid #861657;
+  padding-bottom: 20px;
+}
+.dashboard-page .dashboard-page-inline-navigation ul li:hover a, .dashboard-page .dashboard-page-inline-navigation ul li.active a {
+  color: #861657;
+}
+.dashboard-page .dashboard-page-inline-navigation ul li:last-child {
+  margin-right: 0px;
+}
+.dashboard-page .dashboard-page-content {
+  padding: 20px;
+}
+.dashboard-page .dashboard-page-content .dashboard-page-content-inner .dashboard-page-content-box {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.dashboard-page .dashboard-page-content .dashboard-page-content-inner .dashboard-page-content-box .dashboard-page-content-box-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}

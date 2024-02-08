@@ -1,17 +1,30 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@php($title = "Dashboard")
+@extends('layouts.authorized')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    You're logged in!
+@section('content')
+    <div class="dashboard-page page">
+        <div class="dashboard-header page-header">
+            <div class="container page-header-container">
+                <div class="page-header-title">
+                    <h1>Dashboard</h1>
+                </div>
+                <div class="page-header-subtext">
+                    <h2>Overview</h2>
                 </div>
             </div>
         </div>
+        <div class="dashboard-page-inline-navigation">
+            <div class="container">
+                <div class="dashboard-page-inline-navigation-inner">
+                    <ul>
+                        <li class="active"><a href="{{ route('dashboard.index', Auth()->user()->username) }}">Dashboard</a></li>
+                        <li><a href="{{ route('dashboard.index', Auth()->user()->username) }}">Jobs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container page-content">
+           
+        </div>
     </div>
-</x-app-layout>
+@endsection

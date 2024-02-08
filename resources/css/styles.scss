@@ -903,3 +903,105 @@ $secondary-color: #ffa69e;
         }
     }
 }
+
+/**
+* Page: Dashboard
+*/
+.dashboard-page{
+
+    .dashboard-header{
+        background-color: $background-color;
+        background-image: $background-gradient;
+
+        width: 100%;
+        padding: 40px 0px;
+
+        .page-header-container{
+            padding: 20px;
+            border-radius: 5px;
+
+            .dashboard-page-header-inner{
+
+                .dashboard-page-header-content{
+                    text-align: center;
+
+                    h1{
+                        font-size: 40px;
+                        color: white;
+                    }
+
+                    p{
+                        font-size: 20px;
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+
+    .dashboard-page-inline-navigation{
+        background: white;
+        border-radius: 5px;
+        box-shadow: $box-shadow;
+        border: 1px solid #eee;
+        padding: 20px;
+        margin-bottom: 20px;
+
+        ul{
+            list-style: none;
+            padding: 0px;
+            margin: 0px;
+
+            text-align: center;
+
+            li{
+                display: inline;
+                margin-right: 40px;
+
+                a{
+                    text-decoration: none;
+                    color: #333;
+                }
+            }
+
+            li:hover, li.active{
+                border-bottom: 2px solid $background-color;
+                padding-bottom: 20px;
+
+                a{
+                    color: $background-color;
+                }
+            }
+
+            li:last-child{
+                margin-right: 0px;
+            }
+        }
+    }
+
+    .dashboard-page-content{
+        padding: 20px;
+
+        .dashboard-page-content-inner{
+
+            .dashboard-page-content-box{
+                background: white;
+                border-radius: 5px;
+                box-shadow: $box-shadow;
+                border: 1px solid #eee;
+                padding: 20px;
+                margin-bottom: 20px;
+
+                .dashboard-page-content-box-header{
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 20px;
+
+                    h1{
+
+                    }
+                }
+            }
+        }
+    }
+}
