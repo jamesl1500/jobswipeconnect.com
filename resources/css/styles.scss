@@ -980,25 +980,123 @@ $secondary-color: #ffa69e;
     }
 
     .dashboard-page-content{
-        padding: 20px;
+        padding: 0px;
 
-        .dashboard-page-content-inner{
+        .page-row{
 
-            .dashboard-page-content-box{
-                background: white;
-                border-radius: 5px;
-                box-shadow: $box-shadow;
-                border: 1px solid #eee;
-                padding: 20px;
-                margin-bottom: 20px;
+            .dashboard-content{
 
-                .dashboard-page-content-box-header{
-                    display: flex;
-                    justify-content: space-between;
-                    margin-bottom: 20px;
+            }
 
-                    h1{
+            .dashboard-content.posts-container{
 
+                .dashboard-content-inner{
+
+                    .dashboard-content-creator{
+                        background: white;
+                        border-radius: 5px;
+                        box-shadow: $box-shadow;
+                        border: 1px solid #eee;
+                        padding: 20px;
+                        margin-bottom: 20px;
+
+                        .dashboard-content-creator-top{
+                            display: flex;
+                            justify-content: flex-start;
+                            margin-bottom: 20px;
+                            padding-bottom: 10px;
+
+                            border-bottom: 1px solid #eee;
+
+                            .dashboard-content-creator-image{
+                                text-align: left;
+
+                                img{
+                                    max-width: 40px;
+                                    border-radius: 50%;
+                                }
+                            }
+
+                            .dashboard-content-creator-name{
+                                padding-left: 10px;
+
+                                position: relative;
+                                top: -2px;
+
+                                h2{
+                                    font-size: 16px;
+                                    margin-bottom: 0px;
+                                }
+
+                                h4{
+                                    font-size: 14px;
+                                    font-weight: 400;
+                                    color: #aaa;
+                                }
+                            }
+                        }
+                    }
+
+                    .dashboard-content-creator-input{
+
+                        form{
+
+                            textarea{
+                                width: 100%;
+                                padding: 0px;
+                                border: none;
+                                border-radius: 5px;
+                                height: 50px;
+                                outline: none;
+                                resize: none;
+                            }
+
+                            .content-creator-bottom{
+                                display: flex;
+                                justify-content: space-between;
+                                margin-top: 20px;
+
+                                border-top: 1px solid #eee;
+                                padding-top: 20px;
+
+                                .content-creator-bottom-left{
+                                    display: flex;
+                                    gap: 10px;
+
+                                    .content-creator-bottom-left-photo{
+
+                                        input{
+                                            display: none;
+                                        }
+
+                                        label{
+                                            padding: 10px;
+                                            background: #f8f8f8;
+                                            border-radius: 5px;
+                                            cursor: pointer;
+                                        }
+                                    }
+
+                                    .content-creator-bottom-left-file{
+
+                                        input{
+                                            display: none;
+                                        }
+
+                                        label{
+                                            padding: 10px;
+                                            background: #f8f8f8;
+                                            border-radius: 5px;
+                                            cursor: pointer;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .content-creator-bottom.hidden{
+                                display: none;
+                            }
+                        }
                     }
                 }
             }

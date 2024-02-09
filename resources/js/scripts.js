@@ -26,6 +26,25 @@ $(document).ready(function() {
     }
 
     /**
+     * Dashboard form | Open/close bottom form
+     * ----------------------------------
+     * When clicks or starts typing in the form, it will open the bottom form.
+     */
+    $("#dashboard-post").on('click', function() {
+        $(this).css('height', '100px');
+        $(".content-creator-bottom").removeClass('hidden');
+    });
+
+    // When user clicks out of the form, it will close the bottom form
+    $(document).click(function(e) {
+        if (!$(e.target).closest('.dashboard-content-creator').length) {
+            $(".content-creator-bottom").addClass('hidden');
+            $("#dashboard-post").css('height', '50px');
+        }
+    });
+
+
+    /**
      * Edit Resume Form
      * ----------------
      * This script is used to handle the edit resume form on profiles.

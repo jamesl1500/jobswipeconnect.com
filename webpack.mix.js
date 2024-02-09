@@ -14,9 +14,9 @@ require('laravel-mix-blade-reload');
 
 mix.sass('resources/css/styles.scss', 'public/css');
 
-mix.js('resources/js/scripts.js', 'public/js');
 mix.js('resources/js/jquery.js', 'public/js');
 mix.js('resources/js/bootstrap.js', 'public/js');
+mix.js('resources/js/scripts.js', 'public/js');
 
 var LiveReloadPlugin = require('@kooneko/livereload-webpack-plugin');
 

@@ -15,6 +15,15 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('title')->nullable();
+            $table->text('content');
+            $table->string('image')->nullable();
+            $table->string('video')->nullable();
+            $table->string('audio')->nullable();
+            $table->string('document')->nullable();
+            $table->enum('visibility', ['public', 'private', 'connections'])->default('public');
+            $table->enum('type', ['post','attachment'])->default('post');
             $table->timestamps();
         });
     }

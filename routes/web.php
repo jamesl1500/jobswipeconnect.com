@@ -25,6 +25,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified', 'onboarding'])->name('dashboard.index');
 
+Route::get('/dashboard/jobs', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified', 'onboarding'])->name('dashboard.jobs');
+
 // Search
 Route::get('/search', function () {
     return view('pages.search');
