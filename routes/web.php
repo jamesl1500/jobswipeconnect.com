@@ -7,6 +7,8 @@ use App\Http\Controllers\PostsController;
 use App\Http\Controllers\JobsController;
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\FollowingsController;
+use App\Http\Controllers\MessagesController;
+use App\Http\Controllers\SearchController;
 
 use App\Models\Companies;
 use Illuminate\Support\Facades\Route;
@@ -110,5 +112,8 @@ Route::get('messages/{id}', [MessagesController::class, 'conversation'])->middle
 Route::get("messages/create_conversation/{id}", [MessagesController::class, 'createConversation'])->middleware(['auth'])->name('messages.create_conversation');
 Route::post("messages/create_conversation/{id}", [MessagesController::class, 'createConversationPost'])->middleware(['auth'])->name('messages.create_conversation');
 Route::post("messages/send", [MessagesController::class, 'sendMessagePost'])->middleware(['auth'])->name('messages.sendMessage');
+
+// Search
+Route::get('search', [SearchController::class, 'index'])->name('search.index');
 
 require __DIR__.'/auth.php';

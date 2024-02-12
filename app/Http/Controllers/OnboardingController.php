@@ -44,7 +44,7 @@ class OnboardingController extends Controller
          * Make sure this person is a "Job Seeker" before they can proceed to step 2
          */
         if ($request->user()->role !== 'job-seeker') {
-            return redirect()->route('dashboard');
+            return redirect()->route('dashboard.index');
         }
          
         return view('pages.onboarding.onboarding_step2');
@@ -142,7 +142,7 @@ class OnboardingController extends Controller
             'skills' => $request->skills
         ]))
         {
-            return redirect()->route('dashboard');
+            return redirect()->route('dashboard.index');
         }else{
             return back()->with('error', 'There was an error processing your request');
         }

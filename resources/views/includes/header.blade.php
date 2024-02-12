@@ -10,7 +10,7 @@
             </div>
             <div class="header-search col-lg-6">
                 <div class="header-search-inner">
-                    <form action="{{ route('search') }}" method="get">
+                    <form action="{{ route('search.index') }}" method="get">
                         <input type="text" name="query" id="query" placeholder="Search for jobs, companies, and more">
                     </form>
                 </div>
@@ -20,7 +20,7 @@
                     <ul>
                         @if (Auth::check())
                             <!-- Dont show if user hasn't completed onboarding step 1 -->
-                            @if (!Auth::user()->onboarding_step_2)
+                            @if (!Auth::user()->onboarding_step_1 or !Auth::user()->onboarding_step_2)
                                 <li><a href="{{ route('onboarding.step1') }}">Complete Onboarding</a></li>
                             @else
                                 <li><a href="{{ route('dashboard.index') }}">Dashboard</a></li>

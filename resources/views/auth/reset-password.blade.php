@@ -15,26 +15,6 @@
     </div>
     <div class="auth-page-content page-content">
         <div class="auth-page-content-inner">
-            <div class="auth-page-content-form-error">
-                @if($errors->any())
-                    <div class="alert alert-danger">
-                        <h2>Errors</h2>
-                        <ul>
-                            @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @elseif(session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @elseif(session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                @endif
-            </div>
             <div class="auth-page-content-form-header">
                 <h2>Reset Password</h2>
             </div>
