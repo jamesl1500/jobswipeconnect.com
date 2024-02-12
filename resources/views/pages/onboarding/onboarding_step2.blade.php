@@ -69,7 +69,7 @@
                     </div>
                     
                     <!-- Add a submit button -->
-                    <input type="submit" value="Finished" class="btn btn-primary">
+                    <input type="submit" value="Finished" class="btn primary">
                 </form>
             </div>
         </div>

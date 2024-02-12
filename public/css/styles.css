@@ -135,6 +135,15 @@
 .btn.skinny {
   padding: 5px 10px;
 }
+.btn.primary-hollow {
+  background: white;
+  color: #861657;
+  border: 1px solid #861657;
+}
+.btn.primary-hollow:hover {
+  background: #861657;
+  color: white;
+}
 
 /**
 * Header
@@ -213,6 +222,38 @@
 .header-main .header-main-inner .header-main-row .header-navigation .header-navigation-inner ul li.dropdown a {
   text-decoration: none;
   color: #333;
+}
+.header-main .header-main-inner .header-main-row .header-navigation .header-dropdown {
+  position: absolute;
+  top: 65px;
+  right: 60px;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  padding: 20px;
+  width: 300px;
+}
+.header-main .header-main-inner .header-main-row .header-navigation .header-dropdown ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+.header-main .header-main-inner .header-main-row .header-navigation .header-dropdown ul li {
+  margin-bottom: 20px;
+}
+.header-main .header-main-inner .header-main-row .header-navigation .header-dropdown ul li a {
+  text-decoration: none;
+  color: #333;
+}
+.header-main .header-main-inner .header-main-row .header-navigation .header-dropdown ul li:hover a {
+  color: #861657;
+}
+.header-main .header-main-inner .header-main-row .header-navigation .header-dropdown ul li:last-child {
+  margin-bottom: 0px;
+}
+.header-main .header-main-inner .header-main-row .header-navigation .header-dropdown.hidden {
+  display: none;
 }
 
 /**
@@ -433,6 +474,10 @@
   font-size: 20px;
   font-weight: 300;
   color: white;
+}
+.profile-page .profile-page-header .page-header-container .profile-page-header-inner .profile-page-header-content .profile-page-header-content-inner .profile-page-header-content-actions {
+  padding-top: 20px;
+  text-align: center;
 }
 .profile-page .profile-page-inline-navigation {
   background: white;
@@ -776,7 +821,7 @@
   display: none;
 }
 .dashboard-page .dashboard-page-content .page-row .dashboard-content.posts-container .dashboard-content-inner .dashboard-content-creator-input form .content-creator-bottom .content-creator-bottom-left .content-creator-bottom-left-photo label {
-  padding: 10px;
+  padding: 10px 14px;
   background: #f8f8f8;
   border-radius: 5px;
   cursor: pointer;
@@ -785,11 +830,168 @@
   display: none;
 }
 .dashboard-page .dashboard-page-content .page-row .dashboard-content.posts-container .dashboard-content-inner .dashboard-content-creator-input form .content-creator-bottom .content-creator-bottom-left .content-creator-bottom-left-file label {
-  padding: 10px;
+  padding: 10px 14px;
   background: #f8f8f8;
   border-radius: 5px;
   cursor: pointer;
 }
 .dashboard-page .dashboard-page-content .page-row .dashboard-content.posts-container .dashboard-content-inner .dashboard-content-creator-input form .content-creator-bottom.hidden {
   display: none;
+}
+
+/**
+* Page: Companies
+*/
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .companies-content-posts-inner .companies-content-post {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .companies-content-posts-inner .companies-content-post .companies-content-post-inner {
+  display: flex;
+  gap: 20px;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .companies-content-posts-inner .companies-content-post .companies-content-post-inner .companies-content-post-image {
+  text-align: left;
+  margin-bottom: 20px;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .companies-content-posts-inner .companies-content-post .companies-content-post-inner .companies-content-post-image img {
+  max-width: 100px;
+  border-radius: 50%;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .companies-content-posts-inner .companies-content-post .companies-content-post-inner .companies-content-post-details {
+  width: 100%;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .companies-content-posts-inner .companies-content-post .companies-content-post-inner .companies-content-post-details .companies-content-post-name {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .companies-content-posts-inner .companies-content-post .companies-content-post-inner .companies-content-post-details .companies-content-post-name h2 {
+  font-size: 20px;
+  margin-bottom: 0px;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .companies-content-posts-inner .companies-content-post .companies-content-post-inner .companies-content-post-details .companies-content-post-name p {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .companies-content-navigation {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  padding: 0px;
+  height: auto;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .companies-content-navigation .companies-content-navigation-header {
+  border-bottom: 1px solid #eee;
+  padding: 20px;
+  padding-bottom: 10px;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .companies-content-navigation .companies-content-navigation-header h2 {
+  font-size: 30px;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .companies-content-navigation .companies-content-navigation-inner ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .companies-content-navigation .companies-content-navigation-inner ul li {
+  padding: 10px;
+  padding-left: 20px;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .companies-content-navigation .companies-content-navigation-inner ul li a {
+  text-decoration: none;
+  color: #333;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .companies-content-navigation .companies-content-navigation-inner ul li.active {
+  background: #861657;
+  padding-left: 20px;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .companies-content-navigation .companies-content-navigation-inner ul li.active a {
+  color: white;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .companies-content-navigation .companies-content-navigation-inner ul li:hover {
+  background: #861657;
+  padding-left: 20px;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .companies-content-navigation .companies-content-navigation-inner ul li:hover a {
+  color: white;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .companies-content-form-header {
+  margin-bottom: 20px;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .company {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 20px;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .company .company-logo {
+  text-align: left;
+  margin-bottom: 20px;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .company .company-logo img {
+  max-width: 100px;
+  border-radius: 50%;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .company .company-details {
+  width: 100%;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .company .company-details .company-name {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .company .company-details .company-name h2 {
+  font-size: 20px;
+  margin-bottom: 0px;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .company .company-details .company-name p {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .companies-content-form {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .side-block {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .side-block .side-block-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .side-block .side-block-header h3 {
+  font-size: 20px;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .side-block .side-block-content p.no_items {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .side-block .side-block-content.actions a.btn {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.companies-page .companies-page-content .page-row .companies-content .companies-content-inner .side-block .side-block-content.actions a.btn:last-child {
+  margin-bottom: 0px;
 }

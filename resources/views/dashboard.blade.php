@@ -44,20 +44,20 @@
                                     </div>
                                 </div>
                                 <div class="dashboard-content-creator-input">
-                                    <form action="" method="post">
+                                    <form action="{{ route('posts.create') }}" method="post">
                                         @csrf
                                         <textarea id="dashboard-post" name="post" id="post" cols="30" rows="10" placeholder="Whats on your mind?"></textarea>
 
                                         <div class="content-creator-bottom hidden">
                                             <div class="content-creator-bottom-left">
                                                 <div class="content-creator-bottom-left-photo">
-                                                    <input type="file" name="post_image" id="post_image" class="d-none">
+                                                    <input type="file" name="post_image" id="post_image" class="d-none" accept="image/png, image/jpeg, image/jpg">
                                                     <label for="post_image" class="content-creator-bottom-left-inner-image">
                                                         <i class="fas fa-camera"></i>
                                                     </label>
                                                 </div>
                                                 <div class="content-creator-bottom-left-file">
-                                                    <input type="file" name="post_file" id="post_file" class="d-none">
+                                                    <input type="file" name="post_file" id="post_file" class="d-none" accept=".pdf">
                                                     <label for="post_file" class="content-creator-bottom-left-inner-file">
                                                         <i class="fas fa-file"></i>
                                                     </label>

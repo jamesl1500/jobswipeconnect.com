@@ -60,7 +60,7 @@
                     </div>
 
                     <!-- Address -->
-                    <div class="onboarding-form-area area-3">
+                    <div class="onboarding-form-area area-3" style="margin-bottom: 0px;">
                         <h2>Address</h2>
                         <?php
                         if(auth()->user()->role == 'job-seeker') {
@@ -102,7 +102,7 @@
                         </div>
                         
                         <!-- Add a submit button -->
-                        <input type="submit" value="Next Step" class="btn btn-primary">
+                        <input type="submit" value="Next Step" class="btn primary" style="margin-bottom: 0px;">
                     </div>
                 </form>
             </div>

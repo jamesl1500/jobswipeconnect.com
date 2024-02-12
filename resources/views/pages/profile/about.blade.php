@@ -21,6 +21,11 @@
                         <div class="profile-page-header-content-subtitle">
                             <h2>{{ $user->username }}</h2>
                         </div>
+                        <div class="profile-page-header-content-actions">
+                            @if(auth()->user() && $user->id == auth()->user()->id)
+                                <a href="{{ route('settings.index') }}" class="btn primary">Edit Profile</a>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>

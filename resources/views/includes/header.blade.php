@@ -23,13 +23,46 @@
                             @if (!Auth::user()->onboarding_step_2)
                                 <li><a href="{{ route('onboarding.step1') }}">Complete Onboarding</a></li>
                             @else
-                                <li><a href="{{ route('home') }}">Home</a></li>
-                                <li><a href="">Jobs</a></li>
+                                <li><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
+                                <li><a href="{{ route('jobs.index') }}">Jobs</a></li>
 
                                 <!-- User profile picture -->
                                 <li class="profile_picture">
                                     <a href="{{ route('profile.index', ['username' => Auth::user()->username]) }}">
                                         <img src="{{ asset('storage/' . Auth::user()->profile_picture) }}" alt="Profile Picture" />
+                                    </a>
+                                </li>
+
+                                <!-- Dropdown menu -->
+                                <li class="h-dropdown"><i class="fa-solid fa-bars"></i></li>
+                            @endif
+                        @else
+                            <!-- If user is not logged in -->
+                            <li><a href="{{ route('home') }}">Home</a></li>
+                            <li><a href="">About</a></li>
+                            <li><a href="{{ route('login') }}">Login</a></li>
+                            <li><a href="{{ route('register') }}">Register</a></li>
+                            <!-- Dropdown menu -->
+                            <li class="h-dropdown"><i class="fa-solid fa-bars"></i></li>
+                        @endif
+                    </ul>
+                </div>
+
+                <!-- Dropdown menu -->
+                <div class="header-dropdown hidden">
+                    <ul>
+                        @if (Auth::check())
+                            <!-- Dont show if user hasn't completed onboarding step 1 -->
+                            @if (!Auth::user()->onboarding_step_2)
+                                <li><a href="{{ route('onboarding.step1') }}">Complete Onboarding</a></li>
+                            @else
+                                <li><a href="{{ route('companies.index') }}">Companies</a></li>
+                                <li><a href="{{ route('settings.index') }}">Settings</a></li>
+                                <li>
+                                    <a href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        Logout
                                     </a>
                                 </li>
                             @endif
@@ -40,10 +73,10 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @endif
-
-                        <!-- Dropdown menu -->
-                        <li class="dropdown"><i class="fa-solid fa-bars"></i></li>
                     </ul>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>   
                 </div>
             </div>
         </div>

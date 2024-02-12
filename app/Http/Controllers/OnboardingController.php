@@ -147,6 +147,6 @@ class OnboardingController extends Controller
             return back()->with('error', 'There was an error processing your request');
         }
         
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard.index');
     }
 }

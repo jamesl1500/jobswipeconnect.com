@@ -26,6 +26,15 @@ $(document).ready(function() {
     }
 
     /**
+     * Navigation Dropdown
+     * -------------------
+     * This script is used to handle the navigation dropdown on the top right of the page.
+     */
+    $('.h-dropdown').click(function() {
+        $('.header-dropdown').toggleClass('hidden');
+    });
+
+    /**
      * Dashboard form | Open/close bottom form
      * ----------------------------------
      * When clicks or starts typing in the form, it will open the bottom form.

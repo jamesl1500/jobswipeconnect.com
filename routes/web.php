@@ -3,7 +3,12 @@
 use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PostsController;
+use App\Http\Controllers\JobsController;
+use App\Http\Controllers\CompaniesController;
+use App\Http\Controllers\FollowingsController;
 
+use App\Models\Companies;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -69,5 +74,41 @@ Route::delete('/profile/{username}/about/deleteEducationPost', [ProfileControlle
 
 Route::get('/profile/{username}/resume', [ProfileController::class, 'resume'])->name('profile.resume');
 Route::post('/profile/{username}/resume/saveResume', [ProfileController::class, 'resumePost'])->name('profile.resume.post');
+
+// Posts
+Route::post('/posts/create', [PostsController::class, 'createPost'])->name('posts.create');
+
+// Companies
+Route::get('/companies', [CompaniesController::class, 'index'])->name('companies.index');
+Route::get('/companies/v/{company}', [CompaniesController::class, 'show'])->name('companies.show');
+Route::get('/companies/v/{company}/jobs', [CompaniesController::class, 'jobs'])->name('companies.jobs');
+
+Route::get('/companies/create', [CompaniesController::class, 'create'])->middleware(['auth', 'verified', 'onboarding'])->name('companies.create');
+Route::post('/companies/create/post', [CompaniesController::class, 'store'])->middleware(['auth', 'verified', 'onboarding'])->name('companies.store');
+
+Route::get('/companies/my-companies', [CompaniesController::class, 'myCompanies'])->middleware(['auth', 'verified', 'onboarding'])->name('companies.my_companies');
+
+Route::get('/companies/edit/{company}', [CompaniesController::class, 'edit'])->middleware(['auth', 'verified', 'onboarding'])->name('companies.edit');
+Route::post('/companies/edit/{company}', [CompaniesController::class, 'editSave'])->middleware(['auth', 'verified', 'onboarding'])->name('companies.edit.post');
+
+Route::get('/companies/edit/{company}/address', [CompaniesController::class, 'edit_address'])->middleware(['auth', 'verified', 'onboarding'])->name('companies.edit.address');
+Route::post('/companies/edit/{company}/address/post', [CompaniesController::class, 'edit_addressPost'])->middleware(['auth', 'verified', 'onboarding'])->name('companies.edit.address.post');
+
+Route::get('/companies/edit/{company}/contact', [CompaniesController::class, 'edit_contact'])->middleware(['auth', 'verified', 'onboarding'])->name('companies.edit.contact');
+Route::post('/companies/edit/{company}/contact/post', [CompaniesController::class, 'edit_contactPost'])->middleware(['auth', 'verified', 'onboarding'])->name('companies.edit.contact.post');
+
+// Jobs
+Route::get('/jobs', [JobsController::class, 'index'])->name('jobs.index');
+
+// Follow route
+Route::post('/follow', [FollowingsController::class, 'follow'])->middleware(['auth'])->name('follow');
+Route::post('/unfollow', [FollowingsController::class, 'unfollow'])->middleware(['auth'])->name('unfollow');
+
+// Messaging routes
+Route::get('messages', [MessagesController::class, 'index'])->middleware(['auth'])->name('messages.index');
+Route::get('messages/{id}', [MessagesController::class, 'conversation'])->middleware(['auth'])->name('messages.conversation');
+Route::get("messages/create_conversation/{id}", [MessagesController::class, 'createConversation'])->middleware(['auth'])->name('messages.create_conversation');
+Route::post("messages/create_conversation/{id}", [MessagesController::class, 'createConversationPost'])->middleware(['auth'])->name('messages.create_conversation');
+Route::post("messages/send", [MessagesController::class, 'sendMessagePost'])->middleware(['auth'])->name('messages.sendMessage');
 
 require __DIR__.'/auth.php';

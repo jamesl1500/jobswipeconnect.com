@@ -113,4 +113,36 @@ class User extends Authenticatable implements MustVerifyEmail
         // Order by position
         return $this->hasMany(Educations::class)->orderBy('position', 'asc');
     }
+
+    /**
+     * Posts
+     */
+    public function posts()
+    {
+        return $this->hasMany(Posts::class);
+    }
+
+    /**
+     * Get the followings that belong to the user.
+     */
+    public function followings()
+    {
+        return $this->hasMany(Followings::class, 'user_id');
+    }
+
+    /**
+     * Get the followers that belong to the user.
+     */
+    public function followers()
+    {
+        return $this->hasMany(Followings::class, 'followee_id');
+    }
+
+    /**
+     * Get users companies
+     */
+    public function companies()
+    {
+        return $this->hasMany(Companies::class);
+    }
 }

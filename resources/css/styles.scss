@@ -162,6 +162,17 @@ $secondary-color: #ffa69e;
     &.skinny{
         padding: 5px 10px;
     }
+
+    &.primary-hollow{
+        background: white;
+        color: $primary-color;
+        border: 1px solid $primary-color;
+
+        &:hover{
+            background: $primary-color;
+            color: white;
+        }
+    }
 }
 
 
@@ -279,6 +290,47 @@ $secondary-color: #ffa69e;
                             }
                         }
                     }
+                }
+
+                .header-dropdown{
+                    position: absolute;
+                    top: 65px;
+                    right: 60px;
+                    background: white;
+                    border-radius: 5px;
+                    box-shadow: $box-shadow;
+                    border: 1px solid #eee;
+                    padding: 20px;
+                    width: 300px;
+
+                    ul{
+                        list-style: none;
+                        padding: 0px;
+                        margin: 0px;
+
+                        li{
+                            margin-bottom: 20px;
+
+                            a{
+                                text-decoration: none;
+                                color: #333;
+                            }
+
+                            &:hover{
+                                a{
+                                    color: $primary-color;
+                                }
+                            }
+                        }
+
+                        li:last-child{
+                            margin-bottom: 0px;
+                        }
+                    }
+                }
+
+                .header-dropdown.hidden{
+                    display: none;
                 }
             }
         }
@@ -593,6 +645,13 @@ $secondary-color: #ffa69e;
     
                                 color: white;
                             }
+                        }
+
+                        .profile-page-header-content-actions{
+                            padding-top: 20px;
+                            
+                            text-align: center;
+                            
                         }
                     }
                 }
@@ -1070,7 +1129,7 @@ $secondary-color: #ffa69e;
                                         }
 
                                         label{
-                                            padding: 10px;
+                                            padding: 10px 14px;
                                             background: #f8f8f8;
                                             border-radius: 5px;
                                             cursor: pointer;
@@ -1084,7 +1143,7 @@ $secondary-color: #ffa69e;
                                         }
 
                                         label{
-                                            padding: 10px;
+                                            padding: 10px 14px;
                                             background: #f8f8f8;
                                             border-radius: 5px;
                                             cursor: pointer;
@@ -1095,6 +1154,230 @@ $secondary-color: #ffa69e;
 
                             .content-creator-bottom.hidden{
                                 display: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+* Page: Companies
+*/
+.companies-page{
+
+    .companies-page-content{
+
+        .page-row{
+
+            .companies-content{
+
+                .companies-content-inner{
+
+                    .companies-content-posts-inner{
+
+                        .companies-content-post{
+                            background: white;
+                            border-radius: 5px;
+                            box-shadow: $box-shadow;
+                            border: 1px solid #eee;
+                            padding: 20px;
+                            margin-bottom: 20px;
+
+                            .companies-content-post-inner{
+                                display: flex;
+                                gap: 20px;
+
+                                .companies-content-post-image{
+                                    text-align: left;
+                                    margin-bottom: 20px;
+
+                                    img{
+                                        max-width: 100px;
+                                        border-radius: 50%;
+                                    }
+                                }
+
+                                .companies-content-post-details{
+                                    width: 100%;
+                                    
+                                    .companies-content-post-name{
+                                        margin-bottom: 10px;
+                                        padding-bottom: 10px;
+                                        border-bottom: 1px solid #eee;
+
+                                        h2{
+                                            font-size: 20px;
+                                            margin-bottom: 0px;
+                                        }
+
+                                        p{
+                                            font-size: 16px;
+                                            margin-bottom: 0px;
+                                        }
+                                    
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .companies-content-navigation{
+                        background: white;
+                        border-radius: 5px;
+                        box-shadow: $box-shadow;
+                        border: 1px solid #eee;
+                        padding: 0px;
+        
+                        // Make sure height is auto
+                        height: auto;
+        
+                        .companies-content-navigation-header{
+                            border-bottom: 1px solid #eee;
+                            padding: 20px;
+                            padding-bottom: 10px;
+        
+                            h2{
+                                font-size: 30px;
+                            }
+                        }
+        
+                        .companies-content-navigation-inner{
+        
+                            ul{
+                                list-style: none;
+                                padding: 0px;
+                                margin: 0px;
+        
+                                li{
+                                    padding: 10px;
+                                    padding-left: 20px;
+        
+                                    a{
+                                        text-decoration: none;
+                                        color: #333;
+                                    }
+        
+                                    &.active{
+                                        background: $background-color;
+                                        padding-left: 20px;
+        
+                                        a{
+                                            color: white;
+                                        }
+                                    }
+        
+                                    &:hover{
+                                        background: $background-color;
+                                        padding-left: 20px;
+        
+                                        a{
+                                            color: white;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .companies-content-form-header{
+                        margin-bottom: 20px;
+                    }
+
+                    .company{
+                        background: white;
+                        border-radius: 5px;
+                        box-shadow: $box-shadow;
+                        border: 1px solid #eee;
+                        padding: 20px;
+                        margin-bottom: 20px;
+
+                        display: flex;
+                        gap: 20px;
+
+                        .company-logo{
+                            text-align: left;
+                            margin-bottom: 20px;
+
+                            img{
+                                max-width: 100px;
+                                border-radius: 50%;
+                            }
+                        }
+
+                        .company-details{
+                            width: 100%;
+                            
+                            .company-name{
+                                margin-bottom: 10px;
+                                padding-bottom: 10px;
+                                border-bottom: 1px solid #eee;
+
+                                h2{
+                                    font-size: 20px;
+                                    margin-bottom: 0px;
+                                }
+
+                                p{
+                                    font-size: 16px;
+                                    margin-bottom: 0px;
+                                }
+                            
+                            }
+                        }
+                    }
+
+                    .companies-content-form{
+                        background: white;
+                        border-radius: 5px;
+                        box-shadow: $box-shadow;
+                        border: 1px solid #eee;
+                        padding: 20px;
+                        margin-bottom: 20px;
+
+                    }
+
+                    .side-block{
+                        background: white;
+                        border-radius: 5px;
+                        box-shadow: $box-shadow;
+                        border: 1px solid #eee;
+                        padding: 20px;
+                        margin-bottom: 20px;
+
+                        .side-block-header{
+                            display: flex;
+                            justify-content: space-between;
+                            margin-bottom: 20px;
+                            padding-bottom: 10px;
+                            border-bottom: 1px solid #eee;
+
+                            h3{
+                                font-size: 20px;
+                            }
+                        }
+
+                        .side-block-content{
+
+                            
+
+                            p.no_items{
+                                font-size: 16px;
+                                margin-bottom: 0px;
+                            }
+                        }
+
+                        .side-block-content.actions{
+
+                            a.btn{
+                                width: 100%;
+                                margin-bottom: 10px;
+
+                                &:last-child{
+                                    margin-bottom: 0px;
+                                }
                             }
                         }
                     }

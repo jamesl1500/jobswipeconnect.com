@@ -8,6 +8,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB; // Add this line
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
@@ -42,11 +43,17 @@ class RegisteredUserController extends Controller
 
         $user = User::create([
             'name' => $request->name,
+            'username' => "",
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            "role"=>$request->role
+            "role" => $request->role
         ]);
 
+        // Create user_meta record
+        DB::table('user_meta')->insert([
+            'user_id' => $user->id,
+        ]);
+        
         event(new Registered($user));
 
         Auth::login($user);
