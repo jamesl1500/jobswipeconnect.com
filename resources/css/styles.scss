@@ -25,6 +25,24 @@ $secondary-color: #ffa69e;
 }
 
 /**
+* Badge
+*/
+.badge{
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.badge-primary{
+    background: $primary-color;
+    color: white;
+}
+
+/**
 * ALerts hold
 */
 .alert-hold{
@@ -1362,6 +1380,264 @@ $secondary-color: #ffa69e;
                         .side-block-content{
 
                             
+
+                            p.no_items{
+                                font-size: 16px;
+                                margin-bottom: 0px;
+                            }
+                        }
+
+                        .side-block-content.actions{
+
+                            a.btn{
+                                width: 100%;
+                                margin-bottom: 10px;
+
+                                &:last-child{
+                                    margin-bottom: 0px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+* Page: Search
+*/
+.search-page{
+
+    .search-page-inline-navigation{
+        background: white;
+        border-radius: 5px;
+        box-shadow: $box-shadow;
+        border: 1px solid #eee;
+        padding: 20px;
+        margin-bottom: 20px;
+
+        ul{
+            list-style: none;
+            padding: 0px;
+            margin: 0px;
+
+            text-align: center;
+
+            li{
+                display: inline;
+                margin-right: 40px;
+
+                a{
+                    text-decoration: none;
+                    color: #333;
+                }
+            }
+
+            li:hover, li.active{
+                border-bottom: 2px solid $background-color;
+                padding-bottom: 20px;
+
+                a{
+                    color: $background-color;
+                }
+            }
+
+            li:last-child{
+                margin-right: 0px;
+            }
+        }
+    }
+
+    .search-page-content{
+
+        .search-page-content-inner{
+
+            .search-page-primary-results{
+
+                .jobs-search-main{
+                    background: white;
+                    border-radius: 5px;
+                    box-shadow: $box-shadow;
+                    border: 1px solid #eee;
+                    padding: 20px;
+                    margin-bottom: 20px;
+                    flex-wrap:nowrap
+
+                    .jobs-search-main-header{
+
+                        border-bottom: 1px solid #eee;
+
+                        h2{
+                            position: relative;
+                            top: 5px;
+                        }
+                    }
+
+                    .jobs-search-main-results{
+                        padding-top: 20px;
+
+                        .jobs-search-main-footer{
+                            border-top: 1px solid #eee;
+                            padding-top: 20px;
+                        }
+
+                        .job-box{
+                            background: white;
+                            border-radius: 5px;
+                            margin-bottom: 20px;
+                            cursor: pointer;
+
+                            .job-details{
+                                display: flex;
+                                justify-content: flex-start;
+                                gap: 10px;
+
+                                .job-logo{
+                                    text-align: left;
+                                    margin-bottom: 20px;
+
+                                    img{
+                                        max-width: 50px;
+                                        border-radius: 50%;
+                                    }
+                                }
+
+                                .job-details-title{                                    
+
+                                    h2{
+                                        font-size: 20px;
+                                        margin-bottom: 0px;
+                                    }
+
+                                    p{
+                                        font-size: 16px;
+                                        margin-bottom: 0px;
+                                    }
+                                    
+                                }
+                            }
+                        }
+
+                        p.no_jobs{
+                            font-size: 16px;
+                            margin-bottom: 0px;
+                        }
+                    }
+                }
+
+                .side-area{
+                        
+                    .side-block{
+                        background: white;
+                        border-radius: 5px;
+                        box-shadow: $box-shadow;
+                        border: 1px solid #eee;
+                        padding: 20px;
+                        margin-bottom: 20px;
+
+                        .side-block-header{
+
+                            h3{
+                                font-size: 20px;
+                            }
+                        }
+
+                        .side-block-content{
+
+                            .side-block-footer{
+                                border-top: 1px solid #eee;
+                                padding-top: 20px;
+                            }
+
+                            .company-box:last-child{
+                                margin-bottom: 0px;
+                            }
+
+                            .user-box:last-child{
+                                margin-bottom: 0px;
+                            }
+
+                            .company-box {
+                                cursor: pointer;
+                                display: flex;
+                                gap: 15px;
+                                margin-bottom: 10px;
+
+                                &:last-child{
+                                    margin-bottom: 0px;
+                                }
+
+                                .company-logo{
+                                    text-align: left;
+                                    margin-bottom: 20px;
+
+                                    img{
+                                        max-width: 50px;
+                                        border-radius: 50%;
+                                    }
+                                }
+
+                                .company-details{
+                                    width: 100%;
+                                    
+                                    .company-name{
+                                        padding-bottom: 10px;
+
+                                        h2{
+                                            font-size: 20px;
+                                            margin-bottom: 0px;
+                                        }
+
+                                        p{
+                                            font-size: 16px;
+                                            margin-bottom: 0px;
+                                        }
+                                    
+                                    }
+                                }
+                            }
+
+                            .user-box {
+                                cursor: pointer;
+                                display: flex;
+                                gap: 15px;
+                                margin-bottom: 10px;
+
+                                &:last-child{
+                                    margin-bottom: 0px;
+                                }
+
+                                .user-logo{
+                                    text-align: left;
+                                    margin-bottom: 20px;
+
+                                    img{
+                                        max-width: 50px;
+                                        border-radius: 50%;
+                                    }
+                                }
+
+                                .user-details{
+                                    width: 100%;
+                                    
+                                    .user-name{
+                                        padding-bottom: 10px;
+
+                                        h2{
+                                            font-size: 20px;
+                                            margin-bottom: 0px;
+                                        }
+
+                                        p{
+                                            font-size: 16px;
+                                            margin-bottom: 0px;
+                                        }
+                                    
+                                    }
+                                }
+                            }
 
                             p.no_items{
                                 font-size: 16px;

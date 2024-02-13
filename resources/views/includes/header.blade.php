@@ -11,7 +11,11 @@
             <div class="header-search col-lg-6">
                 <div class="header-search-inner">
                     <form action="{{ route('search.index') }}" method="get">
-                        <input type="text" name="query" id="query" placeholder="Search for jobs, companies, and more">
+                        <?php
+                            // Get the query
+                            $query = request()->input('query');
+                        ?>
+                        <input type="text" name="query" id="query" placeholder="Search for jobs, companies, and more" value="{{ $query }}">
                     </form>
                 </div>
             </div>

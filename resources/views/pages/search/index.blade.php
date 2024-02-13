@@ -14,13 +14,20 @@
                 </div>
             </div>
         </div>
+        <div class="search-page-inline-navigation">
+            <div class="container">
+                <div class="search-page-inline-navigation-inner">
+                    <ul>
+                        <li class="active"><a href="{{ route('search.index') }}?query={{ $query }}">All</a></li>
+                        <li><a href="{{ route('search.jobs') }}?query={{ $query }}">Jobs</a></li>
+                        <li><a href="{{ route('search.companies') }}?query={{ $query }}">Companies</a></li>
+                        <li><a href="{{ route('search.users') }}?query={{ $query }}">Users</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
         <div class="search-page-content container page-content">
             <div class="search-page-content-inner">
-                <div class="primary-search">
-                    <form action="{{ route('search.index') }}" method="get">
-                        <input type="text" name="query" id="query" placeholder="Search for jobs, companies, and more">
-                    </form>
-                </div>
                 <div class="search-page-primary-results row">
                     <div class="jobs-search-main col-lg-8">
                         <div class="jobs-search-main-header">
@@ -29,18 +36,109 @@
                         </div>
                         <div class="jobs-search-main-results">
                             @if($query != "")
-                            
+                                @if(count($jobs) > 0)
+                                    @foreach($jobs[0] as $job)
+                                    <?php
+                                        // Get Company info
+                                        $company = \App\Models\Companies::where('id', $job['company_id'])->first();
+                                    ?>
+                                    <div class="job-box" onClick="window.location.assign('{{ route('jobs.show', $job['id']) }}');">
+                                        <div class="job-details">
+                                            <div class="job-logo">
+                                                <img src="{{ asset('storage/' . $company->logo) }}" alt="{{ $company->name }}">
+                                            </div>
+                                            <div class="job-details-title">
+                                                <h2>{{ $job['title'] }}
+                                                    @if($job['employment_location_type'] == "remote")
+                                                        <span class="badge badge-primary">Remote</span>
+                                                    @endif
+                                                </h2>
+                                                <p>{{ ucwords($company->name) }} &middot; {{ ucwords($job['employment_location_type']) }}</p>
+                                                <div class="job-location">
+                                                    <p>{{ ucwords($job['location']) }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforeach
+
+                                    <div class="jobs-search-main-footer">
+                                        <a href="{{ route('search.jobs') }}?query={{ $query }}" class="btn primary">View All Jobs</a>
+                                    </div>
+                                @else
+                                    <p>No jobs found</p>
+                                @endif
                             @else
                                 <p>Search for jobs to see results</p>
                             @endif
                         </div>
                     </div>
                     <div class="side-area col-lg-4">
-                        <div class="companies-search-main">
+                        <div class="side-block companies-search-main">
+                            <div class="side-block-header companies-search-main-header">
+                                <h2>Companies</h2>
+                                <p>Find the company of your dreams!</p>
+                            </div>
+                            <div class="side-block-content companies-search-main-results">
+                                @if($query != "")
+                                    @if(count($companies) > 0)
+                                        @foreach($companies as $company)
+                                            <div class="company-box" onClick="window.location.assign('{{ route('companies.show', $company->id) }}');">
+                                                <div class="company-logo">
+                                                    <img src="{{ asset('storage/' . $company->logo) }}" alt="{{ $company->name }}">
+                                                </div>
+                                                <div class="company-details">
+                                                    <div class="company-name">
+                                                        <h2>{{ $company->name }}</h2>
+                                                        <p>{{ ucwords($company->industry) }} &middot; {{ ucwords($company->schedule_type) }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
 
+                                        <div class="side-block-footer">
+                                            <a href="{{ route('companies.index') }}" class="btn primary">View All Companies</a>
+                                        </div>
+                                    @else
+                                        <p>No companies found</p>
+                                    @endif
+                                @else
+                                    <p>Search for companies to see results</p>
+                                @endif
+                            </div>
                         </div>
-                        <div class="users-search-main">
+                        <div class="side-block users-search-main">
+                            <div class="users-search-main-header">
+                                <h2>Users</h2>
+                                <p>Find users to add to your network!</p>
+                            </div>
+                            <div class="side-block-content users-search-main-results">
+                                @if($query != "")
+                                    @if(count($users) > 0)
+                                        @foreach($users as $user)
+                                            <div class="user-box" onClick="window.location.assign('{{ route('profile.index', $user->username) }}');">
+                                                <div class="user-logo">
+                                                    <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="{{ $user->name }}">
+                                                </div>
+                                                <div class="user-details">
+                                                    <div class="user-name">
+                                                        <h2>{{ $user->name }}</h2>
+                                                        <p>{{ ucwords($user->username) }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
 
+                                        <div class="side-block-footer">
+                                            <a href="{{ route('search.users') }}" class="btn primary">View All Users</a>
+                                        </div>
+                                    @else
+                                        <p>No users found</p>
+                                    @endif
+                                @else
+                                    <p>Search for users to see results</p>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>

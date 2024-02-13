@@ -33,4 +33,20 @@ class Companies extends Model
         'revenue',
         'ownership',
     ];
+
+    /**
+     * Get the user that owns the company
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the jobs for the company
+     */
+    public function jobs()
+    {
+        return $this->hasMany(Jobs::class);
+    }
 }

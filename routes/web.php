@@ -101,6 +101,7 @@ Route::post('/companies/edit/{company}/contact/post', [CompaniesController::clas
 
 // Jobs
 Route::get('/jobs', [JobsController::class, 'index'])->name('jobs.index');
+Route::get('/jobs/{job}', [JobsController::class, 'show'])->name('jobs.show');
 
 // Follow route
 Route::post('/follow', [FollowingsController::class, 'follow'])->middleware(['auth'])->name('follow');
@@ -115,5 +116,8 @@ Route::post("messages/send", [MessagesController::class, 'sendMessagePost'])->mi
 
 // Search
 Route::get('search', [SearchController::class, 'index'])->name('search.index');
+Route::get('search/users', [SearchController::class, 'users'])->name('search.users');
+Route::get('search/jobs', [SearchController::class, 'jobs'])->name('search.jobs');
+Route::get('search/companies', [SearchController::class, 'companies'])->name('search.companies');
 
 require __DIR__.'/auth.php';
