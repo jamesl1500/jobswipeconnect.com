@@ -27,7 +27,7 @@
                             @if (!Auth::user()->onboarding_step_1 or !Auth::user()->onboarding_step_2)
                                 <li><a href="{{ route('onboarding.step1') }}">Complete Onboarding</a></li>
                             @else
-                                <li><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
+                                <li><a href="{{ route('dashboard.jobs') }}">Dashboard</a></li>
                                 <li><a href="{{ route('jobs.index') }}">Jobs</a></li>
 
                                 <!-- User profile picture -->

@@ -199,4 +199,48 @@ class SettingsController extends Controller
     {
         return view('pages.settings.change_notification_settings');
     }
+
+    /**
+     * Chaange social media settings | Profile settings page
+     * -------------------------------------
+     * Show the change social media settings page
+     */
+    public function socialMedia()
+    {
+        return view('pages.settings.change_social_media');
+    }
+
+    /**
+     * Change social media settings Post | Profile settings page
+     * -------------------------------------
+     * Process the change social media settings page
+     */
+    public function socialMediaPost(Request $request)
+    {
+        /**
+         * Form validation
+         * ----------------
+         * Here we validate the form data
+         */
+        $validated = request()->validate([
+            'facebook' => 'nullable|string|max:255',
+            'twitter' => 'nullable|string|max:255',
+            'linkedin' => 'nullable|string|max:255',
+            'instagram' => 'nullable|string|max:255',
+            'github' => 'nullable|string|max:255',
+            'portfolio' => 'nullable|string|max:255',
+        ]);
+
+        /**
+         * Update the user's social media settings
+         * --------------------------
+         * Here we update the user's social media settings with the new data
+         */
+        $request->user()->update($validated);
+
+        /**
+         * Redirect back to the settings page
+         */
+        return redirect()->route('settings.social_media')->with('success', 'Social media settings updated successfully');
+    }
 }

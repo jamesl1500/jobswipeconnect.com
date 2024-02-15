@@ -43,6 +43,48 @@ $secondary-color: #ffa69e;
 }
 
 /**
+* Pagination
+*/
+.pagination{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
+    li{
+        display: inline;
+        padding: 10px;
+        margin: 0px 5px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+
+        a{
+            text-decoration: none;
+            color: #333;
+        }
+
+        &.active{
+            background: $primary-color;
+            color: white;
+        }
+
+        &.disabled{
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        &:hover{
+            background: $primary-color;
+            color: white;
+
+            a{
+                color: white;
+            }
+        }
+    }
+}
+
+/**
 * ALerts hold
 */
 .alert-hold{
@@ -529,6 +571,7 @@ $secondary-color: #ffa69e;
     .page-content{
 
         .row{
+            align-items: flex-start;
  
             .left-navigation{
                 background: white;
@@ -536,9 +579,6 @@ $secondary-color: #ffa69e;
                 box-shadow: $box-shadow;
                 border: 1px solid #eee;
                 padding: 0px;
-
-                // Make sure height is auto
-                height: 300px;
 
                 .left-navigation-header{
                     border-bottom: 1px solid #eee;
@@ -662,6 +702,31 @@ $secondary-color: #ffa69e;
                                 font-weight: 300;
     
                                 color: white;
+                            }
+                        }
+
+                        .profile-page-header-content-social-media-icons{
+                            text-align: center;
+                            margin-top: 20px;
+    
+                            ul{
+                                list-style: none;
+                                padding: 0px;
+                                margin: 0px;
+    
+                                li{
+                                    display: inline;
+                                    margin-right: 20px;
+    
+                                    a{
+                                        text-decoration: none;
+                                        color: white;
+                                    }
+                                }
+
+                                li:last-child{
+                                    margin-right: 0px;
+                                }
                             }
                         }
 
@@ -1061,8 +1126,60 @@ $secondary-color: #ffa69e;
 
         .page-row{
 
-            .dashboard-content{
+            .dashboard-content.left-filter{
+                background: white;
+                border-radius: 5px;
+                box-shadow: $box-shadow;
+                border: 1px solid #eee;
+                padding: 20px;
+                margin-bottom: 20px;
 
+                .dashboard-content-filters-inner{
+
+                    .dashboard-content-filters-header{
+                        margin-bottom: 20px;
+                        border-bottom: 1px solid #eee;
+
+                        h2{
+                            position: relative;
+                            top: 5px;
+                        }
+                    }
+
+                    .dashboard-content-inner{
+
+                        .dashboard-content-item{
+                            margin-bottom: 20px;
+
+                            h3{
+                                font-size: 20px;
+                                margin-bottom: 10px;
+                            }
+
+                            p{
+                                font-size: 16px;
+                                margin-bottom: 0px;
+                            }
+
+                            p.dates{
+                                color: #aaa;
+                            }
+
+                            &:last-child{
+                                margin-bottom: 0px;
+                            }
+
+                            .item-actions{
+                                margin-top: 10px;
+                            }
+                        }
+
+                        p.no_items{
+                            font-size: 16px;
+                            margin-bottom: 0px;
+                        }
+                    }
+                }
             }
 
             .dashboard-content.posts-container{
@@ -1455,18 +1572,28 @@ $secondary-color: #ffa69e;
         .search-page-content-inner{
 
             .search-page-primary-results{
+                align-items:flex-start;
+
+                .jobs-search-main-header{
+                    border-bottom: 1px solid #eee;
+                    padding-bottom: 10px;
+
+                    h2{
+                        margin-bottom: 0px;
+                    }
+                }
 
                 .jobs-search-main{
                     background: white;
                     border-radius: 5px;
                     box-shadow: $box-shadow;
                     border: 1px solid #eee;
-                    padding: 20px;
                     margin-bottom: 20px;
-                    flex-wrap:nowrap
+                    flex-wrap:nowrap;
+                    padding: 0px;
 
                     .jobs-search-main-header{
-
+                        padding: 20px;
                         border-bottom: 1px solid #eee;
 
                         h2{
@@ -1476,7 +1603,64 @@ $secondary-color: #ffa69e;
                     }
 
                     .jobs-search-main-results{
-                        padding-top: 20px;
+
+                        .user-search-main-result{
+                            padding: 20px;
+
+                            .user-search-main-result-inner{
+
+                                .user-search-main-result-left{
+
+                                    .user-search-main-result-left-inner{
+                                        display: flex;
+                                        gap: 20px;
+
+                                        .user-search-main-result-left-image{
+                                            text-align: left;
+                                            margin-bottom: 20px;
+
+                                            img{
+                                                max-width: 100px;
+                                                border-radius: 50%;
+                                            }
+                                        }
+
+                                        .user-search-main-result-left-content{
+                                            width: 100%;
+
+                                            h3{
+                                                font-size: 20px;
+                                                margin-bottom: 0px;
+                                            }
+
+                                            p{
+                                                font-size: 16px;
+                                                margin-bottom: 0px;
+                                            }
+
+                                            .skills{
+                                                margin-top: 10px;
+                                                margin-bottom: 5px;
+
+                                                .tag{
+                                                    display: inline-block;
+                                                    padding: 5px 10px;
+                                                    background: $primary-color;
+                                                    border-radius: 5px;
+                                                    margin-right: 5px;
+                                                    
+                                                    p{
+                                                        color: white;
+                                                        font-weight: 600;
+                                                    }
+                                                }
+                                            
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
 
                         .jobs-search-main-footer{
                             border-top: 1px solid #eee;
@@ -1486,8 +1670,13 @@ $secondary-color: #ffa69e;
                         .job-box{
                             background: white;
                             border-radius: 5px;
-                            margin-bottom: 20px;
                             cursor: pointer;
+                            padding: 20px;
+                            border-bottom: 1px solid #eee;
+
+                            &:last-child{
+                                border-bottom: none;
+                            }
 
                             .job-details{
                                 display: flex;
@@ -1504,11 +1693,18 @@ $secondary-color: #ffa69e;
                                     }
                                 }
 
-                                .job-details-title{                                    
+                                .job-details-title{       
+                                    width: 100%;                             
 
                                     h2{
                                         font-size: 20px;
                                         margin-bottom: 0px;
+
+                                        .date{
+                                            font-size: 16px;
+                                            color: #aaa;
+                                            font-weight: 450;
+                                        }
                                     }
 
                                     p{
@@ -1538,13 +1734,24 @@ $secondary-color: #ffa69e;
                         margin-bottom: 20px;
 
                         .side-block-header{
+                            border-bottom: 1px solid #eee;
+                            padding-bottom: 10px;
 
-                            h3{
+                            h2, h3{
                                 font-size: 20px;
+                                margin-bottom: 0px;
+                            }
+
+                            p{
+                                font-size: 16px;
+                                margin-bottom: 0px;
+                            
+                                color: #aaa;
                             }
                         }
 
                         .side-block-content{
+                            margin-top: 10px;
 
                             .side-block-footer{
                                 border-top: 1px solid #eee;
@@ -1653,6 +1860,68 @@ $secondary-color: #ffa69e;
 
                                 &:last-child{
                                     margin-bottom: 0px;
+                                }
+                            }
+                        }
+                    }
+
+                    .side-block.category-block, .side-block.experience-block{
+                        padding: 0px;
+
+                        .side-block-header{
+                            padding: 20px;
+                            border-bottom: 1px solid #eee;
+                            padding-bottom: 10px;
+
+                            h3{
+                                font-size: 20px;
+                                margin-bottom: 0px;
+                            }
+
+                            p{
+                                font-size: 16px;
+                                margin-bottom: 0px;
+                            
+                                color: #aaa;
+                            }
+                        }
+                        
+                        .side-block-content{
+                            margin-top: 0px;
+                            max-height: 200px;
+                            overflow-y: auto;
+
+                            ul.filter-links{
+                                list-style: none;
+                                padding: 0px;
+                                margin: 0px;
+
+                                li{
+                                    padding: 10px;
+                                    padding-left: 20px;
+
+                                    a{
+                                        text-decoration: none;
+                                        color: #333;
+                                    }
+
+                                    &.active{
+                                        background: $background-color;
+                                        padding-left: 20px;
+
+                                        a{
+                                            color: white;
+                                        }
+                                    }
+
+                                    &:hover{
+                                        background: $background-color;
+                                        padding-left: 20px;
+
+                                        a{
+                                            color: white;
+                                        }
+                                    }
                                 }
                             }
                         }

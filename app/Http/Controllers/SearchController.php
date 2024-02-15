@@ -76,15 +76,37 @@ class SearchController extends Controller
         // Get the search query
         $query = $request->input('query');
 
+        // Lets see if there are filters
+        $employment_location_type = $request->input('employment_location_type');
+        $experience_level = $request->input('experience_level');
+
         // If the query is not empty, perform the search
-        if (!empty($query)) {
-            // Perform search for jobs
-            $jobs = Jobs::where('title', 'like', '%' . $query . '%')
-                ->orWhere('description', 'like', '%' . $query . '%')
-                ->orWhere('skills', 'like', '%' . $query . '%')
-                ->limit(10)
-                ->orderBy('created_at', 'desc')
-                ->get();
+        if (!empty($query)) 
+        {
+            if($employment_location_type) {
+                // Perform search for jobs group queries where employment_location_type is set
+                $jobs = Jobs::where('employment_location_type', $employment_location_type)
+                    ->where('title', 'like', '%' . $query . '%')
+                    ->orWhere('description', 'like', '%' . $query . '%')
+                    ->orWhere('skills', 'like', '%' . $query . '%')
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(5);
+            } else if($experience_level) {
+                // Perform search for jobs group queries where experience_level is set
+                $jobs = Jobs::where('experience_level', $experience_level)
+                    ->orWhere('description', 'like', '%' . $query . '%')
+                    ->orWhere('skills', 'like', '%' . $query . '%')
+                    ->where('title', 'like', '%' . $query . '%')
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(5);
+            } else {
+                // Perform search for jobs
+                $jobs = Jobs::where('title', 'like', '%' . $query . '%')
+                    ->orWhere('description', 'like', '%' . $query . '%')
+                    ->orWhere('skills', 'like', '%' . $query . '%')
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(5);
+            }
 
             // Return the search results
             return view('pages.search.jobs', [
@@ -95,6 +117,38 @@ class SearchController extends Controller
 
         // If the query is empty, return an empty response
         return view('pages.search.jobs', [
+            'query' => '',
+        ]);
+    }
+
+    /**
+     * Search for users
+     * ----------------
+     * 
+     */
+    public function users(Request $request)
+    {
+        // Get the search query
+        $query = $request->input('query');
+
+        // If the query is not empty, perform the search
+        if (!empty($query)) {
+            // Perform search for users
+            $users = User::where('name', 'like', '%' . $query . '%')
+                ->orWhere('username', 'like', '%' . $query . '%')
+                ->orWhere('cover_letter', 'like', '%' . $query . '%')
+                ->orWhere('skills', 'like', '%' . $query . '%')
+                ->paginate(5);
+
+            // Return the search results
+            return view('pages.search.users', [
+                'query' => $query,
+                'users' => $users,
+            ]);
+        }
+
+        // If the query is empty, return an empty response
+        return view('pages.search.users', [
             'query' => '',
         ]);
     }

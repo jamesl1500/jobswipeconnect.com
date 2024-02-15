@@ -32,7 +32,7 @@
                     <div class="jobs-search-main col-lg-8">
                         <div class="jobs-search-main-header">
                             <h2>Jobs</h2>
-                            <p>Find your dream job!</p>
+                            <p style="margin-bottom: 0px;">Find your dream job!</p>
                         </div>
                         <div class="jobs-search-main-results">
                             @if($query != "")
@@ -41,6 +41,9 @@
                                     <?php
                                         // Get Company info
                                         $company = \App\Models\Companies::where('id', $job['company_id'])->first();
+
+                                        // Get the jobs posted date
+                                        $job_posted_date = \Carbon\Carbon::parse($job['created_at'])->diffForHumans();
                                     ?>
                                     <div class="job-box" onClick="window.location.assign('{{ route('jobs.show', $job['id']) }}');">
                                         <div class="job-details">
@@ -52,17 +55,32 @@
                                                     @if($job['employment_location_type'] == "remote")
                                                         <span class="badge badge-primary">Remote</span>
                                                     @endif
+                                                    <span class="date" style="float: right;">{{ $job_posted_date }}</span>
                                                 </h2>
                                                 <p>{{ ucwords($company->name) }} &middot; {{ ucwords($job['employment_location_type']) }}</p>
                                                 <div class="job-location">
                                                     <p>{{ ucwords($job['location']) }}</p>
                                                 </div>
+                                                @if(auth()->user() && auth()->user()->id == $job['user_id'])
+                                                    <div class="job-actions" style="padding-top: 10px;">
+                                                        <a href="{{ route('jobs.show', $job['id']) }}" class="btn skinny primary">View</a>
+                                                        <a href="{{ route('jobs.edit', $job['id']) }}" class="btn skinny primary">Edit</a>
+                                                    </div>
+                                                @elseif(auth()->user())
+                                                    <div class="job-actions" style="padding-top: 10px;">
+                                                        <a href="{{ route('jobs.show', $job['id']) }}" class="btn skinny primary">View</a>
+                                                    </div>
+                                                @else
+                                                    <div class="job-actions" style="padding-top: 10px;">
+                                                        <a href="{{ route('jobs.show', $job['id']) }}" class="btn skinny primary">View</a>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
                                     @endforeach
 
-                                    <div class="jobs-search-main-footer">
+                                    <div class="jobs-search-main-footer" style="padding: 20px;">
                                         <a href="{{ route('search.jobs') }}?query={{ $query }}" class="btn primary">View All Jobs</a>
                                     </div>
                                 @else
@@ -108,7 +126,7 @@
                             </div>
                         </div>
                         <div class="side-block users-search-main">
-                            <div class="users-search-main-header">
+                            <div class="side-block-header users-search-main-header">
                                 <h2>Users</h2>
                                 <p>Find users to add to your network!</p>
                             </div>

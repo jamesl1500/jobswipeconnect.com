@@ -27,6 +27,7 @@
                 <div class="left-navigation-menu">
                     <ul>
                         <li><a href="{{ route('settings.index') }}">Basic Information</a></li>
+                        <li><a href="{{ route('settings.social_media') }}">Social media</a></li>
                         <li><a href="{{ route('settings.change_email') }}">Change Email</a></li>
                         <li><a href="{{ route('settings.change_password') }}">Change Password</a></li>
                         <li class="active"><a href="{{ route('settings.privacy_settings') }}">Privacy Settings</a></li>
@@ -36,26 +37,6 @@
             </div>
             <div class="settings-content col-lg-9">
                 <div class="settings-content-inner">
-                    <div class="settings-content-form-error">
-                        @if($errors->any())
-                            <div class="alert alert-danger">
-                                <h2>Errors</h2>
-                                <ul>
-                                    @foreach($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @elseif(session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @elseif(session('error'))
-                            <div class="alert alert-danger">
-                                {{ session('error') }}
-                            </div>
-                        @endif
-                    </div>
                     <div class="settings-content-form-header">
                         <h2>Change Privacy Settings</h2>
                     </div>

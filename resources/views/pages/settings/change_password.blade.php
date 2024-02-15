@@ -22,6 +22,7 @@
                 <div class="left-navigation-menu">
                     <ul>
                         <li><a href="{{ route('settings.index') }}">Basic Information</a></li>
+                        <li><a href="{{ route('settings.social_media') }}">Social media</a></li>
                         <li><a href="{{ route('settings.change_email') }}">Change Email</a></li>
                         <li class="active"><a href="{{ route('settings.change_password') }}">Change Password</a></li>
                         <li><a href="{{ route('settings.privacy_settings') }}">Privacy Settings</a></li>

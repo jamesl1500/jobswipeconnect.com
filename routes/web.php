@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\JobsController;
 use App\Http\Controllers\CompaniesController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FollowingsController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\SearchController;
@@ -28,13 +29,9 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified', 'onboarding'])->name('dashboard.index');
+Route::get('/dashboard', [DashboardController::class, 'jobsFeeds'])->middleware(['auth', 'verified', 'onboarding'])->name('dashboard.jobs');
 
-Route::get('/dashboard/jobs', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified', 'onboarding'])->name('dashboard.jobs');
+Route::get('/dashboard/jobs', [DashboardController::class, 'postsFeed'])->middleware(['auth', 'verified', 'onboarding'])->name('dashboard.feed');
 
 // Search
 Route::get('/search', function () {
@@ -51,6 +48,9 @@ Route::post('/onboarding/step2', [OnboardingController::class, 'processStep2'])-
 // Settings routes
 Route::get('/settings', [SettingsController::class, 'index'])->middleware(['auth', 'verified', 'onboarding'])->name('settings.index');
 Route::post('/settings/post', [SettingsController::class, 'indexPost'])->middleware(['auth', 'verified', 'onboarding'])->name('settings.index.post');
+
+Route::get('/settings/social_media', [SettingsController::class, 'socialMedia'])->middleware(['auth', 'verified', 'onboarding'])->name('settings.social_media');
+Route::post('/settings/social_media/post', [SettingsController::class, 'socialMediaPost'])->middleware(['auth', 'verified', 'onboarding'])->name('settings.social_media.post');
 
 Route::get('/settings/change_email', [SettingsController::class, 'changeEmail'])->middleware(['auth', 'verified', 'onboarding'])->name('settings.change_email');
 Route::post('/settings/change_emai/post', [SettingsController::class, 'changeEmailPost'])->middleware(['auth', 'verified', 'onboarding'])->name('settings.change_email.post');
@@ -102,6 +102,9 @@ Route::post('/companies/edit/{company}/contact/post', [CompaniesController::clas
 // Jobs
 Route::get('/jobs', [JobsController::class, 'index'])->name('jobs.index');
 Route::get('/jobs/{job}', [JobsController::class, 'show'])->name('jobs.show');
+Route::get('/jobs/create', [JobsController::class, 'create'])->middleware(['auth', 'verified', 'onboarding'])->name('jobs.create');
+
+Route::get('/jobs/edit/{job}', [JobsController::class, 'edit'])->middleware(['auth', 'verified', 'onboarding'])->name('jobs.edit');
 
 // Follow route
 Route::post('/follow', [FollowingsController::class, 'follow'])->middleware(['auth'])->name('follow');
