@@ -18,7 +18,7 @@ class Matchmaker
         $jobs = [];
 
         // See if filters are set
-        if (count($filters) > 0) {
+        if ($filters['job_title'] != "" || $filters['job_type'] != "" || $filters['job_location'] != "" || $filters['job_category'] != "" || $filters['location_type'] != "") {
             // If a filter is set add a where clause to the query
             $jobs = \App\Models\Jobs::query()
                 ->when($filters['job_title'], function ($query, $job_title) {
@@ -44,8 +44,8 @@ class Matchmaker
                 ->get();
            
         } else {
-            // Get all jobs
-            $jobs = \App\Models\Jobs::where('status', 'active')->get();
+            // Get all jobs at random limit 1
+            $jobs = \App\Models\Jobs::inRandomOrder()->limit(1)->get();
         }
 
         return $jobs;

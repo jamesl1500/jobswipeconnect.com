@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMatchesLikesTable extends Migration
+class CreateJobSeekerMatchLikesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateMatchesLikesTable extends Migration
      */
     public function up()
     {
-        Schema::create('matches_likes', function (Blueprint $table) {
+        Schema::create('job_seeker_match_likes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("job_seeker_id")->constrained("users")->onDelete("cascade");
+            $table->foreignId("job_id")->constrained()->onDelete("cascade");
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateMatchesLikesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('matches_likes');
+        Schema::dropIfExists('job_seeker_match_likes');
     }
 }
