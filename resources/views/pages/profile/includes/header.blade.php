@@ -57,7 +57,7 @@
                     </div>
                     <div class="profile-page-header-content-actions">
                         @if (auth()->user() && auth()->user()->id == $user->id)
-                            <a href="{{ route('settings.index') }}" class="btn primary">Edit Profile</a>
+                            <a href="{{ route('settings.index') }}" class="btn primary">Edit Settings</a>
                         @else
                             <?php
                             // Show follow button if logged user is not the same as the profile user
@@ -88,7 +88,7 @@
                                     }
                                 }else{
                                     ?>
-                                        <a href="{{ route('settings.index') }}" class="btn primary">Settings</a>
+                                        <a href="{{ route('settings.index') }}" class="btn primary">Edit Settings</a>
                                     <?php
                                 }
                             }else{

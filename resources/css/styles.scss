@@ -1125,6 +1125,7 @@ $secondary-color: #ffa69e;
         padding: 0px;
 
         .page-row{
+            align-items: flex-start;
 
             .dashboard-content.left-filter{
                 background: white;
@@ -1927,6 +1928,79 @@ $secondary-color: #ffa69e;
                         }
                     }
                 }
+            }
+        }
+    }
+}
+
+/**
+* Matchmaker
+*/
+.matchmaker.job-seeker-version{
+    background: white;
+    border-radius: 5px;
+    box-shadow: $box-shadow;
+
+    .matchmaker-inner{
+
+        .company-info-top{
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            gap: 10px;
+            padding: 20px;
+
+            .company-logo{
+                text-align: left;
+                //margin-bottom: 20px;
+
+                img{
+                    max-width: 60px;
+                    border-radius: 50%;
+                }
+
+            }
+
+            .company-info{
+                width: 100%;
+                padding-top: 5px;
+
+                h3{
+                    font-size: 20px;
+                    margin-bottom: 0px;
+                }
+
+                p{
+                    font-size: 16px;
+                    margin-bottom: 0px;
+                }
+            }
+        }
+
+        .job-info{
+            padding: 20px;
+            padding-top: 0px;
+            padding-bottom: 0pxc;
+        }
+
+        .job-description{
+            padding: 20px;
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+
+        .apply-now{
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #eee;
+
+            .dislike, .like{
+                padding: 20px;
+                width: 50%;
+                text-align: center;
+                cursor: pointer;
             }
         }
     }

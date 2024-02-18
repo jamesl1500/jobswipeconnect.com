@@ -121,30 +121,75 @@ $(document).ready(function() {
      * ------------------
      * This script is used to handle the delete education button on profiles.
      */
-        $('.delete-education').click(function(e) {
-            e.preventDefault();
-    
-            var action = $(this).data('action');
-            var eduid = $(this).data('eduid');
-    
-            if (confirm('Are you sure you want to delete this education?')) 
-            {
-                $.ajax({
-                    url: action,
-                    method: 'DELETE',
-                    data: { eduid: eduid },
-                    success: function(response) {
-                        $('#edu-' + eduid).remove();
-    
-                        // Show alert
-                        Alert('Education deleted successfully.');
-                    },
-                    error: function(response) {
-                        console.log(response);
+    $('.delete-education').click(function(e) {
+        e.preventDefault();
+
+        var action = $(this).data('action');
+        var eduid = $(this).data('eduid');
+
+        if (confirm('Are you sure you want to delete this education?')) 
+        {
+            $.ajax({
+                url: action,
+                method: 'DELETE',
+                data: { eduid: eduid },
+                success: function(response) {
+                    $('#edu-' + eduid).remove();
+
+                    // Show alert
+                    Alert('Education deleted successfully.');
+                },
+                error: function(response) {
+                    console.log(response);
+                }
+            });
+        }
+
+        return false;
+    });
+
+    /**
+     * Edit Experience modal; Open modal and fill form
+     * ----------------
+     * This script is used to handle the edit experience form on profiles.
+     * 
+     * When the user clicks the edit button, it will open the modal with the form.
+     * When the user submits the form, it will make an AJAX request to the server.
+     */
+    $('.edit-experience').click(function(e) {
+        e.preventDefault();
+
+        var action = $(this).data('action');
+        var expid = $(this).data('expid');
+
+        $.ajax({
+            url: action,
+            method: 'GET',
+            data: { expid: expid },
+            success: function(response) {
+                console.log(response);
+                // Update the modal with the form
+                // For each key update it's corresponding input field 
+                for (var key in response.data) {
+                    $('#edit-experience-form').find('input[id="exp_edit_' + key + '"]').val(response.data[key]);
+
+                    if (key == 'description') {
+                        $('#edit-experience-form').find('textarea[id="exp_edit_' + key + '"]').val(response.data[key]);
                     }
-                });
+
+                    if (key == 'is_current_job' || key == 'employment_type') {
+                        $('#edit-experience-form').find('input[id="exp_edit_' + key + '"]').prop('checked', response.data[key]);
+                    }
+                }     
+                $('#edit-experience-modal').modal('show');
+            },
+            error: function(response) {
+                console.log(response);
             }
-    
-            return false;
         });
+
+        return false;
+    });
+
+
 });

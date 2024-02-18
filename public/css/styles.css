@@ -837,6 +837,9 @@
 .dashboard-page .dashboard-page-content {
   padding: 0px;
 }
+.dashboard-page .dashboard-page-content .page-row {
+  align-items: flex-start;
+}
 .dashboard-page .dashboard-page-content .page-row .dashboard-content.left-filter {
   background: white;
   border-radius: 5px;
@@ -1417,4 +1420,62 @@
 }
 .search-page .search-page-content .search-page-content-inner .search-page-primary-results .side-area .side-block.category-block .side-block-content ul.filter-links li:hover a, .search-page .search-page-content .search-page-content-inner .search-page-primary-results .side-area .side-block.experience-block .side-block-content ul.filter-links li:hover a {
   color: white;
+}
+
+/**
+* Matchmaker
+*/
+.matchmaker.job-seeker-version {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+.matchmaker.job-seeker-version .matchmaker-inner .company-info-top {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  gap: 10px;
+  padding: 20px;
+}
+.matchmaker.job-seeker-version .matchmaker-inner .company-info-top .company-logo {
+  text-align: left;
+}
+.matchmaker.job-seeker-version .matchmaker-inner .company-info-top .company-logo img {
+  max-width: 60px;
+  border-radius: 50%;
+}
+.matchmaker.job-seeker-version .matchmaker-inner .company-info-top .company-info {
+  width: 100%;
+  padding-top: 5px;
+}
+.matchmaker.job-seeker-version .matchmaker-inner .company-info-top .company-info h3 {
+  font-size: 20px;
+  margin-bottom: 0px;
+}
+.matchmaker.job-seeker-version .matchmaker-inner .company-info-top .company-info p {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+.matchmaker.job-seeker-version .matchmaker-inner .job-info {
+  padding: 20px;
+  padding-top: 0px;
+  padding-bottom: 0pxc;
+}
+.matchmaker.job-seeker-version .matchmaker-inner .job-description {
+  padding: 20px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.matchmaker.job-seeker-version .matchmaker-inner .apply-now {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #eee;
+}
+.matchmaker.job-seeker-version .matchmaker-inner .apply-now .dislike, .matchmaker.job-seeker-version .matchmaker-inner .apply-now .like {
+  padding: 20px;
+  width: 50%;
+  text-align: center;
+  cursor: pointer;
 }

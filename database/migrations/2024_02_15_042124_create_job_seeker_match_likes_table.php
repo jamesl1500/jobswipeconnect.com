@@ -17,6 +17,7 @@ class CreateJobSeekerMatchLikesTable extends Migration
             $table->id();
             $table->foreignId("job_seeker_id")->constrained("users")->onDelete("cascade");
             $table->foreignId("job_id")->constrained()->onDelete("cascade");
+            $table->enum("type", ["like", "dislike"]);
             $table->timestamps();
         });
     }

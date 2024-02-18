@@ -8,6 +8,7 @@ use App\Http\Controllers\JobsController;
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FollowingsController;
+use App\Http\Controllers\MatchmakerController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\SearchController;
 
@@ -71,6 +72,8 @@ Route::post('/profile/{username}/about/editCoverLetterPost', [ProfileController:
 Route::post('/profile/{username}/about/editSkillsPost', [ProfileController::class, 'editSkillsPost'])->name('profile.about.skills.post');
 Route::post('/profile/{username}/about/addExperiencePost', [ProfileController::class, 'addExperiencePost'])->name('profile.about.add_experience.post');
 Route::delete('/profile/{username}/about/deleteExperiencePost', [ProfileController::class, 'deleteExperiencePost'])->name('profile.about.delete_experience.post');
+Route::post('/profile/{username}/about/editExperiencePost', [ProfileController::class, 'editExperiencePost'])->name('profile.about.edit_experience.post');
+Route::get('/profile/{username}/about/getExperiencePost', [ProfileController::class, 'getExperiencePost'])->name('profile.about.get_experience.post');
 Route::post('/profile/{username}/about/addEducationPost', [ProfileController::class, 'addEducationPost'])->name('profile.about.add_education.post');
 Route::delete('/profile/{username}/about/deleteEducationPost', [ProfileController::class, 'deleteEducationPost'])->name('profile.about.delete_education.post');
 
@@ -122,5 +125,9 @@ Route::get('search', [SearchController::class, 'index'])->name('search.index');
 Route::get('search/users', [SearchController::class, 'users'])->name('search.users');
 Route::get('search/jobs', [SearchController::class, 'jobs'])->name('search.jobs');
 Route::get('search/companies', [SearchController::class, 'companies'])->name('search.companies');
+
+// Matchmaker
+Route::post('matchmaker/job_seeker/like', [MatchmakerController::class, 'job_seeker_like'])->middleware(['auth', 'verified', 'onboarding'])->name('matchmaker.job_seeker.like');
+Route::post('matchmaker/job_seeker/dislike', [MatchmakerController::class, 'job_seeker_dislike'])->middleware(['auth', 'verified', 'onboarding'])->name('matchmaker.job_seeker.dislike');
 
 require __DIR__.'/auth.php';

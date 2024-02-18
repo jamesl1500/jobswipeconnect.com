@@ -70,7 +70,7 @@
                 </div>
 
                 <!-- Experience -->
-                <div class="profile-page-about-experience">
+                <div class="profile-page-about-experience" id="experiences">
                     <div class="profile-page-about-experience-header">
                         <h2>Experience</h2>
                         @if(auth()->user() && $user->id == auth()->user()->id)
@@ -83,15 +83,15 @@
                             foreach($user->experiences as $experience) {
                                 ?>
                                 <div class="profile-page-about-experience-content-item" id="eduj-<?php echo $experience->id; ?>">
-                                    <h3><?php echo $experience->title; ?></h3>
-                                    <p><?php echo $experience->company; ?> &middot; <?php echo ucwords($experience->employment_type); ?></p>
-                                    <p class="dates"><?php echo $experience->start_date; ?> - <?php if($experience->is_current_job){ ?> Current <?php } else { echo $experience->end_date; } ?></p>
-                                    <p><?php echo $experience->description; ?></p>
+                                    <h3 id="exp_title_{{ $experience->id }}"><?php echo $experience->title; ?></h3>
+                                    <p id="exp_subtext_{{ $experience->id }}"><?php echo $experience->company; ?> &middot; <?php echo ucwords($experience->employment_type); ?></p>
+                                    <p id="exp_dates_{{ $experience->id }}" class="dates"><?php echo $experience->start_date; ?> - <?php if($experience->is_current_job){ ?> Current <?php } else { echo $experience->end_date; } ?></p>
+                                    <p id="exp_description_{{ $experience->id }}"><?php echo $experience->description; ?></p>
                                     <div class="experience-actions">
                                         <?php
                                         if(auth()->user() && $user->id == auth()->user()->id) {
                                             ?>
-                                            <button class="btn skinny primary" data-bs-toggle="modal" data-bs-target="#editExperienceModal">Edit</button>
+                                            <button class="btn skinny primary edit-experience" data-expid="{{ $experience->id }}" data-action="{{ route('profile.about.get_experience.post', $user->username) }}" data-bs-toggle="modal" data-bs-target="#editExperienceModal">Edit</button>
                                             <button class="btn skinny primary delete-education" data-eduid="<?php echo $experience->id; ?>" data-action="{{ route('profile.about.delete_education.post', $user->username) }}">Delete</button>
                                             <?php
                                         }
@@ -157,7 +157,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h2>Edit Cover Letter</h2>
-                        <button class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form id="edit-cover-letter-form" action="{{ route('profile.about.cover_letter.post', $user->username) }}" method="post" enctype="multipart/form-data">
@@ -183,7 +183,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h2>Edit Cover Letter</h2>
-                        <button class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form id="edit-skills-form" action="{{ route('profile.about.skills.post', $user->username) }}" method="post" enctype="multipart/form-data">
@@ -210,7 +210,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h2>Add Experience</h2>
-                        <button class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form id="add-experience-form" action="{{ route('profile.about.add_experience.post', $user->username) }}" method="post" enctype="multipart/form-data">
@@ -271,7 +271,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h2>Add Education</h2>
-                        <button class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form id="add-education-form" action="{{ route('profile.about.add_education.post', $user->username) }}" method="post" enctype="multipart/form-data">
@@ -318,6 +318,68 @@
                                         <option value="bachelor">Bachelors</option>
                                         <option value="master">Masters</option>
                                         <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn primary">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Experience Modal -->
+        <div class="modal" id="editExperienceModal" tabindex="-1" aria-labelledby="editExperienceModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Edit Experience</h2>
+                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="edit-experience-form" action="{{ route('profile.about.edit_experience.post', $user->username) }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" id="exp_edit_id" name="edit_experience_id" value="">
+                            <div class="form-group">
+                                <div class="form-input">
+                                    <label for="title">Title</label>
+                                    <input id="exp_edit_title" type="text" name="exp_edit_title" autocomplete="false">
+                                </div>
+                                <div class="form-input">
+                                    <label for="company">Company</label>
+                                    <input id="exp_edit_company" type="text" name="exp_edit_company" autocomplete="false">
+                                </div>
+                                <div class="form-input">
+                                    <label for="employment_type">Employment Type</label>
+                                    <select id="exp_edit_employment_type" name="exp_edit_employment_type">
+                                        <option value="full-time">Full Time</option>
+                                        <option value="part-time">Part Time</option>
+                                        <option value="remote">Remote</option>
+                                        <option value="contract">Contract</option>
+                                        <option value="internship">Internship</option>
+                                        <option value="freelance">Freelance</option>
+                                        <option value="temporary">Temporary</option>
+                                    </select>
+                                </div>
+                                <div class="form-input">
+                                    <label for="start_date">Start Date</label>
+                                    <input id="exp_edit_start_date" type="date" name="exp_edit_start_date" autocomplete="false">
+                                </div>
+                                <div class="form-input">
+                                    <label for="end_date">End Date</label>
+                                    <input id="exp_edit_end_date" type="date" name="exp_edit_end_date" autocomplete="false">
+                                </div>
+                                <div class="form-input">
+                                    <label for="description">Description</label>
+                                    <textarea id="exp_edit_description" name="exp_edit_description" autocomplete="false" rows="10"></textarea>
+                                </div>
+                                <div class="form-input">
+                                    <label for="is_current_job">Is this your current job?</label>
+                                    <select id="exp_edit_is_current_job" name="exp_edit_is_current_job">
+                                        <option value="1">Yes</option>
+                                        <option value="0">No</option>
                                     </select>
                                 </div>
                             </div>

@@ -314,4 +314,106 @@ class ProfileController extends Controller
 
         return redirect()->route('profile.resume', $username)->with('success', 'Resume saved successfully');
     }
+
+    /**
+     * Get Experience Post
+     * ---------------------
+     * Get the experience
+     */
+    public function getExperiencePost(Request $request, $username){
+        /**
+         * Check if user exists
+         */
+        $user = User::where('username', $username)->first();
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'User not found',
+                'code'    => 404,
+            ], 404);
+        }
+
+        /**
+         * Validate the request
+         */
+        $request->validate([
+            'expid' => 'required|exists:experiences,id',
+        ]);
+
+        // Make sure logged in user is the owner of the experience
+        if ($user->id !== auth()->id()) {
+            return response()->json([
+                'message' => 'Unauthorized',
+                'code'    => 403,
+            ], 403);
+        }
+
+        /**
+         * Get the experience
+         */
+        $experience = $user->experiences()->where('id', $request->expid)->first();
+
+        return response()->json([
+            'message' => 'Experience retrieved successfully',
+            'code'    => 200,
+            'data'    => $experience,
+        ]);
+    }
+
+    /**
+     * Edit Experience Post
+     * ---------------------
+     * Edit the experience
+     */
+    public function editExperiencePost(Request $request, $username){
+        /**
+         * Check if user exists
+         */
+        $user = User::where('username', $username)->first();
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'User not found',
+                'code'    => 404,
+            ], 404);
+        }
+
+        /**
+         * Validate the request
+         */
+        $request->validate([
+            'edit_experience_id' => 'required|exists:experiences,id',
+            'exp_edit_title' => 'required|string|max:255',
+            'exp_edit_company' => 'required|string|max:255',
+            'exp_edit_start_date' => 'required|date',
+            'exp_edit_end_date' => 'nullable|date',
+            'exp_edit_description' => 'nullable|string|max:5000',
+            'exp_edit_is_current_job' => 'boolean',
+            'exp_edit_employment_type' => 'required|in:full-time,part-time,internship,freelance,contract,temporary,remote',
+        ]);
+
+        // Make sure logged in user is the owner of the experience
+        if ($user->id !== auth()->id()) {
+            return response()->json([
+                'message' => 'Unauthorized',
+                'code'    => 403,
+            ], 403);
+        }
+
+        /**
+         * Edit the experience
+         */
+        $experience = $user->experiences()->where('id', $request->edit_experience_id)->first();
+        $experience->update([
+            'title' => $request->exp_edit_title,
+            'company' => $request->exp_edit_company,
+            'start_date' => $request->exp_edit_start_date,
+            'end_date' => $request->exp_edit_end_date,
+            'description' => $request->exp_edit_description,
+            'is_current_job' => $request->exp_edit_is_current_job,
+            'employment_type' => $request->exp_edit_employment_type,
+        ]);
+
+        return redirect()->route('profile.about', $username)->with('success', 'Experience saved successfully');
+    }
 }

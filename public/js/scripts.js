@@ -142,6 +142,46 @@ $(document).ready(function () {
     }
     return false;
   });
+
+  /**
+   * Edit Experience modal; Open modal and fill form
+   * ----------------
+   * This script is used to handle the edit experience form on profiles.
+   * 
+   * When the user clicks the edit button, it will open the modal with the form.
+   * When the user submits the form, it will make an AJAX request to the server.
+   */
+  $('.edit-experience').click(function (e) {
+    e.preventDefault();
+    var action = $(this).data('action');
+    var expid = $(this).data('expid');
+    $.ajax({
+      url: action,
+      method: 'GET',
+      data: {
+        expid: expid
+      },
+      success: function success(response) {
+        console.log(response);
+        // Update the modal with the form
+        // For each key update it's corresponding input field 
+        for (var key in response.data) {
+          $('#edit-experience-form').find('input[id="exp_edit_' + key + '"]').val(response.data[key]);
+          if (key == 'description') {
+            $('#edit-experience-form').find('textarea[id="exp_edit_' + key + '"]').val(response.data[key]);
+          }
+          if (key == 'is_current_job' || key == 'employment_type') {
+            $('#edit-experience-form').find('input[id="exp_edit_' + key + '"]').prop('checked', response.data[key]);
+          }
+        }
+        $('#edit-experience-modal').modal('show');
+      },
+      error: function error(response) {
+        console.log(response);
+      }
+    });
+    return false;
+  });
 });
 /******/ })()
 ;

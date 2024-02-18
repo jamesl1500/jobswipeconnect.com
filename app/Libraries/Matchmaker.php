@@ -20,7 +20,7 @@ class Matchmaker
         // See if filters are set
         if ($filters['job_title'] != "" || $filters['job_type'] != "" || $filters['job_location'] != "" || $filters['job_category'] != "" || $filters['location_type'] != "") {
             // If a filter is set add a where clause to the query
-            $jobs = \App\Models\Jobs::query()
+            $jobs = \App\Models\Jobs::inRandomOrder()
                 ->when($filters['job_title'], function ($query, $job_title) {
                     return $query->where('title', 'like', '%' . $job_title . '%');
                 })
@@ -41,11 +41,15 @@ class Matchmaker
                     $join->on('jobs.id', '=', 'job_applicants.job_id')
                         ->where('job_applicants.user_id', '!=', auth()->user()->id);
                 })
-                ->get();
-           
+                // Join job_seeker_match_likes to make sure logged user has not liked
+                ->leftJoin('job_seeker_match_likes', function ($join) {
+                    $join->on('jobs.id', '=', 'job_seeker_match_likes.job_id')
+                        ->where('job_seeker_match_likes.job_seeker_id', '!=', auth()->user()->id);
+                })
+                ->limit(1)->first();
         } else {
             // Get all jobs at random limit 1
-            $jobs = \App\Models\Jobs::inRandomOrder()->limit(1)->get();
+            $jobs = \App\Models\Jobs::inRandomOrder()->limit(1)->first();
         }
 
         return $jobs;
