@@ -24,5 +24,6 @@ class Experiences extends Model
         'description',
         'is_current_job',
         'employment_type',
+        'position',
     ];
 }

@@ -77,12 +77,12 @@
                             <button class="btn primary" data-bs-toggle="modal" data-bs-target="#addExperienceModal">Add Experience</button>
                         @endif
                     </div>
-                    <div class="profile-page-about-experience-content">
+                    <div class="profile-page-about-experience-content <?php if(auth()->user() && auth()->user()->id == $user->id){ ?>sortable<?php } ?>" data-action="{{ route('profile.about.updateExperienceOrder.post', ['username' => $user->username]) }}">
                         <?php
                         if(count($user->experiences) > 0) {
                             foreach($user->experiences as $experience) {
                                 ?>
-                                <div class="profile-page-about-experience-content-item" id="eduj-<?php echo $experience->id; ?>">
+                                <div class="profile-page-about-experience-content-item" id="expid-<?php echo $experience->id; ?>" data-id="{{ $experience->id }}" data-position="{{ $experience->position }}" draggable="true" >
                                     <h3 id="exp_title_{{ $experience->id }}"><?php echo $experience->title; ?></h3>
                                     <p id="exp_subtext_{{ $experience->id }}"><?php echo $experience->company; ?> &middot; <?php echo ucwords($experience->employment_type); ?></p>
                                     <p id="exp_dates_{{ $experience->id }}" class="dates"><?php echo $experience->start_date; ?> - <?php if($experience->is_current_job){ ?> Current <?php } else { echo $experience->end_date; } ?></p>
@@ -92,7 +92,7 @@
                                         if(auth()->user() && $user->id == auth()->user()->id) {
                                             ?>
                                             <button class="btn skinny primary edit-experience" data-expid="{{ $experience->id }}" data-action="{{ route('profile.about.get_experience.post', $user->username) }}" data-bs-toggle="modal" data-bs-target="#editExperienceModal">Edit</button>
-                                            <button class="btn skinny primary delete-education" data-eduid="<?php echo $experience->id; ?>" data-action="{{ route('profile.about.delete_education.post', $user->username) }}">Delete</button>
+                                            <button class="btn skinny primary delete-experience" data-expid="<?php echo $experience->id; ?>" data-action="{{ route('profile.about.delete_experience.post', $user->username) }}">Delete</button>
                                             <?php
                                         }
                                         ?>

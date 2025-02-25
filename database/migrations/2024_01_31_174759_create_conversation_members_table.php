@@ -15,9 +15,12 @@ class CreateConversationMembersTable extends Migration
     {
         Schema::create('conversation_members', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("conversation_id")->constrained();
-            $table->foreignId("user_id")->constrained();
+            $table->string('conversation_member_uid');
+            $table->foreignId("conversation_id");
+            $table->foreignId("user_uid");
+
             $table->enum("type",["job_poster","applicant"])->default("applicant");
+            $table->enum('user_role', ['admin', 'member', 'banned']);
             
             $table->timestamps();
         });

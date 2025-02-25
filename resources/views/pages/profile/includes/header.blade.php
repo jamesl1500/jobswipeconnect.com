@@ -99,6 +99,24 @@
                             ?>
                         @endif
                     </div>
+
+                    <!-- Profile stats -->
+                    <div class="profile-page-header-content-stats">
+                        <div class="profile-page-header-content-stats-inner">
+                            <div class="profile-page-header-content-stats-item">
+                                <h3>Posts</h3>
+                                <p>{{ count($user->posts) }}</p>
+                            </div>
+                            <div class="profile-page-header-content-stats-item">
+                                <h3>Followers</h3>
+                                <p>{{ count($user->followers) }}</p>
+                            </div>
+                            <div class="profile-page-header-content-stats-item">
+                                <h3>Following</h3>
+                                <p>{{ count($user->followings) }}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

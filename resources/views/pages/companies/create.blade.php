@@ -1,5 +1,5 @@
 @php($title = "Create Company")
-@extends('layouts.both')
+@extends('layouts.authorized')
 
 @section('content')
     <div class="companies-page page">

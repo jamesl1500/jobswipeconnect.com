@@ -25,6 +25,61 @@ $secondary-color: #ffa69e;
 }
 
 /**
+* Resume Box
+*/
+.resume-box{
+    background: white;
+    border-radius: 5px;
+    border: 2px solid #eee;
+    box-shadow: $box-shadow;
+    margin-bottom: 20px;
+    display: flex;
+
+    .resume-box-left{
+        padding: 10px;
+        border-right: 1px solid #eee;
+        background: blue;
+
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+
+        // Display content in the middle
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        p{
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 0px;
+            color: white;
+            line-height: 0;
+        }
+
+        p.ext{
+            color: white;
+        }
+    }
+
+    .resume-box-right{
+        padding: 10px;
+
+        p{
+            font-size: 16px;
+            margin-bottom: 0px;
+        }
+
+        p.name{
+            font-weight: bold;
+        }
+
+        p.date{
+            color: #aaa;
+        }
+    }
+}
+
+/**
 * Badge
 */
 .badge{
@@ -108,6 +163,47 @@ $secondary-color: #ffa69e;
 }
 
 /**
+* Simple Alerts
+*/
+.simple-alert{
+    padding: 20px;
+    border-radius: 5px;
+    text-align: left;
+
+    .title{
+
+        h1{
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+    }
+
+    .subtitle{
+
+        h2{
+            font-size: 16px;
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+    }
+
+    .actions{
+        border-top: 1px solid #eee;
+        padding-top: 10px;
+
+        a.btn{
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-right: 10px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            width: 100%;
+        }
+    }
+}
+
+/**
 * Components
 */
 
@@ -130,6 +226,33 @@ $secondary-color: #ffa69e;
 
         .form-input{
             width: 48%;
+        }
+
+        .form-input:last-child{
+            margin-bottom: 0px;
+        }
+
+        &:last-child{
+            margin-bottom: 0px;
+        }
+    }
+
+    .inline-form-group-3{
+        display: flex;
+        gap: 10px;
+        justify-content: flex-start;
+        margin-bottom: 20px;
+
+        .form-input{
+            width: 30%;
+        }
+
+        .form-input:last-child{
+            margin-bottom: 0px;
+        }
+
+        &:last-child{
+            margin-bottom: 0px;
         }
     }
 
@@ -362,6 +485,42 @@ $secondary-color: #ffa69e;
                     border: 1px solid #eee;
                     padding: 20px;
                     width: 300px;
+
+                    .header-dropdown-role{
+
+                        form{
+
+                           // Make into an iphone like tab system with radio buttons
+                            .toggle{
+                                display: flex;
+                                gap: 10px;
+                                margin-bottom: 20px;
+
+                                label{
+                                    padding: 10px 20px;
+                                    border-radius: 5px;
+                                    cursor: pointer;
+                                    transition: 0.3s;
+                                    border: 1px solid #e0e0e0;
+
+                                    &:hover{
+                                        background: #f8f8f8;
+                                    }
+                                }
+
+                                input{
+                                    display: none;
+                                }
+
+                                input:checked + label{
+                                    background: $primary-color;
+                                    color: white;
+                                    border: 1px solid $primary-color;
+                                }
+                            }
+
+                        }
+                    }
 
                     ul{
                         list-style: none;
@@ -736,6 +895,40 @@ $secondary-color: #ffa69e;
                             text-align: center;
                             
                         }
+
+                        .profile-page-header-content-stats{
+                            margin: 0% auto;
+                            margin-top: 20px;
+                            text-align: center;
+                            width: 400px;
+
+                            .profile-page-header-content-stats-inner{
+                                display: flex;
+                                justify-content: space-between;
+
+                                .profile-page-header-content-stats-item{
+                                    text-align: center;
+                                    border-radius: 5px;
+                                    margin-top: 10px;
+
+                                    h3{
+                                        font-size: 1em;
+                                        margin-bottom: 0px;
+                                        color: white;
+                                    }
+
+                                    p{
+                                        font-size: 1em;
+                                        margin-bottom: 0px;
+                                        color: white;
+                                    }
+
+                                    &:last-child{
+                                        margin-bottom: 0px;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -907,6 +1100,10 @@ $secondary-color: #ffa69e;
 
                         .profile-page-about-experience-content-item{
                             margin-bottom: 20px;
+                            cursor: move; /* fallback if grab cursor is unsupported */
+                            cursor: grab;
+                            cursor: -moz-grab;
+                            cursor: -webkit-grab;
 
                             h3{
                                 font-size: 20px;
@@ -1127,6 +1324,92 @@ $secondary-color: #ffa69e;
         .page-row{
             align-items: flex-start;
 
+            .dashboard-content.user-profile{
+
+                .dashboard-content-inner{
+
+                    .dashboard-current-user{
+                        background: white;
+                        border-radius: 5px;
+                        box-shadow: $box-shadow;
+                        border: 1px solid #eee;
+                        padding: 20px;
+                        margin-bottom: 20px;
+
+                        .dashboard-current-user-inner{
+
+                            .dashboard-current-user-image{
+                                text-align: center;
+                                margin-bottom: 20px;
+
+                                img{
+                                    max-width: 100px;
+                                    border-radius: 50%;
+                                }
+                            }
+
+                            .dashboard-current-user-name{
+                                margin-bottom: 10px;
+                                padding-bottom: 10px;
+                                border-bottom: 1px solid #eee;
+                                text-align: center;
+
+                                h2{
+                                    font-size: 20px;
+                                    margin-bottom: 0px;
+                                }
+
+                                h4{
+                                    font-size: 16px;
+                                    margin-bottom: 0px;
+                                }
+                            
+                            }
+
+                            .dashboard-current-user-bio{
+                                text-align: center;
+                                margin-bottom: 20px;
+
+                                p{
+                                    font-size: 16px;
+                                    margin-bottom: 0px;
+                                }
+                            }
+
+                            .dashboard-current-user-stats{
+                                margin-top: 20px;
+
+                                .dashboard-current-user-stats-inner{
+                                    text-align: center;
+
+                                    .dashboard-current-user-stats-item{
+                                        display: flex;
+                                        justify-content: space-between; 
+                                        background: #f8f8f8;
+                                        border-radius: 5px;
+                                        margin-bottom: 10px;
+
+                                        h3{
+                                            font-size: 1em;
+                                            margin-bottom: 0px;
+                                        }
+
+                                        p{
+                                            font-size: 1em;
+                                            margin-bottom: 0px;
+                                        }
+
+                                        &:last-child{
+                                            margin-bottom: 0px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             .dashboard-content.left-filter{
                 background: white;
                 border-radius: 5px;
@@ -1198,7 +1481,7 @@ $secondary-color: #ffa69e;
                         .dashboard-content-creator-top{
                             display: flex;
                             justify-content: flex-start;
-                            margin-bottom: 20px;
+                            //margin-bottom: 20px;
                             padding-bottom: 10px;
 
                             border-bottom: 1px solid #eee;
@@ -1235,6 +1518,15 @@ $secondary-color: #ffa69e;
                     .dashboard-content-creator-input{
 
                         form{
+
+                            input[type="text"]{
+                                width: 100%;
+                                padding: 10px 0px;
+                                border: none;
+                                border-bottom: 1px solid #eee;
+                                margin-bottom: 20px;
+                                outline: none;
+                            }
 
                             textarea{
                                 width: 100%;
@@ -2001,6 +2293,1326 @@ $secondary-color: #ffa69e;
                 width: 50%;
                 text-align: center;
                 cursor: pointer;
+            }
+        }
+    }
+}
+
+.matchmaker.job-poster-version{
+    background: white;
+    border-radius: 5px;
+    box-shadow: $box-shadow;
+
+    .matchmaker-inner{
+        padding: 20px;
+
+        .matchmaker-header{
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+
+            p{
+                font-size: 16px;
+                margin-bottom: 0px;
+            }
+        }
+
+        .matchmaker-tab-bar{
+            // Three tabs
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            margin-top: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+
+            .matchmaker-tab{
+                padding: 10px;
+                border-radius: 5px;
+                cursor: pointer;
+                width: 30%;
+            }
+
+            .matchmaker-tab.active{
+                background: #ddd;
+                color: #333;
+            }
+        }
+
+        .matchmaker-body{
+
+            .matchmaker-tab-content{
+
+                .matchmaker-tab-content-header{
+                    padding-bottom: 15px;
+                    border-bottom: 1px solid #eee;
+
+                    p{
+                        font-size: 16px;
+                        margin-bottom: 0px;
+                        font-weight: 600;
+                    }
+                }
+
+                .matchmaker-tab-content-body{
+                    margin-top: 20px;
+
+                    .matchmaker-applicant-top-info{
+                        display: flex;
+                        justify-content: flex-start;
+
+                        .matchmaker-applicant-image{
+                            text-align: left;
+                            margin-bottom: 20px;
+
+                            img{
+                                max-width: 50px;
+                                border-radius: 50%;
+                            }
+                        }
+
+                        .matchmaker-applicant-info{
+                            width: 100%;
+                            padding-left: 15px;
+
+                            margin-top: -3px;
+
+                            p{
+                                font-size: 16px;
+                                margin-bottom: 0px;
+                            }
+
+                            p.name{
+                                font-size: 20px;
+                                font-weight: 600;
+                                margin-bottom: -5px;
+                            }
+                        }
+                    }
+
+                    .matchmaker-applicant-middle-experience, .matchmaker-applicant-middle-education{
+
+                        .matchmaker-applicant-experience, .matchmaker-applicant-education{
+                            margin-bottom: 10px;
+
+                            p{
+                                font-size: 16px;
+                                margin-bottom: 0px;
+                            }
+
+                            p.date{
+                                color: #aaa;
+                            }
+
+                            &:last-child{
+                                margin-bottom: 0px;
+                            }
+
+                            .experience-actions, .education-actions{
+                                margin-top: 10px;
+                            }
+                        }
+
+                        p.title-m{
+                            font-size: 16px;
+                            font-weight: 600;
+                            margin-bottom: 0px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .matchmaker-actions{
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+            margin-top: 20px;
+
+            form{
+                display: flex;
+                justify-content: space-between;
+
+                button{
+                    padding: 10px 20px;
+                    background: $background-color;
+                    color: white;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+/**
+* Page: Jobs
+*/
+.jobs-page{
+
+    .jobs-page-content{
+
+        .jobs-page-content-inner{
+
+            .jobs-page-content-title{
+                display: none;
+
+                h2{
+                    font-size: 30px;
+                    margin-bottom: 0px;
+                }
+            }
+
+            .jobs-page-content-body{
+                
+                .jobs-page-content-body-inner{
+
+                    .jobs-page-content-body-left{
+                        
+                        .jobs-page-content-body-left-inner{
+                            background: white;
+                            border-radius: 5px;
+                            box-shadow: $box-shadow;
+                            border: 1px solid #eee;
+                            padding: 20px;
+                            margin-bottom: 20px;
+
+                            .jobs-page-content-body-left-title{
+                                margin-bottom: 20px;
+                                padding-bottom: 20px;
+                                border-bottom: 1px solid #eee;
+
+                                h3{
+                                    font-size: 14px;
+                                    font-weight: bold;
+                                    margin-bottom: 0px;
+                                }
+                            }
+
+                            .jobs-page-content-body-left-description{
+
+                                p{
+                                    font-size: 16px;
+                                    margin-bottom: 0px;
+                                }
+                            }
+                        }
+                    }
+
+                    .jobs-page-content-body-right{
+
+                        .jobs-page-content-body-right-inner{
+                            background: white;
+                            border-radius: 5px;
+                            box-shadow: $box-shadow;
+                            border: 1px solid #eee;
+                            padding: 20px;
+                            margin-bottom: 20px;
+
+
+                            .jobs-page-content-body-right-title{
+                                margin-bottom: 20px;
+                                padding-bottom: 20px;
+                                border-bottom: 1px solid #eee;
+
+                                h3{
+                                    font-size: 14px;
+                                    font-weight: bold;
+                                    margin-bottom: 0px;
+                                }
+                            }
+
+                            .jobs-page-content-body-right-details{
+
+                                .jobs-page-content-body-right-details-inner{
+
+                                    .jobs-page-content-body-right-details-item{
+                                        margin-bottom: 20px;
+
+                                        h4{
+                                            font-size: 12px;
+                                            font-weight: bold;
+                                            margin-bottom: 10px;
+                                        }
+
+                                        p{
+                                            font-size: 16px;
+                                            margin-bottom: 0px;
+                                        }
+
+                                        p.dates{
+                                            color: #aaa;
+                                        }
+
+                                        &:last-child{
+                                            margin-bottom: 0px;
+                                        }
+
+                                        .item-actions{
+                                            margin-top: 10px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .jobs-page-content.apply{
+        
+        .jobs-page-content-inner{
+
+            .jobs-page-content-title{
+                display: block;
+
+                h2{
+                    font-size: 30px;
+                    margin-bottom: 0px;
+                }
+            }
+
+            .jobs-page-content-body{
+                background: white;
+                border-radius: 5px;
+                box-shadow: $box-shadow;
+                border: 1px solid #eee;
+                padding: 20px;
+                margin-top: 20px;
+
+                form{
+
+                }
+            }
+        }
+    }
+
+
+    .jobs-page-header{
+        background-color: $background-color;
+        background-image: $background-gradient;
+
+        width: 100%;
+        padding: 60px 0px;
+
+        .jobs-header-container{
+            padding: 20px;
+            border-radius: 5px;
+
+            .jobs-page-header-inner{
+
+
+                .jobs-page-header-image{
+                    text-align: center;
+
+                    img{
+                        max-width: 200px;
+                        border-radius: 50%;
+                    }
+                }
+
+                .jobs-page-header-content{
+
+                    .jobs-page-header-content-inner{
+                        padding-top: 20px;
+    
+                        .jobs-page-header-content-title{
+                            margin-bottom: 10px;
+                            text-align: center;
+    
+                            h1{
+                                font-size: 40px;
+                                color: white;
+                            }
+                        }
+
+                        .jobs-page-header-content-subtitle{
+                            text-align: center;
+    
+                            h2{
+                                font-size: 20px;
+                                font-weight: 300;
+    
+                                color: white;
+                            }
+                        }
+
+                        .jobs-page-header-content-social-media-icons{
+                            text-align: center;
+                            margin-top: 20px;
+    
+                            ul{
+                                list-style: none;
+                                padding: 0px;
+                                margin: 0px;
+    
+                                li{
+                                    display: inline;
+                                    margin-right: 20px;
+    
+                                    a{
+                                        text-decoration: none;
+                                        color: white;
+                                    }
+                                }
+
+                                li:last-child{
+                                    margin-right: 0px;
+                                }
+                            }
+                        }
+
+                        .jobs-page-header-content-actions{
+                            padding-top: 20px;
+                            
+                            text-align: center;
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .jobs-page-inline-navigation{
+        background: white;
+        border-radius: 5px;
+        box-shadow: $box-shadow;
+        border: 1px solid #eee;
+        padding: 20px;
+        margin-bottom: 20px;
+
+        ul{
+            list-style: none;
+            padding: 0px;
+            margin: 0px;
+
+            text-align: center;
+
+            li{
+                display: inline;
+                margin-right: 40px;
+
+                a{
+                    text-decoration: none;
+                    color: #333;
+                }
+            }
+
+            li:hover, li.active{
+                border-bottom: 2px solid $background-color;
+                padding-bottom: 20px;
+
+                a{
+                    color: $background-color;
+                }
+            }
+
+            li:last-child{
+                margin-right: 0px;
+            }
+        }
+    }
+
+    .jobs-page-content{
+
+        // Show jobs page
+        .jobs-page-content-inner{
+
+            .jobs-applicant-left{
+
+                .jobs-page-applicants-navigation{
+                    background: white;
+                    border-radius: 5px;
+                    box-shadow: $box-shadow;
+
+                    .jobs-page-applicants-navigation-header{
+                        padding: 20px;
+                        border-bottom: 1px solid #eee;
+
+                        h2{
+                            font-size: 20px;
+                            margin-bottom: 0px;
+                        }
+                    }
+
+                    .jobs-page-applicants-navigation-inner{
+
+                        ul{
+                            list-style: none;
+                            padding: 0px;
+                            margin: 0px;
+
+                            li{
+                                padding: 10px;
+                                padding-left: 20px;
+
+                                a{
+                                    text-decoration: none;
+                                    color: #333;
+                                }
+
+                                &.active{
+                                    background: $background-color;
+                                    padding-left: 20px;
+
+                                    a{
+                                        color: white;
+                                    }
+                                }
+
+                                &:hover{
+                                    background: $background-color;
+                                    padding-left: 20px;
+
+                                    a{
+                                        color: white;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .jobs-page-applicants-content-middle{
+                background: white;
+                border-radius: 5px;
+                box-shadow: $box-shadow;
+                border: 1px solid #eee;
+                padding: 20px;
+                margin-bottom: 20px;
+
+                .jobs-page-content-header{
+                    border-bottom: 1px solid #eee;
+                    padding-bottom: 10px;
+                    margin-bottom: 20px;
+
+                    h1{
+                        font-size: 30px;
+                        font-weight: 600;
+                    }
+
+                    h2{
+                        font-size: 20px;
+                        font-weight: 400;
+                    }
+                }
+
+                .jobs-page-content-box{
+
+                    // Applicants
+                    .applicant{
+                        cursor: pointer;
+                        display: flex;
+                        gap: 20px;
+
+                        .applicant-image{
+                            text-align: left;
+                            margin-bottom: 20px;
+
+                            img{
+                                max-width: 100px;
+                                border-radius: 50%;
+                            }
+                        }
+
+                        .applicant-inner{
+
+                            .applicant-inner-header{
+                                width: 100%;
+                                padding-bottom: 10px;
+                                margin-bottom: 10px;
+                                border-bottom: 1px solid #eee;
+
+                                h3{
+                                    font-size: 20px;
+                                    margin-bottom: 0px;
+                                }
+
+                                p{
+                                    font-size: 16px;
+                                    margin-bottom: 0px;
+                                }
+                            }
+
+                            .applicant-inner-content{
+                                margin-bottom: 10px;
+
+                                p{
+                                    font-size: 16px;
+                                    margin-bottom: 0px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .page-row{
+
+            .jobs-create-container, .jobs-my_jobs-container{
+                background: white;
+                border-radius: 5px;
+                box-shadow: $box-shadow;
+                border: 1px solid #eee;
+                padding: 20px;
+                margin-bottom: 20px;
+
+                .jobs-create-inner{
+
+                    .jobs-create-header{
+                        border-bottom: 1px solid #eee;
+                        padding-bottom: 10px;
+
+                        h2{
+                            font-size: 30px;
+                        }
+                    }
+
+                    .jobs-create-form{
+
+                        form{
+
+                            .jobs-create-form-inner{
+                                margin-bottom: 20px;
+
+                                .jobs-create-form-inner-header{
+                                    margin-bottom: 20px;
+
+                                    h2{
+                                        font-size: 20px;
+                                    }
+                                }
+
+                                .jobs-create-form-inner-content{
+
+                                    .jobs-create-form-inner-content-item{
+                                        margin-bottom: 20px;
+
+                                        label{
+                                            display: block;
+                                            margin-bottom: 10px;
+                                        }
+
+                                        input, textarea{
+                                            width: 100%;
+                                            padding: 10px;
+                                            border: 1px solid #e0e0e0;
+                                            border-radius: 5px;
+                                        }
+
+                                        textarea{
+                                            height: 100px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .jobs-page-content-container{
+
+            .jobs-page-content-inner-row{
+                align-items: flex-start;
+                gap: 20px;
+
+                // Filter
+                .jobs-page-content-left-filter{
+                    background: white;
+                    border-radius: 5px;
+                    box-shadow: $box-shadow;
+                    border: 1px solid #eee;
+                    padding: 20px;
+                    margin-bottom: 20px;
+    
+                    .dashboard-content-filters-inner{
+    
+                        .dashboard-content-filters-header{
+                            margin-bottom: 20px;
+                            border-bottom: 1px solid #eee;
+    
+                            h2{
+                                position: relative;
+                                top: 5px;
+                            }
+                        }
+    
+                        .dashboard-content-inner{
+    
+                            .dashboard-content-item{
+                                margin-bottom: 20px;
+    
+                                h3{
+                                    font-size: 20px;
+                                    margin-bottom: 10px;
+                                }
+    
+                                p{
+                                    font-size: 16px;
+                                    margin-bottom: 0px;
+                                }
+    
+                                p.dates{
+                                    color: #aaa;
+                                }
+    
+                                &:last-child{
+                                    margin-bottom: 0px;
+                                }
+    
+                                .item-actions{
+                                    margin-top: 10px;
+                                }
+                            }
+    
+                            p.no_items{
+                                font-size: 16px;
+                                margin-bottom: 0px;
+                            }
+                        }
+                    }
+                }
+
+                // All jobs
+                .jobs-page-content-middle{
+                    background: white;
+                    border-radius: 5px;
+                    box-shadow: $box-shadow;
+                    border: 1px solid #eee;
+                    padding: 0px;
+                    margin-bottom: 20px;
+    
+                    .jobs-page-content-middle-inner{
+    
+                        .jobs-page-content-middle-inner-header{
+                            padding: 20px;
+                            border-bottom: 1px solid #eee;
+    
+                            h2{
+                                position: relative;
+                                top: 5px;
+                            }
+                        }
+    
+                        .jobs-page-content-middle-inner-jobs{
+    
+                            .job{
+                                cursor: pointer;
+                                display: flex;
+                                justify-content: flex-start;
+                                gap: 10px;
+                                border-bottom: 1px solid #eee;
+                                padding-bottom: 20px;
+                                padding: 20px;
+    
+                                &:last-child{
+                                    margin-bottom: 0px;
+                                }
+    
+                                .job-image{
+                                    text-align: left;
+                                    margin-bottom: 20px;
+    
+                                    img{
+                                        max-width: 100px;
+                                        border-radius: 50%;
+                                    }
+                                }
+    
+                                .job-inner{
+
+                                    .job-inner-header{
+                                        width: 100%;
+                                        padding-bottom: 10px;
+                                        margin-bottom: 10px;
+                                        border-bottom: 1px solid #eee;
+    
+                                        h3{
+                                            font-size: 20px;
+                                            margin-bottom: 0px;
+                                        }
+    
+                                        p{
+                                            font-size: 16px;
+                                            margin-bottom: 0px;
+                                        }
+                                    }
+
+                                    .job-inner-content{
+                                        margin-bottom: 10px;
+
+                                        p{
+                                            font-size: 16px;
+                                            margin-bottom: 0px;
+                                        }
+                                    }
+                                }
+                            }
+    
+                            p.no_jobs{
+                                font-size: 16px;
+                                margin-bottom: 0px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.job{
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+    padding: 20px;
+
+    &:last-child{
+        margin-bottom: 0px;
+    }
+
+    .job-image{
+        text-align: left;
+        margin-bottom: 20px;
+
+        img{
+            max-width: 100px;
+            border-radius: 50%;
+        }
+    }
+
+    .job-inner{
+
+        .job-inner-header{
+            width: 100%;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+
+            h3{
+                font-size: 20px;
+                margin-bottom: 0px;
+            }
+
+            p{
+                font-size: 16px;
+                margin-bottom: 0px;
+            }
+        }
+
+        .job-inner-content{
+            margin-bottom: 10px;
+
+            p{
+                font-size: 16px;
+                margin-bottom: 0px;
+            }
+        }
+    }
+}
+
+.hidden{
+    display: none;
+}
+
+/**
+Posts
+*/
+.post{
+    width: 100%;
+    background: white;
+    border-radius: 5px;
+    box-shadow: $box-shadow;
+    margin-bottom: 15px;
+
+    .post-inner{
+        padding: 20px;
+
+        .post-top{
+
+            .post-author{
+                display: flex;
+                border-bottom: 1px solid #eee;
+
+                .post-author-image{
+                    text-align: left;
+                    margin-bottom: 20px;
+
+                    img{
+                        max-width: 50px;
+                        border-radius: 50%;
+                    }
+                }
+
+                .post-author-name{
+                    width: 100%;
+                    margin-left: 10px;
+
+                    h2{
+                        font-size: 1.2em;
+                        margin-bottom: 0px;
+
+                        a{
+                            color: #333;
+                            text-decoration: none;
+                        }
+                    }
+
+                    h4{
+                        font-size: 1em;
+                        font-weight: 400;
+                        margin-bottom: 0px;
+                        color: #aaa;
+
+                        a{
+                            color: #aaa;
+                            text-decoration: none;
+                        }
+                    }
+                }
+            }
+        }
+
+        .post-content{
+
+        }
+
+        .post-stats{
+
+            ul{
+                list-style: none;
+                padding: 0px;
+                margin: 0px;
+                display: flex;
+                gap: 20px;
+
+                li{
+                    display: inline;
+                    padding: 10px;
+                    padding-left: 0px;
+
+                    color: #aaa;
+                }
+            }
+        }
+
+        .post-bottom{
+            display: flex;
+            justify-content: space-between;
+            padding-top: 10px;
+
+            .post-bottom-left{
+                display: flex;
+                gap: 20px;
+
+                .post-bottom-left-like, .post-bottom-left-comment{
+                    cursor: pointer;
+                    display: flex;
+                    gap: 5px;
+                    align-items: center;
+                    color: #aaa;
+
+                    &:hover{
+                        color: $primary-color;
+                    }
+
+                    a{
+                        color: #aaa;
+                        text-decoration: none;
+
+                        &.post-unlike-btn{
+                            color: $primary-color;
+                        }
+                    }
+                }
+            }
+
+            .post-bottom-right{
+                display: flex;
+                gap: 10px;
+
+                .post-bottom-right-delete{
+
+                    a{
+                        color: #aaa;
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+
+        .post-comment-maker{
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+
+            form{
+
+                input[type="text"]{
+                    width: 100%;
+                    padding: 10px 0px;
+                    border: none;
+                    outline: none;
+                }
+            }
+        }
+
+        .post-comments{
+
+            .post-comments-inner{
+                margin-top: 20px;
+
+                .post-comment{
+                    display: flex;
+                    gap: 20px;
+                    padding-top: 15px;
+                    border-top: 1px solid #eee;
+
+                    .post-comment-inner{
+
+                        .post-comment-author{
+                            display: flex;
+
+                            .post-comment-author-image{
+                                text-align: left;
+                                margin-bottom: 20px;
+                                
+                                a{
+
+                                    img{
+                                        max-width: 40px;
+                                        border-radius: 50%;
+                                    }
+                                }
+                            }
+
+                            .post-comment-author-name{
+                                width: 100%;
+                                margin-left: 10px;
+
+                                h2{
+                                    font-size: 1em;
+                                    margin-bottom: 0px;
+
+                                    a{
+                                        color: #333;
+                                        text-decoration: none;
+                                    }
+                                }
+
+                                h4{
+                                    font-size: 1em;
+                                    font-weight: 400;
+                                    margin-bottom: 0px;
+                                    color: #aaa;
+
+                                    a{
+                                        color: #aaa;
+                                        text-decoration: none;
+                                    }
+                                }
+                            }
+                        }
+                        
+                        .post-comment-content{
+                            
+                            p{
+                                font-size: 1em;
+                                margin-bottom: 0px;
+                            }
+                        }
+
+                        .post-actions{
+
+                            ul{
+                                list-style: none;
+                                padding: 0px;
+                                margin: 0px;
+                                display: flex;
+                                gap: 10px;
+
+                                li{
+                                    display: inline;
+                                    padding: 10px;
+                                    padding-left: 0px;
+
+                                    color: #aaa;
+
+                                    a{
+                                        color: #aaa;
+                                        text-decoration: none;
+
+                                        &.post-unlike-btn{
+                                            color: $primary-color;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+* Page: Messages
+*/
+.page-messages{
+
+    .page-content{
+
+        .row{
+
+            .page-coversations-left{
+                background: white;
+                box-shadow: $box-shadow;
+                
+                .conversations-left-head{
+                    padding: 10px;
+
+                    .conversations-left-head-inner{
+                        border-bottom: 1px solid #eee;
+                        padding-top: 15px;
+                        padding-bottom: 15px;
+
+                        h2{
+                            font-size: 1.2em;
+                            font-weight: 600;
+                            line-height: 1.2em;
+                            padding: 0px;
+                            margin: 0px;
+                        }
+                    }
+                }
+
+                .conversations-left-all{
+
+                    ul{
+
+                        li{
+                            margin-bottom: 10px;
+                            padding: 5px;
+
+                            .conversations-left-all-inner{
+                                display: flex;
+
+                                .conversations-left-all-left{
+
+                                    .conversations-left-all-left-inner{
+                                        padding-right: 10px;
+
+                                        img{
+                                            border-radius: 50%;
+                                            height: 50px;
+                                            width: 50px;
+
+                                            background-size: cover;
+                                        }
+                                    }
+                                }
+
+                                .conversations-left-all-right{
+                                    padding-top: 5px;
+    
+                                    a{
+                                        display: block;
+    
+                                        h3{
+                                            font-size: 1.0em;
+                                            font-weight: 800;
+                                            line-height: 1.2em;
+                                            padding: 0px;
+                                            margin: 0px;
+                                        }
+    
+                                        p{
+                                            font-size: 1.0em;
+                                            font-weight: 400;
+                                            line-height: 1.2em;
+                                            padding: 0px;
+                                            margin: 0px;
+                                        }
+                                    }
+                                }   
+                            }                        
+                        }
+                    }
+                }
+            }
+
+            .page-conversations-right{
+
+                .conversations-right-inner{
+                    background: white;
+                    box-shadow: $box-shadow;
+                    padding: 10px;
+
+                    .conversations-right-head{
+    
+                        .conversations-right-head-inner{
+                            border-bottom: 1px solid #eee;
+                            padding-top: 15px;
+                            padding-bottom: 15px;
+    
+                            h2{
+                                font-size: 1.2em;
+                                font-weight: 600;
+                                line-height: 1.2em;
+                                padding: 0px;
+                                margin: 0px;
+                            }
+                        }
+                    }
+
+                    .conversations-right-body{
+                        height: 500px;
+                        padding: 25px;
+
+                        overflow: auto;
+
+                        .conversations-right-body-message{
+                            padding-bottom: 15px;
+
+                            .conversations-right-body-message-inner{
+                                padding-top: 15px;
+                                padding-bottom: 15px;
+
+                                display: flex;
+                                justify-content: flex-start;
+                                gap: 10px;
+
+                                .conversations-right-body-message-left{
+
+                                    .conversations-right-body-message-left-inner{
+
+                                        a{
+                                            text-align: left;
+
+                                            img{
+                                                width: 50px;
+                                                height: 50px;
+                                                border-radius: 50%;
+                                                object-fit: cover;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                .conversations-right-body-message-right{
+                                    text-align: left;
+
+                                    .conversations-right-body-message-right-inner{
+
+                                        .conversations-right-body-message-right-head{
+                                            padding-bottom: 5px;
+
+                                            h3{
+                                                font-size: 1.0em;
+                                                font-weight: 600;
+                                                line-height: 1.2em;
+                                                padding: 0px;
+                                                margin: 0px;
+                                            }
+
+                                        }
+
+                                        .conversations-right-body-message-right-body{
+                                            background: white;
+                                            padding: 10px;
+
+                                            border-radius: 5px;
+                                            box-shadow: $box-shadow;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .conversations-right-body-message.conversations-right-body-message-me{
+
+                            .conversations-right-body-message-inner{
+                                padding-top: 15px;
+                                padding-bottom: 15px;
+
+                                display: flex;
+                                justify-content: flex-start;
+                                gap: 10px;
+                                flex-flow: row-reverse;
+
+                                .conversations-right-body-message-left{
+
+                                    .conversations-right-body-message-left-inner{
+
+                                        a{
+                                            text-align: left;
+
+                                            img{
+                                                width: 50px;
+                                                height: 50px;
+                                                border-radius: 50%;
+                                                object-fit: cover;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                .conversations-right-body-message-right{
+                                    text-align: left;
+
+                                    .conversations-right-body-message-right-inner{
+                                        
+                                        .conversations-right-body-message-right-head{
+                                            padding-bottom: 5px;
+
+                                            h3{
+                                                font-size: 1.0em;
+                                                font-weight: 600;
+                                                line-height: 1.2em;
+                                                padding: 0px;
+                                                margin: 0px;
+                                            }
+
+                                        }
+
+                                        .conversations-right-body-message-right-body{
+                                            background: white;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .conversations-right-footer{
+                        padding-top: 15px;
+                        padding-bottom: 15px;
+
+                        .conversations-right-footer-inner{
+
+
+                            .conversations-right-footer-left{
+
+                                textarea{
+                                    width: 100%;
+                                    padding: 10px;
+                                    border-radius: 5px;
+                                    border: 1px solid #eee;
+                                }
+                            }
+
+                        }
+                    }
+                }
             }
         }
     }

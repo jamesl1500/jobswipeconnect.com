@@ -38,6 +38,13 @@
     @include('includes.footer')
 </div>
 
+<!-- Scripts -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script src="{{ asset('js/bootstrap.js') }}"></script>
+<script src="https://kit.fontawesome.com/8ea51260da.js" crossorigin="anonymous"></script>
+<script src="{{ asset('js/scripts.js') }}"></script>
+
 @env('local')
     <script src="http://localhost:35729/livereload.js"></script>
 @endenv

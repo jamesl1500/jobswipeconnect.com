@@ -15,9 +15,11 @@ class CreateConversationMessagesTable extends Migration
     {
         Schema::create('conversation_messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("conversation_id")->constrained();
-            $table->foreignId("user_id")->constrained();
-            $table->text("message");
+            $table->string('conversation_message_uid');
+            $table->unsignedBigInteger('conversation_uid');
+            $table->unsignedBigInteger('user_uid');
+            $table->string('conversation_message_content');
+            $table->string('conversation_message_type');
             $table->enum("status",["sent","delivered","read"])->default("sent");
             $table->text("attachment")->nullable();
             $table->text("attachment_type")->nullable();

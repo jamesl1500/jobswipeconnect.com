@@ -17,17 +17,51 @@
             <div class="container">
                 <div class="dashboard-page-inline-navigation-inner">
                     <ul>
-                        <li class="active"><a href="{{ route('dashboard.jobs') }}">Job Matching</a></li>
-                        <li><a href="{{ route('dashboard.feed') }}">Feed</a></li>
+                        <?php
+                            $role = auth()->user()->role;
+
+                            if($role == "job-seeker") {
+                        ?>
+                            <li><a href="{{ route('dashboard.jobs') }}">Job Matching</a></li>
+                        <?php }else{ ?>
+                            <li><a href="{{ route('dashboard.jobs') }}">Applicant Matching</a></li>
+                        <?php } ?>
+
+                        <li class="active"><a href="{{ route('dashboard.feed') }}">Feed</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="container dashboard-page-content page-content">
            <div class="row page-row">
-                <div class="dashboard-content col-lg-3">
+                <div class="dashboard-content user-profile col-lg-3">
                     <div class="dashboard-content-inner">
-
+                        <div class="dashboard-current-user">
+                            <div class="dashboard-current-user-inner">
+                                <div class="dashboard-current-user-image">
+                                    <img src="{{ asset('storage/' . Auth()->user()->profile_picture) }}" alt="{{ Auth()->user()->name }}">
+                                </div>
+                                <div class="dashboard-current-user-name">
+                                    <h2>{{ Auth()->user()->name }}</h2>
+                                    <h4>{{ Auth()->user()->username }}</h4>
+                                </div>
+                                <div class="dashboard-current-user-bio">
+                                    <p>{{ Auth()->user()->cover_letter }}</p>
+                                </div>
+                                <div class="dashboard-current-user-stats">
+                                    <div class="dashboard-current-user-stats-inner">
+                                        <div class="dashboard-current-user-stats-item profile-views">
+                                            <h3>Profile views</h3>
+                                            <p><?php echo count(Auth()->user()->profileViews); ?></p>
+                                        </div>
+                                        <div class="dashboard-current-user-stats-item followers">
+                                            <h3>Followers</h3>
+                                            <p><?php echo count(Auth()->user()->followings); ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="dashboard-content posts-container col-lg-6">
@@ -46,7 +80,10 @@
                                 <div class="dashboard-content-creator-input">
                                     <form action="{{ route('posts.create') }}" method="post">
                                         @csrf
-                                        <textarea id="dashboard-post" name="post" id="post" cols="30" rows="10" placeholder="Whats on your mind?"></textarea>
+                                        <input type="hidden" name="user_id" value="{{ Auth()->user()->id }}">
+                                        <input type="hidden" name="post_type" value="text">
+                                        <input autocomplete="off" type="text" name="post_title" id="post_title" placeholder="Title (Optional)">
+                                        <textarea id="dashboard-post" name="content" id="post" cols="30" rows="10" placeholder="Whats on your mind?"></textarea>
 
                                         <div class="content-creator-bottom hidden">
                                             <div class="content-creator-bottom-left">
@@ -75,7 +112,18 @@
                             <h2>Posts</h2>
                         </div>
                         <div class="dashboard-content-posts">
-
+                            <div class="dashboard-content-posts-inner">
+                                <?php
+                                    if(count($posts) > 0)
+                                    {
+                                        foreach($posts as $post => $post_value) {
+                                            echo view('components.post', ['post' => $post_value]);
+                                        }
+                                    }else{
+                                        echo "<p>No posts found!</p>";
+                                    }
+                                ?>
+                            </div>
                         </div>
                     </div>
                 </div>

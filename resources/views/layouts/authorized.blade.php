@@ -40,8 +40,18 @@
 
 <!-- Scripts -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script src="{{ asset('js/bootstrap.js') }}"></script>
 <script src="https://kit.fontawesome.com/8ea51260da.js" crossorigin="anonymous"></script>
+<script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+<script src="https://cdn.tiny.cloud/1/5pwiuoduxtz2fuazw1kk7xpcal9ytfkla457ygji53oozf3f/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+      selector: 'textarea',
+      plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+      toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+    });
+  </script>
 <script src="{{ asset('js/scripts.js') }}"></script>
 
 @env('local')

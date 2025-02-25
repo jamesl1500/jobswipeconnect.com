@@ -56,7 +56,7 @@ $company = Companies::where('id', $company_id)->first();
             <?php }else{ ?>
                 <p>{{ $job_posting->description }}</p>
             <?php } ?>
-            <p>Skills: {{ $job_posting->skills }}</p>
+            <p><b>Skills:</b> {{ $job_posting->skills }}</p>
         </div>
         <div class="apply-now">
             <!-- Show a dislike and like button -->
@@ -83,7 +83,7 @@ $company = Companies::where('id', $company_id)->first();
                             </div>
                             <form action="{{ route('matchmaker.job_seeker.like') }}" method="post">
                                 <div class="modal-body">
-                                    <p style="text-align: left;">Let's apply to this job and send the job poster your cover letter and skills. Your resume will lautomatically be sent too!</p>
+                                    <p style="text-align: left;">Let's apply to this job and send the job poster your cover letter and skills. Your resume will automatically be sent too!</p>
                                     @csrf
                                     <input type="hidden" name="job_posting_id" value="{{ $job_posting->id }}">
                                     

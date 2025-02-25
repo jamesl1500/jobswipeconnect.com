@@ -19,7 +19,7 @@ class MessagesController extends Controller
     // Index page
     public function index()
     {
-        return view('pages.authenticated.messages.index', ['conversation_m' => $this->conversation]);
+        return view('pages.messages.index', ['conversation_m' => $this->conversation]);
     }
 
     // Conversation view page
@@ -32,7 +32,7 @@ class MessagesController extends Controller
             return redirect('/messages')->with('error', 'Conversation does not exist.');
         }
 
-        return view('pages.authenticated.messages.conversation', ['id' => $id, 'conversation_m' => $this->conversation]);
+        return view('pages.messages.conversation', ['id' => $id, 'conversation_m' => $this->conversation]);
     }
 
     // Create conversation view
@@ -49,7 +49,7 @@ class MessagesController extends Controller
         // Get user data
         $user = \App\Models\User::where('id', $user_id)->first();
 
-        return view('pages.authenticated.messages.create_conversation', ['user' => $user]);
+        return view('pages.messages.create_conversation', ['user' => $user]);
     }
 
     // Create conversation (Post)
@@ -58,7 +58,8 @@ class MessagesController extends Controller
         // Validate the request
         $request->validate([
             'user_id' => 'required',
-            'message' => 'required'
+            'message' => 'required',
+            'job_id'  => '',
         ]);
 
         // Check if user exists
@@ -82,6 +83,10 @@ class MessagesController extends Controller
             'conversation_sender' => Auth::user()->id,
             'conversation_receiver' => $request->input('user_id'),
             'conversation_name' => '',
+            'job_id' => $request->input('job_id') ?? null,
+            'status' => 'active',
+            'applicant_notes' => '',
+            'job_poster_notes' => '',
             'conversation_description' => 'Conversation between ' . Auth::user()->name . ' and ' . \App\Models\User::where('id', $request->input('user_id'))->first()->name
         ]);
 
@@ -92,7 +97,7 @@ class MessagesController extends Controller
             'user_uid' => Auth::user()->id,
             'conversation_message_content' => $request->input('message'),
             'conversation_message_type' => 'text',
-            'conversation_message_status' => 'unread'
+            'status' => 'sent'
         ]);
 
         // Create the conversation member for the sender
@@ -112,7 +117,7 @@ class MessagesController extends Controller
         ]);
 
         // Redirect the user to the conversation
-        return redirect("/messages/" . $conversation->conversation_uid);
+        return redirect("/messages/conversation/" . $conversation->conversation_uid);
     }
 
     // Send message (Post)
@@ -145,7 +150,7 @@ class MessagesController extends Controller
             'user_uid' => Auth::user()->id,
             'conversation_message_content' => $request->input('message'),
             'conversation_message_type' => 'text',
-            'conversation_message_status' => 'unread'
+            'status' => 'sent'
         ]);
 
         // Return the message
@@ -154,6 +159,9 @@ class MessagesController extends Controller
             'username' => Auth::user()->username,
             'avatar' => Auth::user()->profile_picture
         );
+
+        // Create HTML for the message
+        $conversation_message['html'] = view('components.message', ['message' => $conversation_message, 'messageClass' => 'conversations-right-body-message-me'])->render();
 
         // Send event
         event(new \App\Events\MessagePosted($conversation_message));

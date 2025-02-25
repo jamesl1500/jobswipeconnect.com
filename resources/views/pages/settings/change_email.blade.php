@@ -32,26 +32,6 @@
             </div>
             <div class="settings-content col-lg-9">
                 <div class="settings-content-inner">
-                    <div class="settings-content-form-error">
-                        @if($errors->any())
-                            <div class="alert alert-danger">
-                                <h2>Errors</h2>
-                                <ul>
-                                    @foreach($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @elseif(session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @elseif(session('error'))
-                            <div class="alert alert-danger">
-                                {{ session('error') }}
-                            </div>
-                        @endif
-                    </div>
                     <div class="settings-content-form-header">
                         <h2>Change Email</h2>
                     </div>

@@ -243,4 +243,61 @@ class SettingsController extends Controller
          */
         return redirect()->route('settings.social_media')->with('success', 'Social media settings updated successfully');
     }
+
+    /**
+     * Change role post | Profile settings page
+     * -------------------------------------
+     * Show the change role settings page
+     */
+    public function changeRole(Request $request)
+    {
+        // Validate the form data
+        $validated = request()->validate([
+            'role' => 'required|string|in:job-seeker,job-poster',
+        ]);
+
+        // Update the user's role
+        $request->user()->update($validated);
+
+        // Return json response
+        return response()->json(['success' => 'Role updated successfully']);
+    }
+
+    /** 
+     * Change resume
+     * -------------------------------------
+     * Show the change resume settings page
+     */
+    public function changeResume()
+    {
+        return view('pages.settings.change_resume');
+    }
+
+    /** 
+     * Change resume post
+     * -------------------------------------
+     * Process the change resume settings page
+     */
+    public function changeResumePost(Request $request)
+    {
+        // Validate the form data
+        $validated = request()->validate([
+            'resume' => 'required|file|mimes:pdf,doc,docx|max:2048',
+        ]);
+
+        // Save resume name, path, extension, and date as JSON in the database
+        $validated['resume'] = [
+            'name' => $request->file('resume')->getClientOriginalName(),
+            'path' => $request->file('resume')->store('resumes', 'public'),
+            'extension' => $request->file('resume')->extension(),
+            'date' => now(),
+        ];
+
+        // Update the user's resume
+        $request->user()->update($validated);
+
+        // Redirect back to the settings page
+        return redirect()->route('settings.change_resume')->with('success', 'Resume updated successfully');
+    }
+
 }

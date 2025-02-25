@@ -18,7 +18,6 @@ class CreateJobsTable extends Migration
             $table->foreignId("user_id")->constrained();
             $table->foreignId("company_id")->constrained();
             $table->string("title");
-            $table->date("start_date");
             $table->string('location');
             $table->string('salary');
             $table->string('description');
@@ -33,7 +32,6 @@ class CreateJobsTable extends Migration
             $table->enum("job_category",["accounting","administrative","advertising","banking","business","community","construction","customer-service","design","education","engineering","finance","healthcare","hospitality","human-resources","information-technology","legal","management","manufacturing","marketing","media","non-profit","real-estate","retail","sales","science","security","skilled-labor","transportation","other"])->default("other");
             $table->enum("job_shift",["morning","afternoon","evening","night","flexible","rotating","other"])->default("morning");
             $table->enum("job_status",["full-time","part-time","contract","temporary","other"])->default("full-time");
-            $table->enum("job_salary_type",["hourly","salaried","commission","bonus","other"])->default("salaried");
             $table->string('job_salary_from');
             $table->timestamps();
         });

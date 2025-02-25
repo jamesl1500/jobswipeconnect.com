@@ -141,4 +141,17 @@ class Conversation
         // Return the conversation UID
         return $conversation->conversation_uid;
     }
+
+    /**
+     * GetConversationNumericalId
+     * ---------------------------
+     * Get the numerical ID of a conversation.
+     */
+    public function GetConversationNumericalId($conversation_uid){
+        // Get the conversation
+        $conversation = $this->conversations_model->where('conversation_uid', $conversation_uid)->first();
+
+        // Return the conversation ID
+        return $conversation->id;
+    }
 }

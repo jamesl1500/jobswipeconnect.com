@@ -3,7 +3,7 @@
         <div class="header-main-row row">
             <div class="header-branding col-lg-2">
                 <div class="header-branding-inner">
-                    <a href="{{ route('home') }}">
+                    <a href="{{ route('dashboard.jobs') }}">
                         <img src="{{ asset('images/logo.png') }}" alt="Logo" />
                     </a>
                 </div>
@@ -54,12 +54,27 @@
 
                 <!-- Dropdown menu -->
                 <div class="header-dropdown hidden">
+                    @if(Auth::check())
+                        <!-- Make it where user can change their role between "job-seeker" or "job-poster" with two radio buttons in iphone style -->
+                        <div class="header-dropdown-role">
+                            <form action="{{ route('settings.change_role') }}" id="change-role-form" method="POST">
+                                @csrf
+                                <div class="toggle">
+                                    <input type="radio" name="role" id="job-seeker" value="job-seeker" {{ Auth::user()->role == 'job-seeker' ? 'checked' : '' }}>
+                                    <label for="job-seeker">Job Seeker</label>
+                                    <input type="radio" name="role" id="job-poster" value="job-poster" {{ Auth::user()->role == 'job-poster' ? 'checked' : '' }}>
+                                    <label for="job-poster">Job Poster</label>
+                                </div>
+                            </form>
+                        </div>
+                    @endif
                     <ul>
                         @if (Auth::check())
                             <!-- Dont show if user hasn't completed onboarding step 1 -->
                             @if (!Auth::user()->onboarding_step_2)
                                 <li><a href="{{ route('onboarding.step1') }}">Complete Onboarding</a></li>
                             @else
+
                                 <li><a href="{{ route('companies.index') }}">Companies</a></li>
                                 <li><a href="{{ route('settings.index') }}">Settings</a></li>
                                 <li>

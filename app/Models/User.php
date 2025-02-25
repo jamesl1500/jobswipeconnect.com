@@ -135,7 +135,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function followers()
     {
-        return $this->hasMany(Followings::class, 'followee_id');
+        return $this->hasMany(Followings::class, 'following_id');
     }
 
     /**
@@ -144,5 +144,37 @@ class User extends Authenticatable implements MustVerifyEmail
     public function companies()
     {
         return $this->hasMany(Companies::class);
+    }
+
+    /**
+     * Get users profile views
+     */
+    public function profileViews()
+    {
+        return $this->hasMany(ProfileViews::class, 'profile_id');
+    }
+
+    /**
+     * Get the conversations that belong to the user.
+     */
+    public function conversations()
+    {
+        return $this->hasMany(Conversation_members::class, 'user_uid');
+    }
+
+    /**
+     * Get jobs that belong to the user
+     */
+    public function jobs()
+    {
+        return $this->hasMany(Jobs::class);
+    }
+
+    /**
+     * Get job applications that belong to the user
+     */
+    public function jobApplicants()
+    {
+        return $this->hasMany(JobApplicants::class);
     }
 }

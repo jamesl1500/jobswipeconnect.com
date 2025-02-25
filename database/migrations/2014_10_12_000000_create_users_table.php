@@ -50,6 +50,10 @@ class CreateUsersTable extends Migration
 
             $table->rememberToken();
             $table->timestamps();
+
+            /**
+             * MAny to many relationships between users and conversations topic!
+             */
         });
     }
 

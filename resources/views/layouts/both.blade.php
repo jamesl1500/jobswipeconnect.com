@@ -40,8 +40,10 @@
 
 <!-- Scripts -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script src="{{ asset('js/bootstrap.js') }}"></script>
 <script src="https://kit.fontawesome.com/8ea51260da.js" crossorigin="anonymous"></script>
+<script src="https://js.pusher.com/7.2/pusher.min.js"></script>
 <script src="{{ asset('js/scripts.js') }}"></script>
 
 @env('local')

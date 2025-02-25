@@ -9,6 +9,79 @@ class Matchmaker
     }
 
     /**
+     * getMatchedJobPostings
+     * ---------------------
+     * Returns matched job postings in a random way
+     */
+    public function getMatchedJobSeekers($filters = [])
+    {
+        $methods = [ 'getRandomJobSeekers', 'getJobSeekersWhoApplied', 'getJobSeekersByFilters' ];
+        $method = $methods[array_rand($methods)];
+
+        return $this->$method($filters);
+    }
+
+    /**
+     * getJobSeekersByFilters
+     * ---------------------
+     * Returns job seekers based on filters
+     */
+    public function getJobSeekersByFilters($filters)
+    {
+        $job_seekers = \App\Models\User::inRandomOrder()
+        ->where('role', '=', 'job-seeker')
+        ->where('id', '!=', auth()->user()->id)
+        // If the skills are not empty, find users with the skills
+        ->when($filters['skills'], function ($query, $skills) {
+            return $query->where('skills', 'like', '%' . $skills . '%');
+        })
+        // If the experience is not empty, find users with the experience
+        ->when($filters['experience'], function ($query, $experience) {
+            return $query->whereHas('experiences', function ($query) use ($experience) {
+                $query->where('title', 'like', '%' . $experience . '%');
+           });
+        })
+        ->limit(1)->first();
+
+        return $job_seekers;
+    }
+
+    /**
+     * getRandomJobSeekers
+     * ---------------------
+     * Returns random job seekers
+     */
+    public function getRandomJobSeekers()
+    {
+        $job_seekers = \App\Models\User::inRandomOrder()
+        ->where('role', 'job-seeker')
+        ->where('id', '!=', auth()->user()->id)->limit(1)->first();
+
+        return $job_seekers;
+    }
+
+    /**
+     * getJobSeekersWhoApplied
+     * ---------------------
+     * Returns job seekers who applied to our jobs
+     */
+    public function getJobSeekersWhoApplied()
+    {
+        $owned_jobs = auth()->user()->jobs->pluck('id')->toArray();
+
+        $job_seekers = \App\Models\User::inRandomOrder()
+        ->where('role', '=', 'job-seeker')
+        // Find and return job seekers who have applied to our jobs
+        ->whereHas('jobApplicants', function ($query) use ($owned_jobs) {
+            $query->whereIn('job_id', $owned_jobs);
+        })
+        ->where('id', '!=', auth()->user()->id)
+        ->limit(1)->first();
+
+        return $job_seekers;
+    }
+
+    /**
      * getJobPostings
      * ---------------------
      * Returns all job postings
@@ -49,7 +122,7 @@ class Matchmaker
                 ->limit(1)->first();
         } else {
             // Get all jobs at random limit 1
-            $jobs = \App\Models\Jobs::inRandomOrder()->limit(1)->first();
+            $jobs = \App\Models\Jobs::inRandomOrder()->where('user_id', '!=', auth()->user()->id)->limit(1)->first();
         }
 
         return $jobs;

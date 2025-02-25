@@ -27,4 +27,9 @@ class JobApplicants extends Model
         "offer_notes",
         "hired_date",
     ];
+
+    public function job()
+    {
+        return $this->belongsTo(Job::class);
+    }
 }

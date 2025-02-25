@@ -17,5 +17,28 @@
             </div>
         </div>
     </div>
+    <div class="profile-page-content page-content">
+        <div class="profile-page-content-inner row">
+            <div class="col-lg-2 profile-empty-space"></div>
+            <div class="col-lg-8 profile-page-about-content-middle">
+                <div class="profile-page-content-box">
+                    @if(count($posts) > 0)
+                        <?php
+                            foreach($posts as $post)
+                            {
+                                echo view('components.post', ['post' => $post]);
+                            }
+                        ?>
+                    @else
+                        <div class="no-posts">
+                            <h3>No posts found!</h3>
+                            <p>This user has not made any posts yet!</p>
+                        </div>
+                    @endif
+                </div>
+            </div>
+            <div class="col-lg-2 profile-empty-space"></div>
+        </div>
+    </div>
 </div>
 @endsection

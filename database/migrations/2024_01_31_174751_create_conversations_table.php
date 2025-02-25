@@ -16,6 +16,10 @@ class CreateConversationsTable extends Migration
         Schema::create('conversations', function (Blueprint $table) {
             $table->id();
             $table->string("conversation_uid")->unique();
+            $table->string('conversation_name');
+            $table->string('conversation_description');
+            $table->unsignedBigInteger('conversation_sender');
+            $table->unsignedBigInteger('conversation_receiver');
             $table->foreignId("job_id")->constrained();
             $table->enum("status",["active","archived"])->default("active");
             $table->text("applicant_notes")->nullable();

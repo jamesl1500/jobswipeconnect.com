@@ -25,4 +25,20 @@ class Posts extends Model
         'visibility',
         'type',
     ];
+
+    /**'
+     * Get post likes
+     */
+    public function likes()
+    {
+        return $this->hasMany(PostsLikes::class, 'post_id');
+    }
+
+    /**
+     * Get post comments
+     */
+    public function comments()
+    {
+        return $this->hasMany(PostsComments::class, 'post_id');
+    }
 }

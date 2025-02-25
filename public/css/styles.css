@@ -17,6 +17,51 @@
 }
 
 /**
+* Resume Box
+*/
+.resume-box {
+  background: white;
+  border-radius: 5px;
+  border: 2px solid #eee;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  display: flex;
+}
+.resume-box .resume-box-left {
+  padding: 10px;
+  border-right: 1px solid #eee;
+  background: blue;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.resume-box .resume-box-left p {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 0px;
+  color: white;
+  line-height: 0;
+}
+.resume-box .resume-box-left p.ext {
+  color: white;
+}
+.resume-box .resume-box-right {
+  padding: 10px;
+}
+.resume-box .resume-box-right p {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+.resume-box .resume-box-right p.name {
+  font-weight: bold;
+}
+.resume-box .resume-box-right p.date {
+  color: #aaa;
+}
+
+/**
 * Badge
 */
 .badge {
@@ -92,6 +137,37 @@
 }
 
 /**
+* Simple Alerts
+*/
+.simple-alert {
+  padding: 20px;
+  border-radius: 5px;
+  text-align: left;
+}
+.simple-alert .title h1 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.simple-alert .subtitle h2 {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+.simple-alert .actions {
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+.simple-alert .actions a.btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-right: 10px;
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+  width: 100%;
+}
+
+/**
 * Components
 */
 /**
@@ -112,6 +188,27 @@
 }
 .form-group .inline-form-group .form-input {
   width: 48%;
+}
+.form-group .inline-form-group .form-input:last-child {
+  margin-bottom: 0px;
+}
+.form-group .inline-form-group:last-child {
+  margin-bottom: 0px;
+}
+.form-group .inline-form-group-3 {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+.form-group .inline-form-group-3 .form-input {
+  width: 30%;
+}
+.form-group .inline-form-group-3 .form-input:last-child {
+  margin-bottom: 0px;
+}
+.form-group .inline-form-group-3:last-child {
+  margin-bottom: 0px;
 }
 .form-group .form-input {
   margin-bottom: 20px;
@@ -287,6 +384,29 @@
   border: 1px solid #eee;
   padding: 20px;
   width: 300px;
+}
+.header-main .header-main-inner .header-main-row .header-navigation .header-dropdown .header-dropdown-role form .toggle {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.header-main .header-main-inner .header-main-row .header-navigation .header-dropdown .header-dropdown-role form .toggle label {
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 1px solid #e0e0e0;
+}
+.header-main .header-main-inner .header-main-row .header-navigation .header-dropdown .header-dropdown-role form .toggle label:hover {
+  background: #f8f8f8;
+}
+.header-main .header-main-inner .header-main-row .header-navigation .header-dropdown .header-dropdown-role form .toggle input {
+  display: none;
+}
+.header-main .header-main-inner .header-main-row .header-navigation .header-dropdown .header-dropdown-role form .toggle input:checked + label {
+  background: #861657;
+  color: white;
+  border: 1px solid #861657;
 }
 .header-main .header-main-inner .header-main-row .header-navigation .header-dropdown ul {
   list-style: none;
@@ -555,6 +675,34 @@
   padding-top: 20px;
   text-align: center;
 }
+.profile-page .profile-page-header .page-header-container .profile-page-header-inner .profile-page-header-content .profile-page-header-content-inner .profile-page-header-content-stats {
+  margin: 0% auto;
+  margin-top: 20px;
+  text-align: center;
+  width: 400px;
+}
+.profile-page .profile-page-header .page-header-container .profile-page-header-inner .profile-page-header-content .profile-page-header-content-inner .profile-page-header-content-stats .profile-page-header-content-stats-inner {
+  display: flex;
+  justify-content: space-between;
+}
+.profile-page .profile-page-header .page-header-container .profile-page-header-inner .profile-page-header-content .profile-page-header-content-inner .profile-page-header-content-stats .profile-page-header-content-stats-inner .profile-page-header-content-stats-item {
+  text-align: center;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+.profile-page .profile-page-header .page-header-container .profile-page-header-inner .profile-page-header-content .profile-page-header-content-inner .profile-page-header-content-stats .profile-page-header-content-stats-inner .profile-page-header-content-stats-item h3 {
+  font-size: 1em;
+  margin-bottom: 0px;
+  color: white;
+}
+.profile-page .profile-page-header .page-header-container .profile-page-header-inner .profile-page-header-content .profile-page-header-content-inner .profile-page-header-content-stats .profile-page-header-content-stats-inner .profile-page-header-content-stats-item p {
+  font-size: 1em;
+  margin-bottom: 0px;
+  color: white;
+}
+.profile-page .profile-page-header .page-header-container .profile-page-header-inner .profile-page-header-content .profile-page-header-content-inner .profile-page-header-content-stats .profile-page-header-content-stats-inner .profile-page-header-content-stats-item:last-child {
+  margin-bottom: 0px;
+}
 .profile-page .profile-page-inline-navigation {
   background: white;
   border-radius: 5px;
@@ -681,6 +829,9 @@
 }
 .profile-page .profile-page-content .profile-page-content-inner .profile-page-about-content-middle .profile-page-about-experience .profile-page-about-experience-content .profile-page-about-experience-content-item {
   margin-bottom: 20px;
+  cursor: move; /* fallback if grab cursor is unsupported */
+  cursor: grab;
+  cursor: -webkit-grab;
 }
 .profile-page .profile-page-content .profile-page-content-inner .profile-page-about-content-middle .profile-page-about-experience .profile-page-about-experience-content .profile-page-about-experience-content-item h3 {
   font-size: 20px;
@@ -840,6 +991,68 @@
 .dashboard-page .dashboard-page-content .page-row {
   align-items: flex-start;
 }
+.dashboard-page .dashboard-page-content .page-row .dashboard-content.user-profile .dashboard-content-inner .dashboard-current-user {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.dashboard-page .dashboard-page-content .page-row .dashboard-content.user-profile .dashboard-content-inner .dashboard-current-user .dashboard-current-user-inner .dashboard-current-user-image {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.dashboard-page .dashboard-page-content .page-row .dashboard-content.user-profile .dashboard-content-inner .dashboard-current-user .dashboard-current-user-inner .dashboard-current-user-image img {
+  max-width: 100px;
+  border-radius: 50%;
+}
+.dashboard-page .dashboard-page-content .page-row .dashboard-content.user-profile .dashboard-content-inner .dashboard-current-user .dashboard-current-user-inner .dashboard-current-user-name {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+.dashboard-page .dashboard-page-content .page-row .dashboard-content.user-profile .dashboard-content-inner .dashboard-current-user .dashboard-current-user-inner .dashboard-current-user-name h2 {
+  font-size: 20px;
+  margin-bottom: 0px;
+}
+.dashboard-page .dashboard-page-content .page-row .dashboard-content.user-profile .dashboard-content-inner .dashboard-current-user .dashboard-current-user-inner .dashboard-current-user-name h4 {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+.dashboard-page .dashboard-page-content .page-row .dashboard-content.user-profile .dashboard-content-inner .dashboard-current-user .dashboard-current-user-inner .dashboard-current-user-bio {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.dashboard-page .dashboard-page-content .page-row .dashboard-content.user-profile .dashboard-content-inner .dashboard-current-user .dashboard-current-user-inner .dashboard-current-user-bio p {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+.dashboard-page .dashboard-page-content .page-row .dashboard-content.user-profile .dashboard-content-inner .dashboard-current-user .dashboard-current-user-inner .dashboard-current-user-stats {
+  margin-top: 20px;
+}
+.dashboard-page .dashboard-page-content .page-row .dashboard-content.user-profile .dashboard-content-inner .dashboard-current-user .dashboard-current-user-inner .dashboard-current-user-stats .dashboard-current-user-stats-inner {
+  text-align: center;
+}
+.dashboard-page .dashboard-page-content .page-row .dashboard-content.user-profile .dashboard-content-inner .dashboard-current-user .dashboard-current-user-inner .dashboard-current-user-stats .dashboard-current-user-stats-inner .dashboard-current-user-stats-item {
+  display: flex;
+  justify-content: space-between;
+  background: #f8f8f8;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+.dashboard-page .dashboard-page-content .page-row .dashboard-content.user-profile .dashboard-content-inner .dashboard-current-user .dashboard-current-user-inner .dashboard-current-user-stats .dashboard-current-user-stats-inner .dashboard-current-user-stats-item h3 {
+  font-size: 1em;
+  margin-bottom: 0px;
+}
+.dashboard-page .dashboard-page-content .page-row .dashboard-content.user-profile .dashboard-content-inner .dashboard-current-user .dashboard-current-user-inner .dashboard-current-user-stats .dashboard-current-user-stats-inner .dashboard-current-user-stats-item p {
+  font-size: 1em;
+  margin-bottom: 0px;
+}
+.dashboard-page .dashboard-page-content .page-row .dashboard-content.user-profile .dashboard-content-inner .dashboard-current-user .dashboard-current-user-inner .dashboard-current-user-stats .dashboard-current-user-stats-inner .dashboard-current-user-stats-item:last-child {
+  margin-bottom: 0px;
+}
 .dashboard-page .dashboard-page-content .page-row .dashboard-content.left-filter {
   background: white;
   border-radius: 5px;
@@ -891,7 +1104,6 @@
 .dashboard-page .dashboard-page-content .page-row .dashboard-content.posts-container .dashboard-content-inner .dashboard-content-creator .dashboard-content-creator-top {
   display: flex;
   justify-content: flex-start;
-  margin-bottom: 20px;
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
 }
@@ -915,6 +1127,14 @@
   font-size: 14px;
   font-weight: 400;
   color: #aaa;
+}
+.dashboard-page .dashboard-page-content .page-row .dashboard-content.posts-container .dashboard-content-inner .dashboard-content-creator-input form input[type=text] {
+  width: 100%;
+  padding: 10px 0px;
+  border: none;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 20px;
+  outline: none;
 }
 .dashboard-page .dashboard-page-content .page-row .dashboard-content.posts-container .dashboard-content-inner .dashboard-content-creator-input form textarea {
   width: 100%;
@@ -1478,4 +1698,915 @@
   width: 50%;
   text-align: center;
   cursor: pointer;
+}
+
+.matchmaker.job-poster-version {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+.matchmaker.job-poster-version .matchmaker-inner {
+  padding: 20px;
+}
+.matchmaker.job-poster-version .matchmaker-inner .matchmaker-header {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+.matchmaker.job-poster-version .matchmaker-inner .matchmaker-header p {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+.matchmaker.job-poster-version .matchmaker-inner .matchmaker-tab-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  margin-top: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+}
+.matchmaker.job-poster-version .matchmaker-inner .matchmaker-tab-bar .matchmaker-tab {
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 30%;
+}
+.matchmaker.job-poster-version .matchmaker-inner .matchmaker-tab-bar .matchmaker-tab.active {
+  background: #ddd;
+  color: #333;
+}
+.matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-header {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+.matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-header p {
+  font-size: 16px;
+  margin-bottom: 0px;
+  font-weight: 600;
+}
+.matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body {
+  margin-top: 20px;
+}
+.matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-top-info {
+  display: flex;
+  justify-content: flex-start;
+}
+.matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-top-info .matchmaker-applicant-image {
+  text-align: left;
+  margin-bottom: 20px;
+}
+.matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-top-info .matchmaker-applicant-image img {
+  max-width: 50px;
+  border-radius: 50%;
+}
+.matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-top-info .matchmaker-applicant-info {
+  width: 100%;
+  padding-left: 15px;
+  margin-top: -3px;
+}
+.matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-top-info .matchmaker-applicant-info p {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+.matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-top-info .matchmaker-applicant-info p.name {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: -5px;
+}
+.matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-experience .matchmaker-applicant-experience, .matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-experience .matchmaker-applicant-education, .matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-education .matchmaker-applicant-experience, .matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-education .matchmaker-applicant-education {
+  margin-bottom: 10px;
+}
+.matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-experience .matchmaker-applicant-experience p, .matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-experience .matchmaker-applicant-education p, .matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-education .matchmaker-applicant-experience p, .matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-education .matchmaker-applicant-education p {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+.matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-experience .matchmaker-applicant-experience p.date, .matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-experience .matchmaker-applicant-education p.date, .matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-education .matchmaker-applicant-experience p.date, .matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-education .matchmaker-applicant-education p.date {
+  color: #aaa;
+}
+.matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-experience .matchmaker-applicant-experience:last-child, .matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-experience .matchmaker-applicant-education:last-child, .matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-education .matchmaker-applicant-experience:last-child, .matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-education .matchmaker-applicant-education:last-child {
+  margin-bottom: 0px;
+}
+.matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-experience .matchmaker-applicant-experience .experience-actions, .matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-experience .matchmaker-applicant-experience .education-actions, .matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-experience .matchmaker-applicant-education .experience-actions, .matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-experience .matchmaker-applicant-education .education-actions, .matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-education .matchmaker-applicant-experience .experience-actions, .matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-education .matchmaker-applicant-experience .education-actions, .matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-education .matchmaker-applicant-education .experience-actions, .matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-education .matchmaker-applicant-education .education-actions {
+  margin-top: 10px;
+}
+.matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-experience p.title-m, .matchmaker.job-poster-version .matchmaker-inner .matchmaker-body .matchmaker-tab-content .matchmaker-tab-content-body .matchmaker-applicant-middle-education p.title-m {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 0px;
+}
+.matchmaker.job-poster-version .matchmaker-inner .matchmaker-actions {
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+.matchmaker.job-poster-version .matchmaker-inner .matchmaker-actions form {
+  display: flex;
+  justify-content: space-between;
+}
+.matchmaker.job-poster-version .matchmaker-inner .matchmaker-actions form button {
+  padding: 10px 20px;
+  background: #861657;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/**
+* Page: Jobs
+*/
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-content-title {
+  display: none;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-content-title h2 {
+  font-size: 30px;
+  margin-bottom: 0px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-content-body .jobs-page-content-body-inner .jobs-page-content-body-left .jobs-page-content-body-left-inner {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-content-body .jobs-page-content-body-inner .jobs-page-content-body-left .jobs-page-content-body-left-inner .jobs-page-content-body-left-title {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-content-body .jobs-page-content-body-inner .jobs-page-content-body-left .jobs-page-content-body-left-inner .jobs-page-content-body-left-title h3 {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 0px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-content-body .jobs-page-content-body-inner .jobs-page-content-body-left .jobs-page-content-body-left-inner .jobs-page-content-body-left-description p {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-content-body .jobs-page-content-body-inner .jobs-page-content-body-right .jobs-page-content-body-right-inner {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-content-body .jobs-page-content-body-inner .jobs-page-content-body-right .jobs-page-content-body-right-inner .jobs-page-content-body-right-title {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-content-body .jobs-page-content-body-inner .jobs-page-content-body-right .jobs-page-content-body-right-inner .jobs-page-content-body-right-title h3 {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 0px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-content-body .jobs-page-content-body-inner .jobs-page-content-body-right .jobs-page-content-body-right-inner .jobs-page-content-body-right-details .jobs-page-content-body-right-details-inner .jobs-page-content-body-right-details-item {
+  margin-bottom: 20px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-content-body .jobs-page-content-body-inner .jobs-page-content-body-right .jobs-page-content-body-right-inner .jobs-page-content-body-right-details .jobs-page-content-body-right-details-inner .jobs-page-content-body-right-details-item h4 {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-content-body .jobs-page-content-body-inner .jobs-page-content-body-right .jobs-page-content-body-right-inner .jobs-page-content-body-right-details .jobs-page-content-body-right-details-inner .jobs-page-content-body-right-details-item p {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-content-body .jobs-page-content-body-inner .jobs-page-content-body-right .jobs-page-content-body-right-inner .jobs-page-content-body-right-details .jobs-page-content-body-right-details-inner .jobs-page-content-body-right-details-item p.dates {
+  color: #aaa;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-content-body .jobs-page-content-body-inner .jobs-page-content-body-right .jobs-page-content-body-right-inner .jobs-page-content-body-right-details .jobs-page-content-body-right-details-inner .jobs-page-content-body-right-details-item:last-child {
+  margin-bottom: 0px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-content-body .jobs-page-content-body-inner .jobs-page-content-body-right .jobs-page-content-body-right-inner .jobs-page-content-body-right-details .jobs-page-content-body-right-details-inner .jobs-page-content-body-right-details-item .item-actions {
+  margin-top: 10px;
+}
+.jobs-page .jobs-page-content.apply .jobs-page-content-inner .jobs-page-content-title {
+  display: block;
+}
+.jobs-page .jobs-page-content.apply .jobs-page-content-inner .jobs-page-content-title h2 {
+  font-size: 30px;
+  margin-bottom: 0px;
+}
+.jobs-page .jobs-page-content.apply .jobs-page-content-inner .jobs-page-content-body {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  padding: 20px;
+  margin-top: 20px;
+}
+.jobs-page .jobs-page-header {
+  background-color: #861657;
+  background-image: linear-gradient(326deg, #861657 0%, #ffa69e 74%);
+  width: 100%;
+  padding: 60px 0px;
+}
+.jobs-page .jobs-page-header .jobs-header-container {
+  padding: 20px;
+  border-radius: 5px;
+}
+.jobs-page .jobs-page-header .jobs-header-container .jobs-page-header-inner .jobs-page-header-image {
+  text-align: center;
+}
+.jobs-page .jobs-page-header .jobs-header-container .jobs-page-header-inner .jobs-page-header-image img {
+  max-width: 200px;
+  border-radius: 50%;
+}
+.jobs-page .jobs-page-header .jobs-header-container .jobs-page-header-inner .jobs-page-header-content .jobs-page-header-content-inner {
+  padding-top: 20px;
+}
+.jobs-page .jobs-page-header .jobs-header-container .jobs-page-header-inner .jobs-page-header-content .jobs-page-header-content-inner .jobs-page-header-content-title {
+  margin-bottom: 10px;
+  text-align: center;
+}
+.jobs-page .jobs-page-header .jobs-header-container .jobs-page-header-inner .jobs-page-header-content .jobs-page-header-content-inner .jobs-page-header-content-title h1 {
+  font-size: 40px;
+  color: white;
+}
+.jobs-page .jobs-page-header .jobs-header-container .jobs-page-header-inner .jobs-page-header-content .jobs-page-header-content-inner .jobs-page-header-content-subtitle {
+  text-align: center;
+}
+.jobs-page .jobs-page-header .jobs-header-container .jobs-page-header-inner .jobs-page-header-content .jobs-page-header-content-inner .jobs-page-header-content-subtitle h2 {
+  font-size: 20px;
+  font-weight: 300;
+  color: white;
+}
+.jobs-page .jobs-page-header .jobs-header-container .jobs-page-header-inner .jobs-page-header-content .jobs-page-header-content-inner .jobs-page-header-content-social-media-icons {
+  text-align: center;
+  margin-top: 20px;
+}
+.jobs-page .jobs-page-header .jobs-header-container .jobs-page-header-inner .jobs-page-header-content .jobs-page-header-content-inner .jobs-page-header-content-social-media-icons ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+.jobs-page .jobs-page-header .jobs-header-container .jobs-page-header-inner .jobs-page-header-content .jobs-page-header-content-inner .jobs-page-header-content-social-media-icons ul li {
+  display: inline;
+  margin-right: 20px;
+}
+.jobs-page .jobs-page-header .jobs-header-container .jobs-page-header-inner .jobs-page-header-content .jobs-page-header-content-inner .jobs-page-header-content-social-media-icons ul li a {
+  text-decoration: none;
+  color: white;
+}
+.jobs-page .jobs-page-header .jobs-header-container .jobs-page-header-inner .jobs-page-header-content .jobs-page-header-content-inner .jobs-page-header-content-social-media-icons ul li:last-child {
+  margin-right: 0px;
+}
+.jobs-page .jobs-page-header .jobs-header-container .jobs-page-header-inner .jobs-page-header-content .jobs-page-header-content-inner .jobs-page-header-content-actions {
+  padding-top: 20px;
+  text-align: center;
+}
+.jobs-page .jobs-page-inline-navigation {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.jobs-page .jobs-page-inline-navigation ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+}
+.jobs-page .jobs-page-inline-navigation ul li {
+  display: inline;
+  margin-right: 40px;
+}
+.jobs-page .jobs-page-inline-navigation ul li a {
+  text-decoration: none;
+  color: #333;
+}
+.jobs-page .jobs-page-inline-navigation ul li:hover, .jobs-page .jobs-page-inline-navigation ul li.active {
+  border-bottom: 2px solid #861657;
+  padding-bottom: 20px;
+}
+.jobs-page .jobs-page-inline-navigation ul li:hover a, .jobs-page .jobs-page-inline-navigation ul li.active a {
+  color: #861657;
+}
+.jobs-page .jobs-page-inline-navigation ul li:last-child {
+  margin-right: 0px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-applicant-left .jobs-page-applicants-navigation {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-applicant-left .jobs-page-applicants-navigation .jobs-page-applicants-navigation-header {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-applicant-left .jobs-page-applicants-navigation .jobs-page-applicants-navigation-header h2 {
+  font-size: 20px;
+  margin-bottom: 0px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-applicant-left .jobs-page-applicants-navigation .jobs-page-applicants-navigation-inner ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-applicant-left .jobs-page-applicants-navigation .jobs-page-applicants-navigation-inner ul li {
+  padding: 10px;
+  padding-left: 20px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-applicant-left .jobs-page-applicants-navigation .jobs-page-applicants-navigation-inner ul li a {
+  text-decoration: none;
+  color: #333;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-applicant-left .jobs-page-applicants-navigation .jobs-page-applicants-navigation-inner ul li.active {
+  background: #861657;
+  padding-left: 20px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-applicant-left .jobs-page-applicants-navigation .jobs-page-applicants-navigation-inner ul li.active a {
+  color: white;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-applicant-left .jobs-page-applicants-navigation .jobs-page-applicants-navigation-inner ul li:hover {
+  background: #861657;
+  padding-left: 20px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-applicant-left .jobs-page-applicants-navigation .jobs-page-applicants-navigation-inner ul li:hover a {
+  color: white;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-applicants-content-middle {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-applicants-content-middle .jobs-page-content-header {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-applicants-content-middle .jobs-page-content-header h1 {
+  font-size: 30px;
+  font-weight: 600;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-applicants-content-middle .jobs-page-content-header h2 {
+  font-size: 20px;
+  font-weight: 400;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-applicants-content-middle .jobs-page-content-box .applicant {
+  cursor: pointer;
+  display: flex;
+  gap: 20px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-applicants-content-middle .jobs-page-content-box .applicant .applicant-image {
+  text-align: left;
+  margin-bottom: 20px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-applicants-content-middle .jobs-page-content-box .applicant .applicant-image img {
+  max-width: 100px;
+  border-radius: 50%;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-applicants-content-middle .jobs-page-content-box .applicant .applicant-inner .applicant-inner-header {
+  width: 100%;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-applicants-content-middle .jobs-page-content-box .applicant .applicant-inner .applicant-inner-header h3 {
+  font-size: 20px;
+  margin-bottom: 0px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-applicants-content-middle .jobs-page-content-box .applicant .applicant-inner .applicant-inner-header p {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-applicants-content-middle .jobs-page-content-box .applicant .applicant-inner .applicant-inner-content {
+  margin-bottom: 10px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-inner .jobs-page-applicants-content-middle .jobs-page-content-box .applicant .applicant-inner .applicant-inner-content p {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+.jobs-page .jobs-page-content .page-row .jobs-create-container, .jobs-page .jobs-page-content .page-row .jobs-my_jobs-container {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.jobs-page .jobs-page-content .page-row .jobs-create-container .jobs-create-inner .jobs-create-header, .jobs-page .jobs-page-content .page-row .jobs-my_jobs-container .jobs-create-inner .jobs-create-header {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+.jobs-page .jobs-page-content .page-row .jobs-create-container .jobs-create-inner .jobs-create-header h2, .jobs-page .jobs-page-content .page-row .jobs-my_jobs-container .jobs-create-inner .jobs-create-header h2 {
+  font-size: 30px;
+}
+.jobs-page .jobs-page-content .page-row .jobs-create-container .jobs-create-inner .jobs-create-form form .jobs-create-form-inner, .jobs-page .jobs-page-content .page-row .jobs-my_jobs-container .jobs-create-inner .jobs-create-form form .jobs-create-form-inner {
+  margin-bottom: 20px;
+}
+.jobs-page .jobs-page-content .page-row .jobs-create-container .jobs-create-inner .jobs-create-form form .jobs-create-form-inner .jobs-create-form-inner-header, .jobs-page .jobs-page-content .page-row .jobs-my_jobs-container .jobs-create-inner .jobs-create-form form .jobs-create-form-inner .jobs-create-form-inner-header {
+  margin-bottom: 20px;
+}
+.jobs-page .jobs-page-content .page-row .jobs-create-container .jobs-create-inner .jobs-create-form form .jobs-create-form-inner .jobs-create-form-inner-header h2, .jobs-page .jobs-page-content .page-row .jobs-my_jobs-container .jobs-create-inner .jobs-create-form form .jobs-create-form-inner .jobs-create-form-inner-header h2 {
+  font-size: 20px;
+}
+.jobs-page .jobs-page-content .page-row .jobs-create-container .jobs-create-inner .jobs-create-form form .jobs-create-form-inner .jobs-create-form-inner-content .jobs-create-form-inner-content-item, .jobs-page .jobs-page-content .page-row .jobs-my_jobs-container .jobs-create-inner .jobs-create-form form .jobs-create-form-inner .jobs-create-form-inner-content .jobs-create-form-inner-content-item {
+  margin-bottom: 20px;
+}
+.jobs-page .jobs-page-content .page-row .jobs-create-container .jobs-create-inner .jobs-create-form form .jobs-create-form-inner .jobs-create-form-inner-content .jobs-create-form-inner-content-item label, .jobs-page .jobs-page-content .page-row .jobs-my_jobs-container .jobs-create-inner .jobs-create-form form .jobs-create-form-inner .jobs-create-form-inner-content .jobs-create-form-inner-content-item label {
+  display: block;
+  margin-bottom: 10px;
+}
+.jobs-page .jobs-page-content .page-row .jobs-create-container .jobs-create-inner .jobs-create-form form .jobs-create-form-inner .jobs-create-form-inner-content .jobs-create-form-inner-content-item input, .jobs-page .jobs-page-content .page-row .jobs-create-container .jobs-create-inner .jobs-create-form form .jobs-create-form-inner .jobs-create-form-inner-content .jobs-create-form-inner-content-item textarea, .jobs-page .jobs-page-content .page-row .jobs-my_jobs-container .jobs-create-inner .jobs-create-form form .jobs-create-form-inner .jobs-create-form-inner-content .jobs-create-form-inner-content-item input, .jobs-page .jobs-page-content .page-row .jobs-my_jobs-container .jobs-create-inner .jobs-create-form form .jobs-create-form-inner .jobs-create-form-inner-content .jobs-create-form-inner-content-item textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+}
+.jobs-page .jobs-page-content .page-row .jobs-create-container .jobs-create-inner .jobs-create-form form .jobs-create-form-inner .jobs-create-form-inner-content .jobs-create-form-inner-content-item textarea, .jobs-page .jobs-page-content .page-row .jobs-my_jobs-container .jobs-create-inner .jobs-create-form form .jobs-create-form-inner .jobs-create-form-inner-content .jobs-create-form-inner-content-item textarea {
+  height: 100px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row {
+  align-items: flex-start;
+  gap: 20px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row .jobs-page-content-left-filter {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row .jobs-page-content-left-filter .dashboard-content-filters-inner .dashboard-content-filters-header {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row .jobs-page-content-left-filter .dashboard-content-filters-inner .dashboard-content-filters-header h2 {
+  position: relative;
+  top: 5px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row .jobs-page-content-left-filter .dashboard-content-filters-inner .dashboard-content-inner .dashboard-content-item {
+  margin-bottom: 20px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row .jobs-page-content-left-filter .dashboard-content-filters-inner .dashboard-content-inner .dashboard-content-item h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row .jobs-page-content-left-filter .dashboard-content-filters-inner .dashboard-content-inner .dashboard-content-item p {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row .jobs-page-content-left-filter .dashboard-content-filters-inner .dashboard-content-inner .dashboard-content-item p.dates {
+  color: #aaa;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row .jobs-page-content-left-filter .dashboard-content-filters-inner .dashboard-content-inner .dashboard-content-item:last-child {
+  margin-bottom: 0px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row .jobs-page-content-left-filter .dashboard-content-filters-inner .dashboard-content-inner .dashboard-content-item .item-actions {
+  margin-top: 10px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row .jobs-page-content-left-filter .dashboard-content-filters-inner .dashboard-content-inner p.no_items {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row .jobs-page-content-middle {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eee;
+  padding: 0px;
+  margin-bottom: 20px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row .jobs-page-content-middle .jobs-page-content-middle-inner .jobs-page-content-middle-inner-header {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row .jobs-page-content-middle .jobs-page-content-middle-inner .jobs-page-content-middle-inner-header h2 {
+  position: relative;
+  top: 5px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row .jobs-page-content-middle .jobs-page-content-middle-inner .jobs-page-content-middle-inner-jobs .job {
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+  padding: 20px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row .jobs-page-content-middle .jobs-page-content-middle-inner .jobs-page-content-middle-inner-jobs .job:last-child {
+  margin-bottom: 0px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row .jobs-page-content-middle .jobs-page-content-middle-inner .jobs-page-content-middle-inner-jobs .job .job-image {
+  text-align: left;
+  margin-bottom: 20px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row .jobs-page-content-middle .jobs-page-content-middle-inner .jobs-page-content-middle-inner-jobs .job .job-image img {
+  max-width: 100px;
+  border-radius: 50%;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row .jobs-page-content-middle .jobs-page-content-middle-inner .jobs-page-content-middle-inner-jobs .job .job-inner .job-inner-header {
+  width: 100%;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row .jobs-page-content-middle .jobs-page-content-middle-inner .jobs-page-content-middle-inner-jobs .job .job-inner .job-inner-header h3 {
+  font-size: 20px;
+  margin-bottom: 0px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row .jobs-page-content-middle .jobs-page-content-middle-inner .jobs-page-content-middle-inner-jobs .job .job-inner .job-inner-header p {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row .jobs-page-content-middle .jobs-page-content-middle-inner .jobs-page-content-middle-inner-jobs .job .job-inner .job-inner-content {
+  margin-bottom: 10px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row .jobs-page-content-middle .jobs-page-content-middle-inner .jobs-page-content-middle-inner-jobs .job .job-inner .job-inner-content p {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+.jobs-page .jobs-page-content .jobs-page-content-container .jobs-page-content-inner-row .jobs-page-content-middle .jobs-page-content-middle-inner .jobs-page-content-middle-inner-jobs p.no_jobs {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+
+.job {
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+  padding: 20px;
+}
+.job:last-child {
+  margin-bottom: 0px;
+}
+.job .job-image {
+  text-align: left;
+  margin-bottom: 20px;
+}
+.job .job-image img {
+  max-width: 100px;
+  border-radius: 50%;
+}
+.job .job-inner .job-inner-header {
+  width: 100%;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+.job .job-inner .job-inner-header h3 {
+  font-size: 20px;
+  margin-bottom: 0px;
+}
+.job .job-inner .job-inner-header p {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+.job .job-inner .job-inner-content {
+  margin-bottom: 10px;
+}
+.job .job-inner .job-inner-content p {
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+
+.hidden {
+  display: none;
+}
+
+/**
+Posts
+*/
+.post {
+  width: 100%;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+}
+.post .post-inner {
+  padding: 20px;
+}
+.post .post-inner .post-top .post-author {
+  display: flex;
+  border-bottom: 1px solid #eee;
+}
+.post .post-inner .post-top .post-author .post-author-image {
+  text-align: left;
+  margin-bottom: 20px;
+}
+.post .post-inner .post-top .post-author .post-author-image img {
+  max-width: 50px;
+  border-radius: 50%;
+}
+.post .post-inner .post-top .post-author .post-author-name {
+  width: 100%;
+  margin-left: 10px;
+}
+.post .post-inner .post-top .post-author .post-author-name h2 {
+  font-size: 1.2em;
+  margin-bottom: 0px;
+}
+.post .post-inner .post-top .post-author .post-author-name h2 a {
+  color: #333;
+  text-decoration: none;
+}
+.post .post-inner .post-top .post-author .post-author-name h4 {
+  font-size: 1em;
+  font-weight: 400;
+  margin-bottom: 0px;
+  color: #aaa;
+}
+.post .post-inner .post-top .post-author .post-author-name h4 a {
+  color: #aaa;
+  text-decoration: none;
+}
+.post .post-inner .post-stats ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  gap: 20px;
+}
+.post .post-inner .post-stats ul li {
+  display: inline;
+  padding: 10px;
+  padding-left: 0px;
+  color: #aaa;
+}
+.post .post-inner .post-bottom {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+}
+.post .post-inner .post-bottom .post-bottom-left {
+  display: flex;
+  gap: 20px;
+}
+.post .post-inner .post-bottom .post-bottom-left .post-bottom-left-like, .post .post-inner .post-bottom .post-bottom-left .post-bottom-left-comment {
+  cursor: pointer;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  color: #aaa;
+}
+.post .post-inner .post-bottom .post-bottom-left .post-bottom-left-like:hover, .post .post-inner .post-bottom .post-bottom-left .post-bottom-left-comment:hover {
+  color: #861657;
+}
+.post .post-inner .post-bottom .post-bottom-left .post-bottom-left-like a, .post .post-inner .post-bottom .post-bottom-left .post-bottom-left-comment a {
+  color: #aaa;
+  text-decoration: none;
+}
+.post .post-inner .post-bottom .post-bottom-left .post-bottom-left-like a.post-unlike-btn, .post .post-inner .post-bottom .post-bottom-left .post-bottom-left-comment a.post-unlike-btn {
+  color: #861657;
+}
+.post .post-inner .post-bottom .post-bottom-right {
+  display: flex;
+  gap: 10px;
+}
+.post .post-inner .post-bottom .post-bottom-right .post-bottom-right-delete a {
+  color: #aaa;
+  text-decoration: none;
+}
+.post .post-inner .post-comment-maker {
+  margin-top: 20px;
+  border-top: 1px solid #eee;
+}
+.post .post-inner .post-comment-maker form input[type=text] {
+  width: 100%;
+  padding: 10px 0px;
+  border: none;
+  outline: none;
+}
+.post .post-inner .post-comments .post-comments-inner {
+  margin-top: 20px;
+}
+.post .post-inner .post-comments .post-comments-inner .post-comment {
+  display: flex;
+  gap: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+.post .post-inner .post-comments .post-comments-inner .post-comment .post-comment-inner .post-comment-author {
+  display: flex;
+}
+.post .post-inner .post-comments .post-comments-inner .post-comment .post-comment-inner .post-comment-author .post-comment-author-image {
+  text-align: left;
+  margin-bottom: 20px;
+}
+.post .post-inner .post-comments .post-comments-inner .post-comment .post-comment-inner .post-comment-author .post-comment-author-image a img {
+  max-width: 40px;
+  border-radius: 50%;
+}
+.post .post-inner .post-comments .post-comments-inner .post-comment .post-comment-inner .post-comment-author .post-comment-author-name {
+  width: 100%;
+  margin-left: 10px;
+}
+.post .post-inner .post-comments .post-comments-inner .post-comment .post-comment-inner .post-comment-author .post-comment-author-name h2 {
+  font-size: 1em;
+  margin-bottom: 0px;
+}
+.post .post-inner .post-comments .post-comments-inner .post-comment .post-comment-inner .post-comment-author .post-comment-author-name h2 a {
+  color: #333;
+  text-decoration: none;
+}
+.post .post-inner .post-comments .post-comments-inner .post-comment .post-comment-inner .post-comment-author .post-comment-author-name h4 {
+  font-size: 1em;
+  font-weight: 400;
+  margin-bottom: 0px;
+  color: #aaa;
+}
+.post .post-inner .post-comments .post-comments-inner .post-comment .post-comment-inner .post-comment-author .post-comment-author-name h4 a {
+  color: #aaa;
+  text-decoration: none;
+}
+.post .post-inner .post-comments .post-comments-inner .post-comment .post-comment-inner .post-comment-content p {
+  font-size: 1em;
+  margin-bottom: 0px;
+}
+.post .post-inner .post-comments .post-comments-inner .post-comment .post-comment-inner .post-actions ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  gap: 10px;
+}
+.post .post-inner .post-comments .post-comments-inner .post-comment .post-comment-inner .post-actions ul li {
+  display: inline;
+  padding: 10px;
+  padding-left: 0px;
+  color: #aaa;
+}
+.post .post-inner .post-comments .post-comments-inner .post-comment .post-comment-inner .post-actions ul li a {
+  color: #aaa;
+  text-decoration: none;
+}
+.post .post-inner .post-comments .post-comments-inner .post-comment .post-comment-inner .post-actions ul li a.post-unlike-btn {
+  color: #861657;
+}
+
+/**
+* Page: Messages
+*/
+.page-messages .page-content .row .page-coversations-left {
+  background: white;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+.page-messages .page-content .row .page-coversations-left .conversations-left-head {
+  padding: 10px;
+}
+.page-messages .page-content .row .page-coversations-left .conversations-left-head .conversations-left-head-inner {
+  border-bottom: 1px solid #eee;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.page-messages .page-content .row .page-coversations-left .conversations-left-head .conversations-left-head-inner h2 {
+  font-size: 1.2em;
+  font-weight: 600;
+  line-height: 1.2em;
+  padding: 0px;
+  margin: 0px;
+}
+.page-messages .page-content .row .page-coversations-left .conversations-left-all ul li {
+  margin-bottom: 10px;
+  padding: 5px;
+}
+.page-messages .page-content .row .page-coversations-left .conversations-left-all ul li .conversations-left-all-inner {
+  display: flex;
+}
+.page-messages .page-content .row .page-coversations-left .conversations-left-all ul li .conversations-left-all-inner .conversations-left-all-left .conversations-left-all-left-inner {
+  padding-right: 10px;
+}
+.page-messages .page-content .row .page-coversations-left .conversations-left-all ul li .conversations-left-all-inner .conversations-left-all-left .conversations-left-all-left-inner img {
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  background-size: cover;
+}
+.page-messages .page-content .row .page-coversations-left .conversations-left-all ul li .conversations-left-all-inner .conversations-left-all-right {
+  padding-top: 5px;
+}
+.page-messages .page-content .row .page-coversations-left .conversations-left-all ul li .conversations-left-all-inner .conversations-left-all-right a {
+  display: block;
+}
+.page-messages .page-content .row .page-coversations-left .conversations-left-all ul li .conversations-left-all-inner .conversations-left-all-right a h3 {
+  font-size: 1em;
+  font-weight: 800;
+  line-height: 1.2em;
+  padding: 0px;
+  margin: 0px;
+}
+.page-messages .page-content .row .page-coversations-left .conversations-left-all ul li .conversations-left-all-inner .conversations-left-all-right a p {
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.2em;
+  padding: 0px;
+  margin: 0px;
+}
+.page-messages .page-content .row .page-conversations-right .conversations-right-inner {
+  background: white;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+.page-messages .page-content .row .page-conversations-right .conversations-right-inner .conversations-right-head .conversations-right-head-inner {
+  border-bottom: 1px solid #eee;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.page-messages .page-content .row .page-conversations-right .conversations-right-inner .conversations-right-head .conversations-right-head-inner h2 {
+  font-size: 1.2em;
+  font-weight: 600;
+  line-height: 1.2em;
+  padding: 0px;
+  margin: 0px;
+}
+.page-messages .page-content .row .page-conversations-right .conversations-right-inner .conversations-right-body {
+  height: 500px;
+  padding: 25px;
+  overflow: auto;
+}
+.page-messages .page-content .row .page-conversations-right .conversations-right-inner .conversations-right-body .conversations-right-body-message {
+  padding-bottom: 15px;
+}
+.page-messages .page-content .row .page-conversations-right .conversations-right-inner .conversations-right-body .conversations-right-body-message .conversations-right-body-message-inner {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+.page-messages .page-content .row .page-conversations-right .conversations-right-inner .conversations-right-body .conversations-right-body-message .conversations-right-body-message-inner .conversations-right-body-message-left .conversations-right-body-message-left-inner a {
+  text-align: left;
+}
+.page-messages .page-content .row .page-conversations-right .conversations-right-inner .conversations-right-body .conversations-right-body-message .conversations-right-body-message-inner .conversations-right-body-message-left .conversations-right-body-message-left-inner a img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.page-messages .page-content .row .page-conversations-right .conversations-right-inner .conversations-right-body .conversations-right-body-message .conversations-right-body-message-inner .conversations-right-body-message-right {
+  text-align: left;
+}
+.page-messages .page-content .row .page-conversations-right .conversations-right-inner .conversations-right-body .conversations-right-body-message .conversations-right-body-message-inner .conversations-right-body-message-right .conversations-right-body-message-right-inner .conversations-right-body-message-right-head {
+  padding-bottom: 5px;
+}
+.page-messages .page-content .row .page-conversations-right .conversations-right-inner .conversations-right-body .conversations-right-body-message .conversations-right-body-message-inner .conversations-right-body-message-right .conversations-right-body-message-right-inner .conversations-right-body-message-right-head h3 {
+  font-size: 1em;
+  font-weight: 600;
+  line-height: 1.2em;
+  padding: 0px;
+  margin: 0px;
+}
+.page-messages .page-content .row .page-conversations-right .conversations-right-inner .conversations-right-body .conversations-right-body-message .conversations-right-body-message-inner .conversations-right-body-message-right .conversations-right-body-message-right-inner .conversations-right-body-message-right-body {
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+.page-messages .page-content .row .page-conversations-right .conversations-right-inner .conversations-right-body .conversations-right-body-message.conversations-right-body-message-me .conversations-right-body-message-inner {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  flex-flow: row-reverse;
+}
+.page-messages .page-content .row .page-conversations-right .conversations-right-inner .conversations-right-body .conversations-right-body-message.conversations-right-body-message-me .conversations-right-body-message-inner .conversations-right-body-message-left .conversations-right-body-message-left-inner a {
+  text-align: left;
+}
+.page-messages .page-content .row .page-conversations-right .conversations-right-inner .conversations-right-body .conversations-right-body-message.conversations-right-body-message-me .conversations-right-body-message-inner .conversations-right-body-message-left .conversations-right-body-message-left-inner a img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.page-messages .page-content .row .page-conversations-right .conversations-right-inner .conversations-right-body .conversations-right-body-message.conversations-right-body-message-me .conversations-right-body-message-inner .conversations-right-body-message-right {
+  text-align: left;
+}
+.page-messages .page-content .row .page-conversations-right .conversations-right-inner .conversations-right-body .conversations-right-body-message.conversations-right-body-message-me .conversations-right-body-message-inner .conversations-right-body-message-right .conversations-right-body-message-right-inner .conversations-right-body-message-right-head {
+  padding-bottom: 5px;
+}
+.page-messages .page-content .row .page-conversations-right .conversations-right-inner .conversations-right-body .conversations-right-body-message.conversations-right-body-message-me .conversations-right-body-message-inner .conversations-right-body-message-right .conversations-right-body-message-right-inner .conversations-right-body-message-right-head h3 {
+  font-size: 1em;
+  font-weight: 600;
+  line-height: 1.2em;
+  padding: 0px;
+  margin: 0px;
+}
+.page-messages .page-content .row .page-conversations-right .conversations-right-inner .conversations-right-body .conversations-right-body-message.conversations-right-body-message-me .conversations-right-body-message-inner .conversations-right-body-message-right .conversations-right-body-message-right-inner .conversations-right-body-message-right-body {
+  background: white;
+}
+.page-messages .page-content .row .page-conversations-right .conversations-right-inner .conversations-right-footer {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.page-messages .page-content .row .page-conversations-right .conversations-right-inner .conversations-right-footer .conversations-right-footer-inner .conversations-right-footer-left textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #eee;
 }

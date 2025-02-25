@@ -20,8 +20,25 @@ class ProfileController extends Controller
             return abort(404);
         }
 
+        /**
+         * Add profile view
+         */
+        if(auth()->check() && auth()->id() !== $user->id){
+            $user->profileViews()->create([
+                'ip_address' => request()->ip(),
+                'profile_id' => $user->id,
+                'user_id' => auth()->id(),
+            ]);
+        }
+
+        /**
+         * Get the user's posts
+         */
+        $posts = $user->posts()->latest()->get();
+
         return view('pages.profile.profile', [
             'user' => $user,
+            'posts' => $posts,
         ]);
     }
 
@@ -141,7 +158,19 @@ class ProfileController extends Controller
         /**
          * Save the experience
          */
-        $user->experiences()->create($request->all());
+        $user->experiences()->create([
+            'title' => $request->title,
+            'company' => $request->company,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'description' => $request->description,
+            'is_current_job' => $request->is_current_job,
+            'employment_type' => $request->employment_type,
+            'position' => $user->experiences()->count() + 1,
+        ]);
+
+        // Increment the position of the other experiences
+        $user->experiences()->where('id', '!=', $user->experiences()->latest()->first()->id)->increment('position');
 
         return redirect()->route('profile.about', $username)->with('success', 'Experience saved successfully');
     }
@@ -415,5 +444,49 @@ class ProfileController extends Controller
         ]);
 
         return redirect()->route('profile.about', $username)->with('success', 'Experience saved successfully');
+    }
+
+    /**
+     * Update Experience list order
+     * ---------------------
+     * Update the experience list order
+     */
+    public function updateExperienceOrder(Request $request, $username){
+        /**
+         * Check if user exists
+         */
+        $user = User::where('username', $username)->first();
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'User not found',
+                'code'    => 404,
+            ], 404);
+        }
+
+        /**
+         * Validate the request
+         */
+        $request->validate([
+            'expid' => 'required|array',
+        ]);
+
+        // Make sure logged in user is the owner of the experience
+        if ($user->id !== auth()->id()) {
+            return response()->json([
+                'message' => 'Unauthorized',
+                'code'    => 403,
+            ], 403);
+        }
+
+        // Update the experience list order
+        foreach ($request->expid as $key => $expid) {
+            $user->experiences()->where('id', $expid)->update(['position' => $key + 1]);
+        }
+
+        return response()->json([
+            'message' => 'Experience list order updated successfully',
+            'code'    => 200,
+        ]);
     }
 }
