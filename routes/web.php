@@ -118,12 +118,12 @@ Route::get('/jobs/view/{job}', [JobsController::class, 'show'])->name('jobs.show
 Route::post('/jobs/view/{job}/apply', [JobsController::class, 'apply'])->middleware(['auth', 'verified', 'onboarding'])->name('jobs.apply');
 Route::get('/jobs/view/{job}/apply', [JobsController::class, 'applyPage'])->middleware(['auth', 'verified', 'onboarding'])->name('jobs.apply.get');
 
-Route::get('/jobs/view/{job}/applicants', [JobsController::class, 'applicants'])->name('jobs.show.applicants');
-Route::get('/jobs/view/{job}/applicants/interviewing', [JobsController::class, 'applicantsInterviewing'])->name('jobs.show.applicants.interviewing');
-Route::get('/jobs/view/{job}/applicants/hires', [JobsController::class, 'applicantsHired'])->name('jobs.show.applicants.hires');
-Route::get('/jobs/view/{job}/applicants/rejected', [JobsController::class, 'applicantsRejected'])->name('jobs.show.applicants.rejected');
+Route::get('/jobs/view/{job}/applicants', [JobsController::class, 'applicants'])->middleware(['auth', 'verified', 'onboarding'])->name('jobs.show.applicants');
+Route::get('/jobs/view/{job}/applicants/interviewing', [JobsController::class, 'applicantsInterviewing'])->middleware(['auth', 'verified', 'onboarding'])->name('jobs.show.applicants.interviewing');
+Route::get('/jobs/view/{job}/applicants/hires', [JobsController::class, 'applicantsHired'])->middleware(['auth', 'verified', 'onboarding'])->name('jobs.show.applicants.hires');
+Route::get('/jobs/view/{job}/applicants/rejected', [JobsController::class, 'applicantsRejected'])->middleware(['auth', 'verified', 'onboarding'])->name('jobs.show.applicants.rejected');
 
-Route::get('/jobs/view/{job}/applicants/{applicant}', [JobsController::class, 'viewApplicant'])->name('jobs.show.applicant');
+Route::get('/jobs/view/{job}/applicants/{applicant}', [JobsController::class, 'viewApplicant'])->middleware(['auth', 'verified', 'onboarding'])->name('jobs.show.applicant');
 
 Route::get('/jobs/create', [JobsController::class, 'create'])->middleware(['auth', 'verified', 'onboarding'])->name('jobs.create');
 Route::post('/jobs/create/post', [JobsController::class, 'store'])->middleware(['auth', 'verified', 'onboarding'])->name('jobs.create.post');
