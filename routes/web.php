@@ -147,7 +147,7 @@ Route::get('/jobs/view/{job}/my_application', [JobsController::class, 'myApplica
 
 Route::delete('/jobs/delete/{job}', [JobsController::class, 'delete'])->middleware(['auth', 'verified', 'onboarding'])->name('jobs.delete');
 
-Route::get('/jobs/{job}/applicants/{applicant}/startInterview', [JobsController::class, 'startInterview'])->middleware(['auth', 'verified', 'onboarding'])->name('jobs.applicants.startInterview');
+Route::post('/jobs/{job}/applicants/{applicant}/startInterview', [JobsController::class, 'startInterview'])->middleware(['auth', 'verified', 'onboarding'])->name('jobs.applicants.startInterview');
 
 
 
