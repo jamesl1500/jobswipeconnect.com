@@ -733,6 +733,17 @@ class JobsController extends Controller
             'interview_location' => $request->interview_location,
         ]);
 
+        // Start conversation with the applicant
+        $conversation = \App\Models\Conversations::create([
+            'user_id' => auth()->user()->id,
+            'receiver_id' => $applicant->user_id,
+            'job_id' => $job->id,
+            'message' => $request->message,
+            'created_at' => now(),
+        ]);
+
+        
+
         // Redirect to the job details page
         return redirect()->route('jobs.applicants', $job->id)->with('success', 'Interview started successfully');
     }

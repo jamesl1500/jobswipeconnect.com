@@ -103,6 +103,7 @@
 
                                                                     <div class="form-input">
                                                                         <label for="location">Interview Location</label>
+                                                                        <p>Zoom link or physical location</p>
                                                                         <input type="text" name="location" id="location" class="form-control" required />
                                                                     </div>
                                                                 </div>

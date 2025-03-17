@@ -10,7 +10,16 @@ class Conversation_messages extends Model
     use HasFactory;
 
     // Define fillable fields
-    protected $fillable = ['conversation_message_uid', 'conversation_uid', 'user_uid', 'conversation_message_content', 'conversation_message_type', 'conversation_message_status'];
+    protected $fillable = [
+        'conversation_message_uid', 
+        'conversation_uid', 
+        'user_uid', 
+        'conversation_message_content', 
+        'conversation_message_type', 
+        'status',
+        'attachment',
+        'attachment_type',
+    ];
 
     /**
      * Get the conversation that owns the message.
