@@ -119,6 +119,8 @@ Route::post('/jobs/view/{job}/apply', [JobsController::class, 'apply'])->middlew
 Route::get('/jobs/view/{job}/apply', [JobsController::class, 'applyPage'])->middleware(['auth', 'verified', 'onboarding'])->name('jobs.apply.get');
 
 Route::get('/jobs/view/{job}/applicants', [JobsController::class, 'applicants'])->middleware(['auth', 'verified', 'onboarding'])->name('jobs.show.applicants');
+Route::get('/jobs/view/{job}/applicants/v/{applicant}', [JobsController::class, 'viewApplicant'])->middleware(['auth', 'verified', 'onboarding'])->name('jobs.show.applicants.view_applicant');
+
 Route::get('/jobs/view/{job}/applicants/interviewing', [JobsController::class, 'applicantsInterviewing'])->middleware(['auth', 'verified', 'onboarding'])->name('jobs.show.applicants.interviewing');
 Route::get('/jobs/view/{job}/applicants/hires', [JobsController::class, 'applicantsHired'])->middleware(['auth', 'verified', 'onboarding'])->name('jobs.show.applicants.hires');
 Route::get('/jobs/view/{job}/applicants/rejected', [JobsController::class, 'applicantsRejected'])->middleware(['auth', 'verified', 'onboarding'])->name('jobs.show.applicants.rejected');

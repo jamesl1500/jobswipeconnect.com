@@ -4,7 +4,7 @@
 @section('content')
 <div class="jobs-page page">
     <!-- Header -->
-    @include('pages.jobs.includes.header')
+    @include('pages.jobs.includes.slim_header')
 
     <div class="jobs-page-inline-navigation">
         <div class="container">
@@ -63,13 +63,12 @@
                                                 <p>{!! $applicant->cover_letter !!}</p>
                                             </div>
                                             <div class="applicant-inner-footer">
+                                                <a class="btn primary" href="{{ route('jobs.show.applicants.view_applicant', array('job' => $job->id, 'applicant' => $applicant->id)) }}">View</a>
                                                 <?php
                                                 $resume = json_decode($applicant->resume);
                                                 ?>
                                                 <a href="{{ asset('storage\/' . $resume->path) }}" class="btn primary">View Resume</a>
                                                 <button class="btn primary" data-bs-toggle="modal" data-bs-target="#interview-modal-{{ $applicant->id }}">Interview</button>
-                                                <button class="btn primary">Hire</button>
-                                                <button class="btn primary">Reject</button>
                                             </div>
                                             <div class="applicant-modals">
                                                 <!-- Interview Modal: Make it where i can send a message/email to applicant -->

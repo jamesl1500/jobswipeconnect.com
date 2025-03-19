@@ -2238,6 +2238,23 @@ $(document).ready(function () {
     // Show the selected tab
     $('#matchmaker-tab-' + tab).removeClass('hidden');
   });
+
+  /** 
+   * Opened modal logic
+   * ----------------
+   * This script is used to handle the opened modal logic.
+   */
+  var openModalId = sessionStorage.getItem('openModalId');
+  if (openModalId) {
+    $("#" + openModalId).modal('show');
+  }
+  $('.modal').on('show.bs.modal', function () {
+    var modalId = $(this).attr('id');
+    sessionStorage.setItem('openModalId', modalId);
+  });
+  $('.modal').on('hidden.bs.modal', function () {
+    sessionStorage.removeItem('openModalId');
+  });
 });
 })();
 

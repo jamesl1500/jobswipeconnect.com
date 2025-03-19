@@ -101,7 +101,7 @@
                                 <?php
                             }
                         } else {
-                            echo '<p class="no_experience">'.$user->name.' hasnt added any education</p>';
+                            echo '<p class="no_experience">'.$user->name.' hasnt added any experience</p>';
                         }
                         ?>
                     </div>

@@ -2588,6 +2588,69 @@ $secondary-color: #ffa69e;
         }
     }
 
+    .jobs-page-header.slim-job-header{
+        background-color: $background-color;
+        background-image: $background-gradient;
+
+        width: 100%;
+        padding: 30px 0px;
+
+        .jobs-header-container{
+            padding: 20px;
+            border-radius: 5px;
+
+            .jobs-page-header-inner{
+                display: flex;
+
+                .jobs-page-header-image{
+                    text-align: center;
+
+                    img{
+                        max-width: 100px;
+                        border-radius: 50%;
+                    }
+                }
+
+                .jobs-page-header-content{
+                    width: 100%;
+                    padding-left: 20px;
+
+                    .jobs-page-header-content-inner{
+                        padding-top: 10px;
+                        display: flex;
+                        justify-content: space-between;
+
+                        .jobs-page-header-content-title{
+                            margin-bottom: 10px;
+                            text-align: left;
+
+                            h1{
+                                font-size: 2em;
+                                color: white;
+                            }
+
+                            h3{
+                                font-size: 1em;
+                                font-weight: bold;
+                                color: white;
+
+                                a{
+                                    color: white;
+                                }
+                            }
+                        }
+
+                        .jobs-page-header-content-actions{
+                            padding-top: 20px;
+                            
+                            text-align: right;
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     .jobs-page-header{
         background-color: $background-color;
@@ -2719,6 +2782,47 @@ $secondary-color: #ffa69e;
 
         // Show jobs page
         .jobs-page-content-inner{
+
+            .jobs-applicant-profile{
+
+                .jobs-page-applicant-profile{
+                    background: white;
+                    border-radius: 5px;
+                    box-shadow: $box-shadow;
+                    border: 1px solid #eee;
+                    padding: 20px;
+                    margin-bottom: 20px;
+
+                    .jobs-page-applicant-profile-header{
+                        border-bottom: 1px solid #eee;
+                        padding-bottom: 10px;
+                        margin-bottom: 20px;
+
+                        h2{
+                            font-size: 1em;
+                            font-weight: 600;
+                        }
+
+                        h3{
+                            font-size: 20px;
+                            font-weight: 400;
+                        }
+                    }
+
+                    .jobs-page-applicant-profile-inner{
+
+                        .applicant-image{
+                            text-align: left;
+                            margin-bottom: 20px;
+
+                            img{
+                                max-width: 100px;
+                                border-radius: 50%;
+                            }
+                        }
+                    }
+                }
+            }
 
             .jobs-applicant-left{
 
@@ -3116,6 +3220,52 @@ $secondary-color: #ffa69e;
                 font-size: 16px;
                 margin-bottom: 0px;
             }
+        }
+    }
+}
+
+.jobs-page-content-box-body-experience{
+
+    h3{
+
+
+    }
+
+    .profile-page-about-experience-content-item{
+        border-bottom: 1px solid #eee;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+
+        h3{
+            font-size: 1em;
+            margin: 0px;
+        }
+
+        p{
+            margin: 0px;
+        }
+    }
+}
+
+.jobs-page-content-box-body-education{
+
+    h3{
+
+
+    }
+
+    .profile-page-about-education-content-item{
+        border-bottom: 1px solid #eee;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+
+        h3{
+            font-size: 1em;
+            margin: 0px;
+        }
+
+        p{
+            margin: 0px;
         }
     }
 }

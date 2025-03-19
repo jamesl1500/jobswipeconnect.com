@@ -742,9 +742,54 @@ class JobsController extends Controller
             'created_at' => now(),
         ]);
 
-        
+
 
         // Redirect to the job details page
         return redirect()->route('jobs.applicants', $job->id)->with('success', 'Interview started successfully');
+    }
+
+    /**
+     * ViewApplicant | Job
+     * -------------------------------------
+     * View the applicant details
+     */
+    public function viewApplicant($id, $applicant_id)
+    {
+        $job = \App\Models\Jobs::find($id);
+
+        // Make sure the job exists
+        if (!$job) {
+            return redirect()->route('jobs.index')->with('error', 'Job not found');
+        }
+
+        $applicant = \App\Models\JobApplicants::find($applicant_id);
+
+        // Make sure the applicant exists
+        if (!$applicant) {
+            return redirect()->route('jobs.index')->with('error', 'Applicant not found');
+        }
+
+        // Make sure the user is the owner of the job
+        if ($job->user_id != auth()->user()->id) {
+            return redirect()->route('jobs.index')->with('error', 'You are not authorized to view this page');
+        }
+
+        // Get the company details
+        $company = \App\Models\Companies::find($job->company_id);
+
+        // Get user data from applicant
+        $applicant->user = \App\Models\User::find($applicant->user_id);
+
+        // Make sure user exists
+        if (!$applicant->user) {
+            return redirect()->route('jobs.index')->with('error', 'User not found');
+        }
+
+        return view('pages.jobs.applicants.view', [
+            'job' => $job,
+            'company' => $company,
+            'applicant' => $applicant,
+            'user' => $applicant->user,
+        ]);
     }
 }
