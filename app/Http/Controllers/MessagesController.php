@@ -154,11 +154,11 @@ class MessagesController extends Controller
         ]);
 
         // Return the message
-        $conversation_message['author'] = array(
+        $conversation_message['author'] = [
             'name' => Auth::user()->name,
             'username' => Auth::user()->username,
             'avatar' => Auth::user()->profile_picture
-        );
+        ];
 
         // Create HTML for the message
         $conversation_message['html'] = view('components.message', ['message' => $conversation_message, 'messageClass' => 'conversations-right-body-message-me'])->render();
