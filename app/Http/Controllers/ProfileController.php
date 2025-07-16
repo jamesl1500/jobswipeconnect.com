@@ -23,7 +23,7 @@ class ProfileController extends Controller
         /**
          * Add profile view
          */
-        if(auth()->check() && auth()->id() !== $user->id){
+        if (auth()->check() && auth()->id() !== $user->id) {
             $user->profileViews()->create([
                 'ip_address' => request()->ip(),
                 'profile_id' => $user->id,
@@ -349,7 +349,8 @@ class ProfileController extends Controller
      * ---------------------
      * Get the experience
      */
-    public function getExperiencePost(Request $request, $username){
+    public function getExperiencePost(Request $request, $username)
+    {
         /**
          * Check if user exists
          */
@@ -394,7 +395,8 @@ class ProfileController extends Controller
      * ---------------------
      * Edit the experience
      */
-    public function editExperiencePost(Request $request, $username){
+    public function editExperiencePost(Request $request, $username)
+    {
         /**
          * Check if user exists
          */
@@ -451,7 +453,8 @@ class ProfileController extends Controller
      * ---------------------
      * Update the experience list order
      */
-    public function updateExperienceOrder(Request $request, $username){
+    public function updateExperienceOrder(Request $request, $username)
+    {
         /**
          * Check if user exists
          */

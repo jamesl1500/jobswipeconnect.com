@@ -68,7 +68,6 @@ class CompaniesController extends Controller
          * Redirect back to the companies page
          */
         return redirect()->route('companies.my_companies')->with('success', 'Company created successfully');
-
     }
 
     /**

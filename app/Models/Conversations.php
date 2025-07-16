@@ -11,15 +11,15 @@ class Conversations extends Model
 
     // Define fillable fields
     protected $fillable = [
-        'conversation_uid', 
-        'conversation_sender', 
-        'conversation_receiver', 
-        'conversation_name', 
-        'conversation_description', 
-        'job_id', 
-        'status', 
-        'applicant_notes', 
-        'job_poster_notes'
+        'conversation_uid',
+        'conversation_sender',
+        'conversation_receiver',
+        'conversation_name',
+        'conversation_description',
+        'job_id',
+        'status',
+        'applicant_notes',
+        'job_poster_notes',
     ];
 
     /**

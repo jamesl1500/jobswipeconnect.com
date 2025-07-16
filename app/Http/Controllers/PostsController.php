@@ -89,7 +89,7 @@ class PostsController extends Controller
          */
         if ($post) {
             $post->likes()->create(['user_id' => $request->user()->id], ['post_id' => $post->id]);
-        }else{
+        } else {
             return response()->json(['message' => 'Post not found']);
         }
 
@@ -124,7 +124,7 @@ class PostsController extends Controller
          */
         if ($post) {
             $post->likes()->where('user_id', $request->user()->id)->delete();
-        }else{
+        } else {
             return response()->json(['message' => 'Post not found']);
         }
 
@@ -165,7 +165,7 @@ class PostsController extends Controller
                 'post_id' => $post->id,
                 'comment' => $validated['comment'],
             ]);
-        }else{
+        } else {
             return response()->json(['message' => 'Post not found']);
         }
 

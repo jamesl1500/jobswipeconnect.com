@@ -5,7 +5,7 @@ class Matchmaker
 {
     public function __construct()
     {
-        // 
+        //
     }
 
     /**
@@ -39,7 +39,7 @@ class Matchmaker
         ->when($filters['experience'], function ($query, $experience) {
             return $query->whereHas('experiences', function ($query) use ($experience) {
                 $query->where('title', 'like', '%' . $experience . '%');
-           });
+            });
         })
         ->limit(1)->first();
 

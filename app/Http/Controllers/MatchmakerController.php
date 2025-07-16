@@ -12,7 +12,6 @@ use App\Notifications\NewJobSeekerLike;
 use App\Notifications\NewJobPosterMatch;
 use App\Notifications\NewJobSeekerMatch;
 
-
 class MatchmakerController extends Controller
 {
     //
@@ -76,7 +75,7 @@ class MatchmakerController extends Controller
                 //Notification::send(User::find($job_seeker_id), new NewJobPosterMatch($job_id, $job_poster_id));
 
                 return response()->json(["code" => "job-matched", "message" => "Job matched!"]);
-            }else{
+            } else {
                 return response()->json(["code" => "job-liked", "message" => "Job liked!"]);
             }
         }

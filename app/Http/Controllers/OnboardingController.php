@@ -9,14 +9,14 @@ class OnboardingController extends Controller
     /**
      * ShowStep1
      * Show step 1 of onboarding
-     * 
+     *
      * @param Request $request
      */
     public function showStep1(Request $request)
     {
         /**
          * Lets make sure the person is in onboarding step one, if they're in
-         * step 2, we should redirect them to step 2. 
+         * step 2, we should redirect them to step 2.
          */
         if ($request->user()->onboarding_step_1) {
             return redirect()->route('onboarding.step2');
@@ -25,16 +25,17 @@ class OnboardingController extends Controller
         return view('pages.onboarding.onboarding_step1');
     }
 
-    /** ShowStep2
+    /**
+ * ShowStep2
      * Show step 2 of onboarding
-     * 
+     *
      * @param Request $request
      */
     public function showStep2(Request $request)
     {
         /**
          * Lets make sure the person is in onboarding step one, if they're in
-         * step 2, we should redirect them to step 2. 
+         * step 2, we should redirect them to step 2.
          */
         if (!$request->user()->onboarding_step_1) {
             return redirect()->route('onboarding.step1');
@@ -53,14 +54,14 @@ class OnboardingController extends Controller
     /**
      * ProcessStep1
      * Process step 1 of onboarding
-     * 
+     *
      * @param Request $request
      */
     public function processStep1(Request $request)
     {
                /**
          * Lets make sure the person is in onboarding step one, if they're in
-         * step 2, we should redirect them to step 2. 
+         * step 2, we should redirect them to step 2.
          */
         if ($request->user()->onboarding_step_1) {
             return redirect()->route('onboarding.step2');
@@ -69,7 +70,7 @@ class OnboardingController extends Controller
         /**
          * Validate request
          * -----------------
-         * We should be validating the uploaded profile picture and 
+         * We should be validating the uploaded profile picture and
          * address fields (Address, City, State, Zip, Country) here.
          */
         $request->validate([
@@ -83,7 +84,7 @@ class OnboardingController extends Controller
         ]);
         
         // Process step 1
-        if($request->user()->update([
+        if ($request->user()->update([
             'onboarding_step_1' => true,
             'profile_picture' => $request->file('profile_picture')->store('profile_pictures', 'public'),
             'address' => $request->address,
@@ -92,10 +93,9 @@ class OnboardingController extends Controller
             'zip' => $request->zip,
             'country' => $request->country,
             'username' => $request->username
-        ]))
-        {
+        ])) {
             return redirect()->route('onboarding.step2');
-        }else{
+        } else {
             return back()->with('error', 'There was an error processing your request');
         }
 
@@ -105,7 +105,7 @@ class OnboardingController extends Controller
     /**
      * ProcessStep2
      * Process step 2 of onboarding
-     * 
+     *
      * @param Request $request
      */
     public function processStep2(Request $request)
@@ -135,15 +135,14 @@ class OnboardingController extends Controller
         $resume = $request->file('resume')->store('resumes', 'public');
 
         // Process step 2
-        if($request->user()->update([
+        if ($request->user()->update([
             'onboarding_step_2' => true,
             'resume' => $resume,
             'cover_letter' => $request->cover_letter,
             'skills' => $request->skills
-        ]))
-        {
+        ])) {
             return redirect()->route('dashboard.index');
-        }else{
+        } else {
             return back()->with('error', 'There was an error processing your request');
         }
         

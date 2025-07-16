@@ -34,5 +34,4 @@ class Jobs extends Model
     {
         return $this->hasMany(JobApplicants::class, 'job_id');
     }
-    
 }
