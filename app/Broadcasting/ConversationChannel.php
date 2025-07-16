@@ -21,7 +21,6 @@ class ConversationChannel
         $this->conversation_uid = $conversation_uid;
 
         Log::info("New user joined conversation with UID: $conversation_uid");
-
     }
 
     /**
@@ -45,5 +44,4 @@ class ConversationChannel
 
         return true;
     }
-
 }

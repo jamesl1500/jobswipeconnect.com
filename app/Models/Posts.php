@@ -26,7 +26,8 @@ class Posts extends Model
         'type',
     ];
 
-    /**'
+    /**
+* '
      * Get post likes
      */
     public function likes()

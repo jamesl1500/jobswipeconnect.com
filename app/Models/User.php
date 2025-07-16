@@ -72,7 +72,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->attributes['role'];
     }
 
-    /** 
+    /**
      * Check to see if user has completed onboarding step 1
      */
     public function hasCompletedOnboardingStep1()
@@ -80,7 +80,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->onboarding_step_1;
     }
 
-    /** 
+    /**
      * Check to see if user has completed onboarding step 2
      */
     public function hasCompletedOnboardingStep2()

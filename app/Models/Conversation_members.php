@@ -11,11 +11,11 @@ class Conversation_members extends Model
 
     // Define fillable fields
     protected $fillable = [
-        'conversation_member_uid', 
-        'conversation_uid', 
+        'conversation_member_uid',
+        'conversation_uid',
         'type',
-        'user_uid', 
-        'user_role'
+        'user_uid',
+        'user_role',
     ];
 
     /**

@@ -21,7 +21,8 @@ class Conversation
     /**
      * GetOtherConversationMember
      */
-    public function GetOtherConversationMember($conversation_id, $user_uid){
+    public function GetOtherConversationMember($conversation_id, $user_uid)
+    {
         // Get conversation ID
         //$conversation = $this->conversations_model->where('conversation_uid', $conversation_id)->first();
 
@@ -34,11 +35,12 @@ class Conversation
 
     /**
      * CheckIfUserIsConversationMember
-     * 
+     *
      * @param string $conversation_uid
      * @param string $user_uid
      */
-    public function CheckIfUserIsConversationMember($conversation_uid, $user_uid){
+    public function CheckIfUserIsConversationMember($conversation_uid, $user_uid)
+    {
         // Get the conversation
         $conversation = $this->conversations_model->where('conversation_uid', $conversation_uid)->first();
 
@@ -51,10 +53,11 @@ class Conversation
 
     /**
      * GetConversationMembers
-     * 
+     *
      * @param string $conversation_uid
      */
-    public function GetConversationMembers($conversation_uid){
+    public function GetConversationMembers($conversation_uid)
+    {
         $messages = $this->conversations_model->where('conversation_uid', $conversation_uid)->first()->members()->orderBy('created_at', 'asc')->get();
 
         // Return the messages
@@ -63,10 +66,11 @@ class Conversation
 
     /**
      * GetConversationMessages
-     * 
+     *
      * @param string $conversation_uid
      */
-    public function GetConversationMessages($conversation_uid){
+    public function GetConversationMessages($conversation_uid)
+    {
         $messages = $this->conversations_model->where('conversation_uid', $conversation_uid)->first()->messages()->orderBy('created_at', 'asc')->get();
 
         // Return the messages
@@ -77,10 +81,11 @@ class Conversation
      * GenerateUid
      * -----------
      * Generate a unique ID for a conversation, messages, and members.
-     * 
+     *
      * @return string
      */
-    public function GenerateUid(){
+    public function GenerateUid()
+    {
         // Generate a unique ID
         $uid = Str::random(35) . time() . Str::random(3);
 
@@ -92,21 +97,23 @@ class Conversation
      * CheckIfConversationExists
      * -------------------------
      * Check if a conversation exists between two users.
-     * 
+     *
      * @param string $user_uid_1
      * @param string $user_uid_2
      */
-    public function CheckIfConversationExists($user_uid_1, $user_uid_2){
+    public function CheckIfConversationExists($user_uid_1, $user_uid_2)
+    {
         // Check if a conversation exists between the two users
         return $this->conversations_model->where('conversation_sender', $user_uid_1)->where('conversation_receiver', $user_uid_2)->orWhere('conversation_sender', $user_uid_2)->where('conversation_receiver', $user_uid_1)->first();
     }
 
     /**
      * CheckIfConversationExistsByUid
-     * 
+     *
      * @param string $conversation_uid
      */
-    public function CheckIfConversationExistsByUid($conversation_uid){
+    public function CheckIfConversationExistsByUid($conversation_uid)
+    {
         // Check if a conversation exists between the two users
         return $this->conversations_model->where('conversation_uid', $conversation_uid)->first();
     }
@@ -115,10 +122,11 @@ class Conversation
      * GetLastMessage
      * --------------
      * Get the last message in a conversation.
-     * 
+     *
      * @param string $conversation_uid
      */
-    public function GetLastMessage($conversation_uid){
+    public function GetLastMessage($conversation_uid)
+    {
         // Get the conversation
         $conversation = $this->conversations_model->where('id', $conversation_uid)->first();
 
@@ -134,7 +142,8 @@ class Conversation
      * -----------------------
      * Get the unique ID of a conversation.
      */
-    public function GetConversationUniqueId($conversation_id){
+    public function GetConversationUniqueId($conversation_id)
+    {
         // Get the conversation
         $conversation = $this->conversations_model->where('id', $conversation_id)->first();
 
@@ -147,7 +156,8 @@ class Conversation
      * ---------------------------
      * Get the numerical ID of a conversation.
      */
-    public function GetConversationNumericalId($conversation_uid){
+    public function GetConversationNumericalId($conversation_uid)
+    {
         // Get the conversation
         $conversation = $this->conversations_model->where('conversation_uid', $conversation_uid)->first();
 

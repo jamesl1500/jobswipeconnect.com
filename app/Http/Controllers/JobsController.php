@@ -41,9 +41,9 @@ class JobsController extends Controller
                 })->paginate(5);
         } else {
             // Get all jobs at random limit 1
-            if(auth()->user()){
+            if (auth()->user()) {
                 $jobs = \App\Models\Jobs::inRandomOrder()->where('user_id', '!=', auth()->user()->id)->paginate(5);
-            }else{
+            } else {
                 $jobs = \App\Models\Jobs::inRandomOrder()->paginate(5);
             }
         }
@@ -296,7 +296,7 @@ class JobsController extends Controller
     }
 
     /**
-     * My Jobs 
+     * My Jobs
      * -------------------------------------
      * Show the jobs created by the user
      */
@@ -603,7 +603,8 @@ class JobsController extends Controller
      * -------------------------------------
      * Show the job application form
      */
-    public function applyPage($id){
+    public function applyPage($id)
+    {
         $job = \App\Models\Jobs::find($id);
 
         // Make sure the job exists
@@ -691,7 +692,7 @@ class JobsController extends Controller
         return redirect()->route('jobs.show', $job->id)->with('success', 'Job application withdrawn successfully');
     }
 
-    /** 
+    /**
      * Start Interview | Job
      * -------------------------------------
      * Start the interview process for the job with an applicant

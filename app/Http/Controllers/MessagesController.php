@@ -87,7 +87,7 @@ class MessagesController extends Controller
             'status' => 'active',
             'applicant_notes' => '',
             'job_poster_notes' => '',
-            'conversation_description' => 'Conversation between ' . Auth::user()->name . ' and ' . \App\Models\User::where('id', $request->input('user_id'))->first()->name
+            'conversation_description' => 'Conversation between ' . Auth::user()->name . ' and ' . \App\Models\User::where('id', $request->input('user_id'))->first()->name,
         ]);
 
         // Create the conversation message
@@ -169,5 +169,4 @@ class MessagesController extends Controller
         // Return json response
         return response()->json($conversation_message);
     }
-
 }

@@ -69,7 +69,6 @@ class SearchController extends Controller
     /**
      * Search for jobs
      * ----------------
-     * 
      */
     public function jobs(Request $request)
     {
@@ -81,9 +80,8 @@ class SearchController extends Controller
         $experience_level = $request->input('experience_level');
 
         // If the query is not empty, perform the search
-        if (!empty($query)) 
-        {
-            if($employment_location_type) {
+        if (!empty($query)) {
+            if ($employment_location_type) {
                 // Perform search for jobs group queries where employment_location_type is set
                 $jobs = Jobs::where('employment_location_type', $employment_location_type)
                     ->where('title', 'like', '%' . $query . '%')
@@ -91,7 +89,7 @@ class SearchController extends Controller
                     ->orWhere('skills', 'like', '%' . $query . '%')
                     ->orderBy('created_at', 'desc')
                     ->paginate(5);
-            } else if($experience_level) {
+            } elseif ($experience_level) {
                 // Perform search for jobs group queries where experience_level is set
                 $jobs = Jobs::where('experience_level', $experience_level)
                     ->orWhere('description', 'like', '%' . $query . '%')
@@ -124,7 +122,6 @@ class SearchController extends Controller
     /**
      * Search for users
      * ----------------
-     * 
      */
     public function users(Request $request)
     {

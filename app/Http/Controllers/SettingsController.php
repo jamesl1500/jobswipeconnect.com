@@ -30,7 +30,7 @@ class SettingsController extends Controller
          * Here we validate the form data
          */
         $validated = request()->validate([
-            'profile_picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',   
+            'profile_picture' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'city' => 'required|string|max:255',
@@ -263,7 +263,7 @@ class SettingsController extends Controller
         return response()->json(['success' => 'Role updated successfully']);
     }
 
-    /** 
+    /**
      * Change resume
      * -------------------------------------
      * Show the change resume settings page
@@ -273,7 +273,7 @@ class SettingsController extends Controller
         return view('pages.settings.change_resume');
     }
 
-    /** 
+    /**
      * Change resume post
      * -------------------------------------
      * Process the change resume settings page
@@ -299,5 +299,4 @@ class SettingsController extends Controller
         // Redirect back to the settings page
         return redirect()->route('settings.change_resume')->with('success', 'Resume updated successfully');
     }
-
 }

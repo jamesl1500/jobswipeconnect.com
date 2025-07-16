@@ -38,7 +38,7 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            "role"=>["required","in:job-seeker,job-poster"]
+            "role" => ["required","in:job-seeker,job-poster"]
         ]);
 
         $user = User::create([
