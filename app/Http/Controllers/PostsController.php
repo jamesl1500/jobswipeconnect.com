@@ -2,177 +2,99 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class PostsController extends Controller
 {
-    //
-    public function index()
+    public function index(): View
     {
         return view('pages.posts.index');
     }
 
-    /**
-     * Create Post
-     * ---------------------
-     * Creates a new post
-     */
-    public function createPost(Request $request)
+    public function createPost(Request $request): RedirectResponse
     {
-        /**
-         * Form validation
-         * ----------------
-         * Here we validate the form data
-         */
-        $validated = request()->validate([
+        $validated = $request->validate([
             'title' => 'string|max:255',
             'content' => 'required|string',
         ]);
 
-        /**
-         * Create the new post
-         * --------------------------
-         * Here we create the new post
-         */
         $request->user()->posts()->create($validated);
 
-        /**
-         * Redirect back to the posts page
-         */
         return redirect()->route('dashboard.feed')->with('success', 'Post created successfully');
     }
 
-    /**
-     * Delete Post
-     * ---------------------
-     * Deletes a post
-     */
-    public function deletePost(Request $request, $id)
+    public function deletePost(Request $request, int $id): JsonResponse
     {
-        /**
-         * Find the post
-         */
         $post = $request->user()->posts()->find($id);
 
-        /**
-         * If the post exists, delete it
-         */
         if ($post) {
             $post->delete();
         }
 
-        // Return json response
         return response()->json(['message' => 'Post deleted successfully']);
     }
 
-    /**
-     * Like Post
-     * ---------------------
-     * Likes a post
-     */
-    public function likePost(Request $request, $id)
+    public function likePost(Request $request, int $id): JsonResponse
     {
-        /**
-         * Find the post
-         */
         $post = $request->user()->posts()->find($id);
 
-        /**
-         * Check if the user has already liked the post
-         */
         if ($post->likes()->where('user_id', $request->user()->id)->exists()) {
             return response()->json(['message' => 'Post already liked']);
         }
 
-        /**
-         * If the post exists, like it
-         */
         if ($post) {
             $post->likes()->create(['user_id' => $request->user()->id], ['post_id' => $post->id]);
-        }else{
+        } else {
             return response()->json(['message' => 'Post not found']);
         }
 
-        // Get the post likes count
         $likesCount = $post->likes()->count();
 
-        // Return json response
         return response()->json(['message' => 'Post liked successfully', 'likes_count' => $likesCount]);
     }
 
-    /**
-     * Unlike Post
-     * ---------------------
-     * Unlikes a post
-     */
-    public function unlikePost(Request $request, $id)
+    public function unlikePost(Request $request, int $id): JsonResponse
     {
-        /**
-         * Find the post
-         */
         $post = $request->user()->posts()->find($id);
 
-        /**
-         * Check if the user has already liked the post
-         */
         if (!$post->likes()->where('user_id', $request->user()->id)->exists()) {
             return response()->json(['message' => 'Post not liked']);
         }
 
-        /**
-         * If the post exists, unlike it
-         */
         if ($post) {
             $post->likes()->where('user_id', $request->user()->id)->delete();
-        }else{
+        } else {
             return response()->json(['message' => 'Post not found']);
         }
 
-        // Get the post likes count
         $likesCount = $post->likes()->count();
 
-        // Return json response
         return response()->json(['message' => 'Post unliked successfully', 'likes_count' => $likesCount]);
     }
 
-    /**
-     * Comment Post
-     * ---------------------
-     * Comments on a post
-     */
-    public function commentPost(Request $request, $id)
+    public function commentPost(Request $request, int $id): JsonResponse
     {
-        /**
-         * Find the post
-         */
         $post = $request->user()->posts()->find($id);
 
-        /**
-         * Form validation
-         * ----------------
-         * Here we validate the form data
-         */
-        $validated = request()->validate([
+        $validated = $request->validate([
             'comment' => 'required|string',
         ]);
 
-        /**
-         * If the post exists, comment on it
-         */
         if ($post) {
             $post->comments()->create([
                 'user_id' => $request->user()->id,
                 'post_id' => $post->id,
                 'comment' => $validated['comment'],
             ]);
-        }else{
+        } else {
             return response()->json(['message' => 'Post not found']);
         }
 
-        // Get the post comments count
         $commentsCount = $post->comments()->count();
 
-        // Return json response
         return response()->json(['message' => 'Post commented successfully', 'comments_count' => $commentsCount, 'post_id' => $post->id]);
     }
 }

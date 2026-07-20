@@ -1,43 +1,104 @@
 @import 'bootstrap.css';
 
 /**
-* Variables
+* Design tokens — "Bold & Kinetic"
 */
-$box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-$text-shadow: 0px 0px 10px rgba(0,0,0,0.1);
 
-$background-gradient: linear-gradient(326deg, #861657 0%, #ffa69e 74%);
-$background-color: #861657;
+// Brand
+$primary-color: #6D28D9; // vivid violet — actions, links, active states
+$primary-dark: #4C1D95;
+$primary-light: #A78BFA;
+$accent-color: #FF6B57; // flame coral — CTAs, "like"/match, energy
+$accent-dark: #E14F3B;
+$secondary-color: #FF6B57;
+$success-color: #16A34A;
+$danger-color: #EF4444;
 
-$primary-color: #861657;
-$secondary-color: #ffa69e;
+$background-gradient: linear-gradient(135deg, #6D28D9 0%, #FF6B57 100%);
+$background-color: #6D28D9;
+
+// Neutrals
+$ink: #18122B;
+$ink-soft: #625B78;
+$muted: #9891A8;
+$border-color: #E7E1F2;
+$surface: #ffffff;
+$surface-soft: #F7F4FC;
+$page-bg: #F5F2FA;
+
+// Shape
+$radius-sm: 10px;
+$radius: 16px;
+$radius-lg: 28px;
+$radius-pill: 999px;
+
+// Elevation (tinted, not flat black — feels alive)
+$box-shadow: 0 10px 30px -12px rgba(76, 29, 149, 0.28);
+$box-shadow-sm: 0 2px 10px rgba(24, 18, 43, 0.07);
+$box-shadow-lg: 0 24px 56px -16px rgba(76, 29, 149, 0.38);
+$text-shadow: 0 2px 16px rgba(24, 18, 43, 0.25);
+
+// Type
+$font-heading: 'Space Grotesk', 'Segoe UI', sans-serif;
+$font-body: 'Inter', 'Segoe UI', sans-serif;
+
+// Warm neutrals — used for calmer, focused flows (e.g. onboarding) where the
+// full-saturation brand gradient would be too loud
+$warm-canvas: #FAF9F5;
+$warm-border: #E9E5DB;
+$warm-shadow: 0 1px 2px rgba(24, 18, 43, 0.04), 0 12px 32px -16px rgba(24, 18, 43, 0.12);
 
 /**
 * Global
 */
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    font-family: $font-body;
+    color: $ink;
+    background: $page-bg;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: $font-heading;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: $ink;
+}
+
+a{
+    color: $primary-color;
+}
+
+::selection{
+    background: $accent-color;
+    color: white;
+}
 
 /**
 * Content Holder
 */
 .content-hold{
-    margin-top: 60px;
-
+    min-height: calc(100vh - 320px);
 }
 
 /**
 * Resume Box
 */
 .resume-box{
-    background: white;
-    border-radius: 5px;
-    border: 2px solid #eee;
+    background: $surface;
+    border-radius: $radius;
+    border: 2px solid $border-color;
     box-shadow: $box-shadow;
     margin-bottom: 20px;
     display: flex;
 
     .resume-box-left{
         padding: 10px;
-        border-right: 1px solid #eee;
+        border-right: 1px solid $border-color;
         background: blue;
 
         border-top-left-radius: 5px;
@@ -74,7 +135,7 @@ $secondary-color: #ffa69e;
         }
 
         p.date{
-            color: #aaa;
+            color: $muted;
         }
     }
 }
@@ -83,17 +144,19 @@ $secondary-color: #ffa69e;
 * Badge
 */
 .badge{
-    padding: 5px 10px;
-    border-radius: 5px;
+    padding: 6px 14px;
+    border-radius: $radius-pill;
     display: inline-block;
     margin-right: 5px;
     margin-bottom: 5px;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 700;
+    background: rgba(109, 40, 217, 0.1);
+    color: $primary-color;
 }
 
 .badge-primary{
-    background: $primary-color;
+    background: $background-gradient;
     color: white;
 }
 
@@ -104,33 +167,51 @@ $secondary-color: #ffa69e;
     display: flex;
     justify-content: center;
     margin-top: 20px;
+    gap: 6px;
 
     li{
-        display: inline;
-        padding: 10px;
-        margin: 0px 5px;
-        border-radius: 5px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 40px;
+        height: 40px;
+        padding: 0px 12px;
+        margin: 0px;
+        border-radius: $radius-pill;
         cursor: pointer;
-        transition: 0.3s;
+        transition: 0.2s ease;
+        font-weight: 600;
 
         a{
             text-decoration: none;
-            color: #333;
+            color: $ink;
         }
 
         &.active{
-            background: $primary-color;
+            background: $background-gradient;
             color: white;
+            box-shadow: $box-shadow-sm;
+
+            a{
+                color: white;
+            }
         }
 
         &.disabled{
             cursor: not-allowed;
-            opacity: 0.5;
+            opacity: 0.4;
         }
 
         &:hover{
-            background: $primary-color;
-            color: white;
+            background: $surface-soft;
+
+            a{
+                color: $primary-color;
+            }
+        }
+
+        &.active:hover{
+            background: $background-gradient;
 
             a{
                 color: white;
@@ -151,7 +232,8 @@ $secondary-color: #ffa69e;
     padding: 20px;
     text-align: center;
 
-    width: 500px;
+    width: 100%;
+    max-width: 500px;
     margin: 0% auto;
 
     .alert{
@@ -167,7 +249,7 @@ $secondary-color: #ffa69e;
 */
 .simple-alert{
     padding: 20px;
-    border-radius: 5px;
+    border-radius: $radius;
     text-align: left;
 
     .title{
@@ -188,12 +270,12 @@ $secondary-color: #ffa69e;
     }
 
     .actions{
-        border-top: 1px solid #eee;
+        border-top: 1px solid $border-color;
         padding-top: 10px;
 
         a.btn{
             padding: 10px 20px;
-            border-radius: 5px;
+            border-radius: $radius;
             margin-right: 10px;
             text-decoration: none;
             color: white;
@@ -276,7 +358,7 @@ $secondary-color: #ffa69e;
         }
 
         p{
-            color: #333;
+            color: $ink;
             font-size: 14px;
         }
 
@@ -291,8 +373,8 @@ $secondary-color: #ffa69e;
         select{
             width: 100%;
             padding: 10px;
-            border: 1px solid #e0e0e0;
-            border-radius: 5px;
+            border: 1px solid $border-color;
+            border-radius: $radius;
         }
 
         textarea{
@@ -313,47 +395,59 @@ $secondary-color: #ffa69e;
 * Buttons
 */
 .btn{
-    padding: 10px 20px;
+    padding: 12px 24px;
     border: none;
-    border-radius: 5px;
+    border-radius: $radius-pill;
     cursor: pointer;
-    transition: 0.3s;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease;
     text-align: center;
     text-decoration: none;
     display: inline-block;
+    font-family: $font-heading;
     font-size: 16px;
+    font-weight: 600;
 
     &.primary{
-        background: $primary-color;
+        background: $background-gradient;
         color: white;
+        box-shadow: $box-shadow-sm;
 
         &:hover{
-            background: darken($primary-color, 10%);
+            transform: translateY(-2px);
+            box-shadow: $box-shadow;
+        }
+
+        &:active{
+            transform: translateY(0px);
         }
     }
 
     &.secondary{
-        background: $secondary-color;
-        color: #fff;
-        border: 1px solid #e0e0e0;
+        background: $surface;
+        color: $primary-color;
+        border: 1px solid $border-color;
 
         &:hover{
-            background: darken($secondary-color, 10%);
+            background: $surface-soft;
+            border-color: $primary-color;
+            transform: translateY(-2px);
         }
     }
 
     &.skinny{
-        padding: 5px 10px;
+        padding: 6px 14px;
+        font-size: 14px;
     }
 
     &.primary-hollow{
-        background: white;
+        background: $surface;
         color: $primary-color;
         border: 1px solid $primary-color;
 
         &:hover{
             background: $primary-color;
             color: white;
+            transform: translateY(-2px);
         }
     }
 }
@@ -363,33 +457,68 @@ $secondary-color: #ffa69e;
 * Header
 */
 .header-main{
-    background: white;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 
-    position: fixed;
+    position: sticky;
     top: 0px;
-    right: 0px;
-    left: 0px;
 
     z-index: 1000;
 
-    box-shadow: $box-shadow;
+    border-bottom: 1px solid $border-color;
 
-    height: 60px;
     width: 100%;
 
     .header-main-inner{
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0px 24px;
 
         .header-main-row{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 0px;
 
             .header-branding{
+                flex: 0 0 auto;
 
                 .header-branding-inner{
-                    padding-top: 2px;
-                    
+
                     a{
+                        display: inline-flex;
+                        align-items: center;
+                        text-decoration: none;
+                        font-family: $font-heading;
+                        font-size: 22px;
+                        font-weight: 700;
+                        letter-spacing: -0.02em;
+
+                        .logo-mark{
+                            display: inline-flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 34px;
+                            height: 34px;
+                            border-radius: $radius-sm;
+                            margin-right: 8px;
+                            background: $background-gradient;
+                            color: white;
+                            font-size: 18px;
+                        }
+
+                        .logo-word{
+                            background: $background-gradient;
+                            -webkit-background-clip: text;
+                            background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                            color: $primary-color;
+                        }
 
                         img{
-                            max-width: 50px;
+                            max-width: 40px;
                             border-radius: 50%;
                         }
                     }
@@ -397,79 +526,114 @@ $secondary-color: #ffa69e;
             }
 
             .header-search{
-                padding-top: 6px;
+                flex: 1 1 320px;
+                order: 2;
 
                 .header-search-inner{
 
                     form{
+                        position: relative;
+
+                        i{
+                            position: absolute;
+                            top: 50%;
+                            left: 16px;
+                            transform: translateY(-50%);
+                            color: $muted;
+                            pointer-events: none;
+                        }
 
                         input{
-                            border: 1px solid #e0e0e0;
-                            border-radius: 5px;
-                            padding: 10px;
+                            border: 1px solid $border-color;
+                            border-radius: $radius-pill;
+                            padding: 10px 16px 10px 42px;
                             width: 100%;
 
-                            background: #e0e0e0;
+                            background: $surface-soft;
 
                             &:focus{
-                                background: white;
+                                background: $surface;
                                 outline: none;
+                                border-color: $primary-color;
+                                box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.15);
                             }
                         }
 
                         button{
-                            background: #f8f8f8;
-                            border: 1px solid #e0e0e0;
-                            border-radius: 5px;
-                            padding: 10px;
-                            margin-left: 10px;
-                            position: relative;
-                            top: -20px;
+                            display: none;
                         }
                     }
                 }
             }
 
             .header-navigation{
-                padding-top: 6px;
+                flex: 0 0 auto;
+                order: 3;
+                margin-left: auto;
+                position: relative;
 
                 .header-navigation-inner{
-                    padding-top: 8px;
 
                     ul{
                         list-style: none;
                         padding: 0px;
                         margin: 0px;
-                        text-align: right;
+                        display: flex;
+                        align-items: center;
+                        gap: 20px;
 
                         li{
                             display: inline;
-                            margin-right: 20px;
 
                             a{
                                 text-decoration: none;
-                                color: #333;
-                            }
-                        }
+                                color: $ink-soft;
+                                font-weight: 600;
+                                transition: color 0.2s ease;
 
-                        li.profile_picture{
-                            margin-right: 20px;
-
-                            a{
-
-                                img{
-                                    max-width: 35px;
-                                    border-radius: 50%;
+                                &:hover{
+                                    color: $primary-color;
                                 }
                             }
                         }
 
+                        li.profile_picture{
+
+                            a{
+                                display: block;
+
+                                img{
+                                    max-width: 36px;
+                                    height: 36px;
+                                    object-fit: cover;
+                                    border-radius: 50%;
+                                    border: 2px solid $border-color;
+                                }
+                            }
+                        }
+
+                        li.h-dropdown{
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 36px;
+                            height: 36px;
+                            border-radius: 50%;
+                            background: $surface-soft;
+                            cursor: pointer;
+                            transition: background 0.2s ease;
+                            color: $ink-soft;
+
+                            &:hover{
+                                background: $border-color;
+                            }
+                        }
+
                         li.dropdown{
-                            margin-right: 20px;
 
                             a{
                                 text-decoration: none;
-                                color: #333;
+                                color: $ink;
                             }
                         }
                     }
@@ -477,14 +641,15 @@ $secondary-color: #ffa69e;
 
                 .header-dropdown{
                     position: absolute;
-                    top: 65px;
-                    right: 60px;
-                    background: white;
-                    border-radius: 5px;
-                    box-shadow: $box-shadow;
-                    border: 1px solid #eee;
+                    top: calc(100% + 12px);
+                    right: 0px;
+                    background: $surface;
+                    border-radius: $radius;
+                    box-shadow: $box-shadow-lg;
+                    border: 1px solid $border-color;
                     padding: 20px;
-                    width: 300px;
+                    width: 280px;
+                    max-width: 90vw;
 
                     .header-dropdown-role{
 
@@ -498,13 +663,14 @@ $secondary-color: #ffa69e;
 
                                 label{
                                     padding: 10px 20px;
-                                    border-radius: 5px;
+                                    border-radius: $radius-pill;
                                     cursor: pointer;
-                                    transition: 0.3s;
-                                    border: 1px solid #e0e0e0;
+                                    transition: 0.2s ease;
+                                    border: 1px solid $border-color;
+                                    font-weight: 600;
 
                                     &:hover{
-                                        background: #f8f8f8;
+                                        background: $surface-soft;
                                     }
                                 }
 
@@ -528,11 +694,12 @@ $secondary-color: #ffa69e;
                         margin: 0px;
 
                         li{
-                            margin-bottom: 20px;
+                            margin-bottom: 16px;
 
                             a{
                                 text-decoration: none;
-                                color: #333;
+                                color: $ink;
+                                font-weight: 600;
                             }
 
                             &:hover{
@@ -559,13 +726,169 @@ $secondary-color: #ffa69e;
 /**
 * Footer
 */
+.footer-main{
+    background: $ink;
+    color: rgba(255, 255, 255, 0.65);
+    margin-top: 60px;
+
+    .footer-main-inner{
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 60px 24px 30px;
+
+        .footer-top{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: space-between;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+            .footer-brand{
+                flex: 1 1 280px;
+                max-width: 340px;
+
+                .footer-brand-logo{
+                    display: inline-flex;
+                    align-items: center;
+                    text-decoration: none;
+                    font-family: $font-heading;
+                    font-size: 22px;
+                    font-weight: 700;
+                    margin-bottom: 16px;
+
+                    .logo-mark{
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 34px;
+                        height: 34px;
+                        border-radius: $radius-sm;
+                        margin-right: 8px;
+                        background: $background-gradient;
+                        color: white;
+                        font-size: 18px;
+                    }
+
+                    .logo-word{
+                        color: white;
+                    }
+                }
+
+                p{
+                    font-size: 15px;
+                    line-height: 1.6em;
+                    margin-bottom: 20px;
+                }
+
+                .footer-social{
+                    list-style: none;
+                    padding: 0px;
+                    margin: 0px;
+                    display: flex;
+                    gap: 10px;
+
+                    li{
+                        display: inline;
+
+                        a{
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 36px;
+                            height: 36px;
+                            border-radius: 50%;
+                            background: rgba(255, 255, 255, 0.08);
+                            color: white;
+                            text-decoration: none;
+                            transition: 0.2s ease;
+
+                            &:hover{
+                                background: $background-gradient;
+                                transform: translateY(-2px);
+                            }
+                        }
+                    }
+                }
+            }
+
+            .footer-links{
+                flex: 0 1 160px;
+
+                h4{
+                    color: white;
+                    font-size: 15px;
+                    margin-bottom: 16px;
+                }
+
+                ul{
+                    list-style: none;
+                    padding: 0px;
+                    margin: 0px;
+
+                    li{
+                        margin-bottom: 12px;
+
+                        a{
+                            color: rgba(255, 255, 255, 0.65);
+                            text-decoration: none;
+                            font-size: 14px;
+                            transition: color 0.2s ease;
+
+                            &:hover{
+                                color: white;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .footer-bottom{
+            padding-top: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+
+            p{
+                font-size: 13px;
+                margin: 0px;
+            }
+
+            .footer-legal{
+                list-style: none;
+                padding: 0px;
+                margin: 0px;
+                display: flex;
+                gap: 24px;
+
+                li{
+                    display: inline;
+
+                    a{
+                        color: rgba(255, 255, 255, 0.65);
+                        text-decoration: none;
+                        font-size: 13px;
+                        transition: color 0.2s ease;
+
+                        &:hover{
+                            color: white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
 /**
 * Pages
 */
 .page{
     min-height: 100vh;
-    background: #f8f8f8;
+    background: $surface-soft;
 
     .page-header{
         background-color: $background-color;
@@ -577,7 +900,7 @@ $secondary-color: #ffa69e;
 
         .page-header-container{
             padding: 20px;
-            border-radius: 5px;
+            border-radius: $radius;
 
            .page-header-title{
                 margin-bottom: 20px;
@@ -613,107 +936,295 @@ $secondary-color: #ffa69e;
 }
 
 /**
-* Onboarding
+* Onboarding — a calm, focused flow. Deliberately quieter than the rest of
+* the app: warm neutral canvas, restrained type, brand color used sparingly.
 */
-.onboarding-content{
-    padding-top: 60px;
-    background-color: #861657;
-    background-image: linear-gradient(326deg, #861657 0%, #ffa69e 74%);
+.onboarding-topbar{
+    background: $warm-canvas;
+    border-bottom: 1px solid $warm-border;
+    padding: 18px 24px;
 
-    .onboarding-content-inner{
-        
-        .onboarding-content-header{
-            margin-bottom: 50px;
-            text-align: center;
-            color: white;
-            padding: 20px;
+    .onboarding-topbar-inner{
+        max-width: 720px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
 
-            h1{
-                font-size: 40px;
+        .onboarding-topbar-brand{
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            font-family: $font-heading;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            flex-shrink: 0;
+
+            .logo-mark{
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 28px;
+                height: 28px;
+                border-radius: $radius-sm;
+                margin-right: 8px;
+                background: $background-gradient;
+                color: white;
+                font-size: 15px;
             }
 
-            p{
-                font-size: 20px;
+            .logo-word{
+                background: $background-gradient;
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                color: $primary-color;
+            }
+        }
+
+        .onboarding-topbar-progress{
+            flex: 1;
+            max-width: 220px;
+            text-align: center;
+
+            .onboarding-topbar-progress-label{
+                display: block;
+                font-size: 12px;
+                font-weight: 600;
+                color: $muted;
+                letter-spacing: 0.04em;
+                margin-bottom: 6px;
+            }
+
+            .onboarding-topbar-progress-track{
+                display: flex;
+                gap: 6px;
+
+                .onboarding-topbar-progress-segment{
+                    flex: 1;
+                    height: 4px;
+                    border-radius: $radius-pill;
+                    background: $warm-border;
+
+                    &.filled{
+                        background: $background-gradient;
+                    }
+                }
+            }
+        }
+
+        .onboarding-topbar-exit{
+            flex-shrink: 0;
+
+            button{
+                background: none;
+                border: none;
+                padding: 0;
+                font-family: $font-body;
+                font-size: 14px;
+                font-weight: 600;
+                color: $muted;
+                cursor: pointer;
+
+                &:hover{
+                    color: $ink-soft;
+                }
+            }
+        }
+    }
+}
+
+.onboarding-content{
+    min-height: calc(100vh - 66px);
+    padding: 56px 20px 80px;
+    background: $warm-canvas;
+
+    .onboarding-content-inner{
+        width: 100%;
+        max-width: 560px;
+        margin: 0 auto;
+
+        .onboarding-content-header{
+            margin-bottom: 28px;
+
+            h1{
+                font-size: 30px;
+                margin-bottom: 8px;
+            }
+
+            h3, p{
+                font-size: 16px;
+                font-weight: 400;
+                color: $ink-soft;
+                margin-bottom: 0px;
             }
         }
 
         .onboarding-content-box{
-            background: white;
-            border-radius: 5px;
-            padding: 20px;
-            box-shadow: $box-shadow;
+            background: $surface;
+            border-radius: $radius;
+            border: 1px solid $warm-border;
+            box-shadow: $warm-shadow;
+            padding: 32px;
 
-            width: 500px;
-            margin: 0 auto;
+            .onboarding-form-errors{
+                background: rgba(239, 68, 68, 0.08);
+                border: 1px solid rgba(239, 68, 68, 0.2);
+                border-radius: $radius-sm;
+                padding: 14px 16px;
+                margin-bottom: 24px;
+
+                ul{
+                    margin: 0;
+                    padding-left: 18px;
+                }
+
+                li{
+                    color: $danger-color;
+                    font-size: 14px;
+                }
+            }
 
             .onboarding-content-box-form{
 
                 form{
 
                     .onboarding-form-area{
-                        margin-bottom: 20px;
+                        padding-bottom: 24px;
+                        margin-bottom: 24px;
+                        border-bottom: 1px solid $warm-border;
+
+                        &:last-of-type{
+                            padding-bottom: 0px;
+                            margin-bottom: 0px;
+                            border-bottom: none;
+                        }
 
                         h2{
-                            font-size: 30px;
-                            margin-bottom: 20px;
+                            font-size: 16px;
+                            margin-bottom: 4px;
+                        }
+
+                        > p{
+                            font-size: 14px;
+                            color: $muted;
+                            margin-bottom: 16px;
                         }
 
                         .form-area-elements{
-                            margin-bottom: 20px;
 
-                            .profile_picture{
-                                text-align: left;
-                                margin-bottom: 20px;
+                            .avatar-upload{
+                                display: flex;
+                                align-items: center;
+                                gap: 16px;
+                                margin-bottom: 4px;
 
-                                img{
-                                    max-width: 100px;
-                                    border-radius: 50%;
+                                .avatar-upload-preview{
+                                    position: relative;
+                                    width: 72px;
+                                    height: 72px;
+                                    flex-shrink: 0;
+
+                                    img{
+                                        width: 72px;
+                                        height: 72px;
+                                        border-radius: 50%;
+                                        object-fit: cover;
+                                        border: 1px solid $warm-border;
+                                    }
+
+                                    label{
+                                        position: absolute;
+                                        bottom: -2px;
+                                        right: -2px;
+                                        width: 26px;
+                                        height: 26px;
+                                        border-radius: 50%;
+                                        background: $primary-color;
+                                        color: white;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        font-size: 12px;
+                                        cursor: pointer;
+                                        border: 2px solid $surface;
+                                    }
+
+                                    input[type="file"]{
+                                        position: absolute;
+                                        width: 1px;
+                                        height: 1px;
+                                        overflow: hidden;
+                                        opacity: 0;
+                                    }
+                                }
+
+                                .avatar-upload-hint{
+                                    font-size: 13px;
+                                    color: $muted;
                                 }
                             }
 
                             .form-area-elements-inline{
                                 display: flex;
-                                gap: 10px;
-                                justify-content: space-between;
-                                margin-bottom: 20px;
+                                gap: 12px;
+                                margin-bottom: 16px;
 
                                 .form-area-element{
-                                    width: 48%;
-
-                                    label{
-                                        display: block;
-                                        margin-bottom: 10px;
-                                    }
-
-                                    input{
-                                        width: 100%;
-                                        padding: 10px;
-                                        border: 1px solid #e0e0e0;
-                                        border-radius: 5px;
-                                    }
-
+                                    width: 100%;
                                 }
                             }
 
                             .form-area-element{
+                                margin-bottom: 16px;
 
                                 label{
                                     display: block;
-                                    margin-bottom: 10px;
+                                    margin-bottom: 6px;
+                                    font-size: 13px;
+                                    font-weight: 600;
+                                    color: $ink-soft;
                                 }
 
                                 input, textarea{
                                     width: 100%;
-                                    padding: 10px;
-                                    border: 1px solid #e0e0e0;
-                                    border-radius: 5px;
+                                    padding: 11px 14px;
+                                    border: 1px solid $warm-border;
+                                    border-radius: $radius-sm;
+                                    font-family: $font-body;
+                                    font-size: 15px;
+                                    color: $ink;
+                                    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+                                    &:focus{
+                                        outline: none;
+                                        border-color: $primary-color;
+                                        box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.12);
+                                    }
                                 }
 
                                 textarea{
-                                    height: 100px;
+                                    height: 90px;
+                                    resize: vertical;
                                 }
 
+                                &:last-child{
+                                    margin-bottom: 0px;
+                                }
                             }
+                        }
+                    }
+
+                    .onboarding-form-actions{
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-end;
+                        margin-top: 28px;
+
+                        .btn{
+                            width: auto;
                         }
                     }
                 }
@@ -733,14 +1244,14 @@ $secondary-color: #ffa69e;
             align-items: flex-start;
  
             .left-navigation{
-                background: white;
-                border-radius: 5px;
+                background: $surface;
+                border-radius: $radius;
                 box-shadow: $box-shadow;
-                border: 1px solid #eee;
+                border: 1px solid $border-color;
                 padding: 0px;
 
                 .left-navigation-header{
-                    border-bottom: 1px solid #eee;
+                    border-bottom: 1px solid $border-color;
                     padding: 20px;
                     padding-bottom: 10px;
 
@@ -762,7 +1273,7 @@ $secondary-color: #ffa69e;
 
                             a{
                                 text-decoration: none;
-                                color: #333;
+                                color: $ink;
                             }
 
                             &.active{
@@ -791,10 +1302,10 @@ $secondary-color: #ffa69e;
                 
 
                 .settings-content-inner{
-                    background: white;
-                    border-radius: 5px;
+                    background: $surface;
+                    border-radius: $radius;
                     box-shadow: $box-shadow;
-                    border: 1px solid #eee;
+                    border: 1px solid $border-color;
                     padding: 20px;
 
                     .settings-content-form-header{
@@ -824,7 +1335,7 @@ $secondary-color: #ffa69e;
 
         .page-header-container{
             padding: 20px;
-            border-radius: 5px;
+            border-radius: $radius;
 
             .profile-page-header-inner{
 
@@ -900,7 +1411,8 @@ $secondary-color: #ffa69e;
                             margin: 0% auto;
                             margin-top: 20px;
                             text-align: center;
-                            width: 400px;
+                            width: 100%;
+                            max-width: 400px;
 
                             .profile-page-header-content-stats-inner{
                                 display: flex;
@@ -908,7 +1420,7 @@ $secondary-color: #ffa69e;
 
                                 .profile-page-header-content-stats-item{
                                     text-align: center;
-                                    border-radius: 5px;
+                                    border-radius: $radius;
                                     margin-top: 10px;
 
                                     h3{
@@ -936,10 +1448,10 @@ $secondary-color: #ffa69e;
     }
 
     .profile-page-inline-navigation{
-        background: white;
-        border-radius: 5px;
+        background: $surface;
+        border-radius: $radius;
         box-shadow: $box-shadow;
-        border: 1px solid #eee;
+        border: 1px solid $border-color;
         padding: 20px;
         margin-bottom: 20px;
 
@@ -956,7 +1468,7 @@ $secondary-color: #ffa69e;
 
                 a{
                     text-decoration: none;
-                    color: #333;
+                    color: $ink;
                 }
             }
 
@@ -981,10 +1493,10 @@ $secondary-color: #ffa69e;
         .profile-page-content-inner{
 
             .profile-page-resume-content-middle{
-                background: white;
-                border-radius: 5px;
+                background: $surface;
+                border-radius: $radius;
                 box-shadow: $box-shadow;
-                border: 1px solid #eee;
+                border: 1px solid $border-color;
                 padding: 20px;
                 margin-bottom: 20px;
 
@@ -992,20 +1504,16 @@ $secondary-color: #ffa69e;
                     display: flex;
                     justify-content: space-between;
                     margin-bottom: 20px;
-
-                    h1{
-
-                    }
                 }
             }
 
             .profile-page-about-content-middle{
 
                 .profile-page-about-cover-letter{
-                    background: white;
-                    border-radius: 5px;
+                    background: $surface;
+                    border-radius: $radius;
                     box-shadow: $box-shadow;
-                    border: 1px solid #eee;
+                    border: 1px solid $border-color;
                     padding: 20px;
                     margin-bottom: 20px;
 
@@ -1014,7 +1522,7 @@ $secondary-color: #ffa69e;
                         justify-content: space-between;
                         margin-bottom: 20px;
                         padding-bottom: 20px;
-                        border-bottom: 1px solid #eee;
+                        border-bottom: 1px solid $border-color;
 
                         h2{
                             position: relative;
@@ -1032,10 +1540,10 @@ $secondary-color: #ffa69e;
                 }
 
                 .profile-page-about-skills{
-                    background: white;
-                    border-radius: 5px;
+                    background: $surface;
+                    border-radius: $radius;
                     box-shadow: $box-shadow;
-                    border: 1px solid #eee;
+                    border: 1px solid $border-color;
                     padding: 20px;
                     margin-bottom: 20px;
 
@@ -1044,7 +1552,7 @@ $secondary-color: #ffa69e;
                         justify-content: space-between;
                         margin-bottom: 20px;
                         padding-bottom: 20px;
-                        border-bottom: 1px solid #eee;
+                        border-bottom: 1px solid $border-color;
 
                         h2{
                             position: relative;
@@ -1057,13 +1565,14 @@ $secondary-color: #ffa69e;
                         .profile-page-about-skills-content-item{
                             // Inline pill style
                             display: inline-block;
-                            padding: 7px 12px;
-                            background: $primary-color;
-                            border-radius: 5px;
+                            padding: 7px 14px;
+                            background: rgba(109, 40, 217, 0.1);
+                            border-radius: $radius-pill;
                             margin-right: 5px;
+                            margin-bottom: 5px;
 
                             p{
-                                color: white;
+                                color: $primary-color;
                                 font-weight: 600;
                             }
                         }
@@ -1076,10 +1585,10 @@ $secondary-color: #ffa69e;
                 }
 
                 .profile-page-about-experience{
-                    background: white;
-                    border-radius: 5px;
+                    background: $surface;
+                    border-radius: $radius;
                     box-shadow: $box-shadow;
-                    border: 1px solid #eee;
+                    border: 1px solid $border-color;
                     padding: 20px;
                     margin-bottom: 20px;
 
@@ -1088,7 +1597,7 @@ $secondary-color: #ffa69e;
                         justify-content: space-between;
                         margin-bottom: 20px;
                         padding-bottom: 20px;
-                        border-bottom: 1px solid #eee;
+                        border-bottom: 1px solid $border-color;
 
                         h2{
                             position: relative;
@@ -1116,7 +1625,7 @@ $secondary-color: #ffa69e;
                             }
 
                             p.dates{
-                                color: #aaa;
+                                color: $muted;
                             }
 
                             &:last-child{
@@ -1136,10 +1645,10 @@ $secondary-color: #ffa69e;
                 }
 
                 .profile-page-about-education{
-                    background: white;
-                    border-radius: 5px;
+                    background: $surface;
+                    border-radius: $radius;
                     box-shadow: $box-shadow;
-                    border: 1px solid #eee;
+                    border: 1px solid $border-color;
                     padding: 20px;
                     margin-bottom: 20px;
 
@@ -1148,7 +1657,7 @@ $secondary-color: #ffa69e;
                         justify-content: space-between;
                         margin-bottom: 20px;
                         padding-bottom: 20px;
-                        border-bottom: 1px solid #eee;
+                        border-bottom: 1px solid $border-color;
 
                         h2{
                             position: relative;
@@ -1172,7 +1681,7 @@ $secondary-color: #ffa69e;
                             }
 
                             p.dates{
-                                color: #aaa;
+                                color: $muted;
                             }
 
                             &:last-child{
@@ -1199,13 +1708,14 @@ $secondary-color: #ffa69e;
 
     .tag{
         display: inline-block;
-        padding: 5px 10px;
-        background: $primary-color;
-        border-radius: 5px;
+        padding: 6px 12px;
+        background: rgba(109, 40, 217, 0.1);
+        border-radius: $radius-pill;
         margin-right: 5px;
-        
+        margin-bottom: 5px;
+
         p{
-            color: white;
+            color: $primary-color;
             font-weight: 600;
         }
     }
@@ -1215,22 +1725,19 @@ $secondary-color: #ffa69e;
 * Page: Auth
 */
 .auth-page{
-    
-    .auth-page-header{
-        
-    }
 
     .auth-page-content{
 
         .auth-page-content-inner{
-            background: white;
-            border-radius: 5px;
+            background: $surface;
+            border-radius: $radius;
             box-shadow: $box-shadow;
-            border: 1px solid #eee;
+            border: 1px solid $border-color;
             padding: 20px;
             margin: 0% auto;
 
-            width: 500px;
+            width: 100%;
+            max-width: 500px;
 
             .auth-page-content-form-header{
                 margin-bottom: 20px;
@@ -1257,7 +1764,7 @@ $secondary-color: #ffa69e;
 
         .page-header-container{
             padding: 20px;
-            border-radius: 5px;
+            border-radius: $radius;
 
             .dashboard-page-header-inner{
 
@@ -1279,10 +1786,10 @@ $secondary-color: #ffa69e;
     }
 
     .dashboard-page-inline-navigation{
-        background: white;
-        border-radius: 5px;
+        background: $surface;
+        border-radius: $radius;
         box-shadow: $box-shadow;
-        border: 1px solid #eee;
+        border: 1px solid $border-color;
         padding: 20px;
         margin-bottom: 20px;
 
@@ -1299,7 +1806,7 @@ $secondary-color: #ffa69e;
 
                 a{
                     text-decoration: none;
-                    color: #333;
+                    color: $ink;
                 }
             }
 
@@ -1329,10 +1836,10 @@ $secondary-color: #ffa69e;
                 .dashboard-content-inner{
 
                     .dashboard-current-user{
-                        background: white;
-                        border-radius: 5px;
+                        background: $surface;
+                        border-radius: $radius;
                         box-shadow: $box-shadow;
-                        border: 1px solid #eee;
+                        border: 1px solid $border-color;
                         padding: 20px;
                         margin-bottom: 20px;
 
@@ -1351,7 +1858,7 @@ $secondary-color: #ffa69e;
                             .dashboard-current-user-name{
                                 margin-bottom: 10px;
                                 padding-bottom: 10px;
-                                border-bottom: 1px solid #eee;
+                                border-bottom: 1px solid $border-color;
                                 text-align: center;
 
                                 h2{
@@ -1385,8 +1892,8 @@ $secondary-color: #ffa69e;
                                     .dashboard-current-user-stats-item{
                                         display: flex;
                                         justify-content: space-between; 
-                                        background: #f8f8f8;
-                                        border-radius: 5px;
+                                        background: $surface-soft;
+                                        border-radius: $radius;
                                         margin-bottom: 10px;
 
                                         h3{
@@ -1411,10 +1918,10 @@ $secondary-color: #ffa69e;
             }
 
             .dashboard-content.left-filter{
-                background: white;
-                border-radius: 5px;
+                background: $surface;
+                border-radius: $radius;
                 box-shadow: $box-shadow;
-                border: 1px solid #eee;
+                border: 1px solid $border-color;
                 padding: 20px;
                 margin-bottom: 20px;
 
@@ -1422,7 +1929,7 @@ $secondary-color: #ffa69e;
 
                     .dashboard-content-filters-header{
                         margin-bottom: 20px;
-                        border-bottom: 1px solid #eee;
+                        border-bottom: 1px solid $border-color;
 
                         h2{
                             position: relative;
@@ -1446,7 +1953,7 @@ $secondary-color: #ffa69e;
                             }
 
                             p.dates{
-                                color: #aaa;
+                                color: $muted;
                             }
 
                             &:last-child{
@@ -1471,10 +1978,10 @@ $secondary-color: #ffa69e;
                 .dashboard-content-inner{
 
                     .dashboard-content-creator{
-                        background: white;
-                        border-radius: 5px;
+                        background: $surface;
+                        border-radius: $radius;
                         box-shadow: $box-shadow;
-                        border: 1px solid #eee;
+                        border: 1px solid $border-color;
                         padding: 20px;
                         margin-bottom: 20px;
 
@@ -1484,7 +1991,7 @@ $secondary-color: #ffa69e;
                             //margin-bottom: 20px;
                             padding-bottom: 10px;
 
-                            border-bottom: 1px solid #eee;
+                            border-bottom: 1px solid $border-color;
 
                             .dashboard-content-creator-image{
                                 text-align: left;
@@ -1509,7 +2016,7 @@ $secondary-color: #ffa69e;
                                 h4{
                                     font-size: 14px;
                                     font-weight: 400;
-                                    color: #aaa;
+                                    color: $muted;
                                 }
                             }
                         }
@@ -1523,7 +2030,7 @@ $secondary-color: #ffa69e;
                                 width: 100%;
                                 padding: 10px 0px;
                                 border: none;
-                                border-bottom: 1px solid #eee;
+                                border-bottom: 1px solid $border-color;
                                 margin-bottom: 20px;
                                 outline: none;
                             }
@@ -1532,7 +2039,7 @@ $secondary-color: #ffa69e;
                                 width: 100%;
                                 padding: 0px;
                                 border: none;
-                                border-radius: 5px;
+                                border-radius: $radius;
                                 height: 50px;
                                 outline: none;
                                 resize: none;
@@ -1543,7 +2050,7 @@ $secondary-color: #ffa69e;
                                 justify-content: space-between;
                                 margin-top: 20px;
 
-                                border-top: 1px solid #eee;
+                                border-top: 1px solid $border-color;
                                 padding-top: 20px;
 
                                 .content-creator-bottom-left{
@@ -1558,8 +2065,8 @@ $secondary-color: #ffa69e;
 
                                         label{
                                             padding: 10px 14px;
-                                            background: #f8f8f8;
-                                            border-radius: 5px;
+                                            background: $surface-soft;
+                                            border-radius: $radius;
                                             cursor: pointer;
                                         }
                                     }
@@ -1572,8 +2079,8 @@ $secondary-color: #ffa69e;
 
                                         label{
                                             padding: 10px 14px;
-                                            background: #f8f8f8;
-                                            border-radius: 5px;
+                                            background: $surface-soft;
+                                            border-radius: $radius;
                                             cursor: pointer;
                                         }
                                     }
@@ -1607,10 +2114,10 @@ $secondary-color: #ffa69e;
                     .companies-content-posts-inner{
 
                         .companies-content-post{
-                            background: white;
-                            border-radius: 5px;
+                            background: $surface;
+                            border-radius: $radius;
                             box-shadow: $box-shadow;
-                            border: 1px solid #eee;
+                            border: 1px solid $border-color;
                             padding: 20px;
                             margin-bottom: 20px;
 
@@ -1634,7 +2141,7 @@ $secondary-color: #ffa69e;
                                     .companies-content-post-name{
                                         margin-bottom: 10px;
                                         padding-bottom: 10px;
-                                        border-bottom: 1px solid #eee;
+                                        border-bottom: 1px solid $border-color;
 
                                         h2{
                                             font-size: 20px;
@@ -1653,17 +2160,17 @@ $secondary-color: #ffa69e;
                     }
 
                     .companies-content-navigation{
-                        background: white;
-                        border-radius: 5px;
+                        background: $surface;
+                        border-radius: $radius;
                         box-shadow: $box-shadow;
-                        border: 1px solid #eee;
+                        border: 1px solid $border-color;
                         padding: 0px;
         
                         // Make sure height is auto
                         height: auto;
         
                         .companies-content-navigation-header{
-                            border-bottom: 1px solid #eee;
+                            border-bottom: 1px solid $border-color;
                             padding: 20px;
                             padding-bottom: 10px;
         
@@ -1685,7 +2192,7 @@ $secondary-color: #ffa69e;
         
                                     a{
                                         text-decoration: none;
-                                        color: #333;
+                                        color: $ink;
                                     }
         
                                     &.active{
@@ -1715,10 +2222,10 @@ $secondary-color: #ffa69e;
                     }
 
                     .company{
-                        background: white;
-                        border-radius: 5px;
+                        background: $surface;
+                        border-radius: $radius;
                         box-shadow: $box-shadow;
-                        border: 1px solid #eee;
+                        border: 1px solid $border-color;
                         padding: 20px;
                         margin-bottom: 20px;
 
@@ -1741,7 +2248,7 @@ $secondary-color: #ffa69e;
                             .company-name{
                                 margin-bottom: 10px;
                                 padding-bottom: 10px;
-                                border-bottom: 1px solid #eee;
+                                border-bottom: 1px solid $border-color;
 
                                 h2{
                                     font-size: 20px;
@@ -1758,20 +2265,20 @@ $secondary-color: #ffa69e;
                     }
 
                     .companies-content-form{
-                        background: white;
-                        border-radius: 5px;
+                        background: $surface;
+                        border-radius: $radius;
                         box-shadow: $box-shadow;
-                        border: 1px solid #eee;
+                        border: 1px solid $border-color;
                         padding: 20px;
                         margin-bottom: 20px;
 
                     }
 
                     .side-block{
-                        background: white;
-                        border-radius: 5px;
+                        background: $surface;
+                        border-radius: $radius;
                         box-shadow: $box-shadow;
-                        border: 1px solid #eee;
+                        border: 1px solid $border-color;
                         padding: 20px;
                         margin-bottom: 20px;
 
@@ -1780,7 +2287,7 @@ $secondary-color: #ffa69e;
                             justify-content: space-between;
                             margin-bottom: 20px;
                             padding-bottom: 10px;
-                            border-bottom: 1px solid #eee;
+                            border-bottom: 1px solid $border-color;
 
                             h3{
                                 font-size: 20px;
@@ -1821,10 +2328,10 @@ $secondary-color: #ffa69e;
 .search-page{
 
     .search-page-inline-navigation{
-        background: white;
-        border-radius: 5px;
+        background: $surface;
+        border-radius: $radius;
         box-shadow: $box-shadow;
-        border: 1px solid #eee;
+        border: 1px solid $border-color;
         padding: 20px;
         margin-bottom: 20px;
 
@@ -1841,7 +2348,7 @@ $secondary-color: #ffa69e;
 
                 a{
                     text-decoration: none;
-                    color: #333;
+                    color: $ink;
                 }
             }
 
@@ -1868,7 +2375,7 @@ $secondary-color: #ffa69e;
                 align-items:flex-start;
 
                 .jobs-search-main-header{
-                    border-bottom: 1px solid #eee;
+                    border-bottom: 1px solid $border-color;
                     padding-bottom: 10px;
 
                     h2{
@@ -1877,17 +2384,17 @@ $secondary-color: #ffa69e;
                 }
 
                 .jobs-search-main{
-                    background: white;
-                    border-radius: 5px;
+                    background: $surface;
+                    border-radius: $radius;
                     box-shadow: $box-shadow;
-                    border: 1px solid #eee;
+                    border: 1px solid $border-color;
                     margin-bottom: 20px;
                     flex-wrap:nowrap;
                     padding: 0px;
 
                     .jobs-search-main-header{
                         padding: 20px;
-                        border-bottom: 1px solid #eee;
+                        border-bottom: 1px solid $border-color;
 
                         h2{
                             position: relative;
@@ -1937,13 +2444,14 @@ $secondary-color: #ffa69e;
 
                                                 .tag{
                                                     display: inline-block;
-                                                    padding: 5px 10px;
-                                                    background: $primary-color;
-                                                    border-radius: 5px;
+                                                    padding: 6px 12px;
+                                                    background: rgba(109, 40, 217, 0.1);
+                                                    border-radius: $radius-pill;
                                                     margin-right: 5px;
-                                                    
+                                                    margin-bottom: 5px;
+
                                                     p{
-                                                        color: white;
+                                                        color: $primary-color;
                                                         font-weight: 600;
                                                     }
                                                 }
@@ -1956,16 +2464,16 @@ $secondary-color: #ffa69e;
                         }
 
                         .jobs-search-main-footer{
-                            border-top: 1px solid #eee;
+                            border-top: 1px solid $border-color;
                             padding-top: 20px;
                         }
 
                         .job-box{
-                            background: white;
-                            border-radius: 5px;
+                            background: $surface;
+                            border-radius: $radius;
                             cursor: pointer;
                             padding: 20px;
-                            border-bottom: 1px solid #eee;
+                            border-bottom: 1px solid $border-color;
 
                             &:last-child{
                                 border-bottom: none;
@@ -1995,7 +2503,7 @@ $secondary-color: #ffa69e;
 
                                         .date{
                                             font-size: 16px;
-                                            color: #aaa;
+                                            color: $muted;
                                             font-weight: 450;
                                         }
                                     }
@@ -2019,15 +2527,15 @@ $secondary-color: #ffa69e;
                 .side-area{
                         
                     .side-block{
-                        background: white;
-                        border-radius: 5px;
+                        background: $surface;
+                        border-radius: $radius;
                         box-shadow: $box-shadow;
-                        border: 1px solid #eee;
+                        border: 1px solid $border-color;
                         padding: 20px;
                         margin-bottom: 20px;
 
                         .side-block-header{
-                            border-bottom: 1px solid #eee;
+                            border-bottom: 1px solid $border-color;
                             padding-bottom: 10px;
 
                             h2, h3{
@@ -2039,7 +2547,7 @@ $secondary-color: #ffa69e;
                                 font-size: 16px;
                                 margin-bottom: 0px;
                             
-                                color: #aaa;
+                                color: $muted;
                             }
                         }
 
@@ -2047,7 +2555,7 @@ $secondary-color: #ffa69e;
                             margin-top: 10px;
 
                             .side-block-footer{
-                                border-top: 1px solid #eee;
+                                border-top: 1px solid $border-color;
                                 padding-top: 20px;
                             }
 
@@ -2163,7 +2671,7 @@ $secondary-color: #ffa69e;
 
                         .side-block-header{
                             padding: 20px;
-                            border-bottom: 1px solid #eee;
+                            border-bottom: 1px solid $border-color;
                             padding-bottom: 10px;
 
                             h3{
@@ -2175,7 +2683,7 @@ $secondary-color: #ffa69e;
                                 font-size: 16px;
                                 margin-bottom: 0px;
                             
-                                color: #aaa;
+                                color: $muted;
                             }
                         }
                         
@@ -2195,7 +2703,7 @@ $secondary-color: #ffa69e;
 
                                     a{
                                         text-decoration: none;
-                                        color: #333;
+                                        color: $ink;
                                     }
 
                                     &.active{
@@ -2229,8 +2737,8 @@ $secondary-color: #ffa69e;
 * Matchmaker
 */
 .matchmaker.job-seeker-version{
-    background: white;
-    border-radius: 5px;
+    background: $surface;
+    border-radius: $radius;
     box-shadow: $box-shadow;
 
     .matchmaker-inner{
@@ -2240,7 +2748,7 @@ $secondary-color: #ffa69e;
             justify-content: flex-start;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid $border-color;
             gap: 10px;
             padding: 20px;
 
@@ -2286,7 +2794,7 @@ $secondary-color: #ffa69e;
         .apply-now{
             display: flex;
             justify-content: space-between;
-            border-top: 1px solid #eee;
+            border-top: 1px solid $border-color;
 
             .dislike, .like{
                 padding: 20px;
@@ -2299,8 +2807,8 @@ $secondary-color: #ffa69e;
 }
 
 .matchmaker.job-poster-version{
-    background: white;
-    border-radius: 5px;
+    background: $surface;
+    border-radius: $radius;
     box-shadow: $box-shadow;
 
     .matchmaker-inner{
@@ -2308,7 +2816,7 @@ $secondary-color: #ffa69e;
 
         .matchmaker-header{
             padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid $border-color;
 
             p{
                 font-size: 16px;
@@ -2322,19 +2830,27 @@ $secondary-color: #ffa69e;
             justify-content: space-between;
             margin-bottom: 20px;
             margin-top: 15px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid $border-color;
             padding-bottom: 15px;
 
             .matchmaker-tab{
                 padding: 10px;
-                border-radius: 5px;
+                border-radius: $radius-pill;
                 cursor: pointer;
                 width: 30%;
+                text-align: center;
+                font-weight: 600;
+                transition: 0.2s ease;
+
+                &:hover{
+                    background: $surface-soft;
+                }
             }
 
             .matchmaker-tab.active{
-                background: #ddd;
-                color: #333;
+                background: rgba(109, 40, 217, 0.1);
+                color: $primary-color;
+                font-weight: 600;
             }
         }
 
@@ -2344,7 +2860,7 @@ $secondary-color: #ffa69e;
 
                 .matchmaker-tab-content-header{
                     padding-bottom: 15px;
-                    border-bottom: 1px solid #eee;
+                    border-bottom: 1px solid $border-color;
 
                     p{
                         font-size: 16px;
@@ -2400,7 +2916,7 @@ $secondary-color: #ffa69e;
                             }
 
                             p.date{
-                                color: #aaa;
+                                color: $muted;
                             }
 
                             &:last-child{
@@ -2423,7 +2939,7 @@ $secondary-color: #ffa69e;
         }
 
         .matchmaker-actions{
-            border-top: 1px solid #eee;
+            border-top: 1px solid $border-color;
             padding-top: 20px;
             margin-top: 20px;
 
@@ -2436,7 +2952,7 @@ $secondary-color: #ffa69e;
                     background: $background-color;
                     color: white;
                     border: none;
-                    border-radius: 5px;
+                    border-radius: $radius;
                     cursor: pointer;
                 }
             }
@@ -2469,17 +2985,17 @@ $secondary-color: #ffa69e;
                     .jobs-page-content-body-left{
                         
                         .jobs-page-content-body-left-inner{
-                            background: white;
-                            border-radius: 5px;
+                            background: $surface;
+                            border-radius: $radius;
                             box-shadow: $box-shadow;
-                            border: 1px solid #eee;
+                            border: 1px solid $border-color;
                             padding: 20px;
                             margin-bottom: 20px;
 
                             .jobs-page-content-body-left-title{
                                 margin-bottom: 20px;
                                 padding-bottom: 20px;
-                                border-bottom: 1px solid #eee;
+                                border-bottom: 1px solid $border-color;
 
                                 h3{
                                     font-size: 14px;
@@ -2501,10 +3017,10 @@ $secondary-color: #ffa69e;
                     .jobs-page-content-body-right{
 
                         .jobs-page-content-body-right-inner{
-                            background: white;
-                            border-radius: 5px;
+                            background: $surface;
+                            border-radius: $radius;
                             box-shadow: $box-shadow;
-                            border: 1px solid #eee;
+                            border: 1px solid $border-color;
                             padding: 20px;
                             margin-bottom: 20px;
 
@@ -2512,7 +3028,7 @@ $secondary-color: #ffa69e;
                             .jobs-page-content-body-right-title{
                                 margin-bottom: 20px;
                                 padding-bottom: 20px;
-                                border-bottom: 1px solid #eee;
+                                border-bottom: 1px solid $border-color;
 
                                 h3{
                                     font-size: 14px;
@@ -2540,7 +3056,7 @@ $secondary-color: #ffa69e;
                                         }
 
                                         p.dates{
-                                            color: #aaa;
+                                            color: $muted;
                                         }
 
                                         &:last-child{
@@ -2574,16 +3090,12 @@ $secondary-color: #ffa69e;
             }
 
             .jobs-page-content-body{
-                background: white;
-                border-radius: 5px;
+                background: $surface;
+                border-radius: $radius;
                 box-shadow: $box-shadow;
-                border: 1px solid #eee;
+                border: 1px solid $border-color;
                 padding: 20px;
                 margin-top: 20px;
-
-                form{
-
-                }
             }
         }
     }
@@ -2597,7 +3109,7 @@ $secondary-color: #ffa69e;
 
         .jobs-header-container{
             padding: 20px;
-            border-radius: 5px;
+            border-radius: $radius;
 
             .jobs-page-header-inner{
                 display: flex;
@@ -2661,7 +3173,7 @@ $secondary-color: #ffa69e;
 
         .jobs-header-container{
             padding: 20px;
-            border-radius: 5px;
+            border-radius: $radius;
 
             .jobs-page-header-inner{
 
@@ -2739,10 +3251,10 @@ $secondary-color: #ffa69e;
     }
 
     .jobs-page-inline-navigation{
-        background: white;
-        border-radius: 5px;
+        background: $surface;
+        border-radius: $radius;
         box-shadow: $box-shadow;
-        border: 1px solid #eee;
+        border: 1px solid $border-color;
         padding: 20px;
         margin-bottom: 20px;
 
@@ -2759,7 +3271,7 @@ $secondary-color: #ffa69e;
 
                 a{
                     text-decoration: none;
-                    color: #333;
+                    color: $ink;
                 }
             }
 
@@ -2786,15 +3298,15 @@ $secondary-color: #ffa69e;
             .jobs-applicant-profile{
 
                 .jobs-page-applicant-profile{
-                    background: white;
-                    border-radius: 5px;
+                    background: $surface;
+                    border-radius: $radius;
                     box-shadow: $box-shadow;
-                    border: 1px solid #eee;
+                    border: 1px solid $border-color;
                     padding: 20px;
                     margin-bottom: 20px;
 
                     .jobs-page-applicant-profile-header{
-                        border-bottom: 1px solid #eee;
+                        border-bottom: 1px solid $border-color;
                         padding-bottom: 10px;
                         margin-bottom: 20px;
 
@@ -2827,13 +3339,13 @@ $secondary-color: #ffa69e;
             .jobs-applicant-left{
 
                 .jobs-page-applicants-navigation{
-                    background: white;
-                    border-radius: 5px;
+                    background: $surface;
+                    border-radius: $radius;
                     box-shadow: $box-shadow;
 
                     .jobs-page-applicants-navigation-header{
                         padding: 20px;
-                        border-bottom: 1px solid #eee;
+                        border-bottom: 1px solid $border-color;
 
                         h2{
                             font-size: 20px;
@@ -2854,7 +3366,7 @@ $secondary-color: #ffa69e;
 
                                 a{
                                     text-decoration: none;
-                                    color: #333;
+                                    color: $ink;
                                 }
 
                                 &.active{
@@ -2881,15 +3393,15 @@ $secondary-color: #ffa69e;
             }
 
             .jobs-page-applicants-content-middle{
-                background: white;
-                border-radius: 5px;
+                background: $surface;
+                border-radius: $radius;
                 box-shadow: $box-shadow;
-                border: 1px solid #eee;
+                border: 1px solid $border-color;
                 padding: 20px;
                 margin-bottom: 20px;
 
                 .jobs-page-content-header{
-                    border-bottom: 1px solid #eee;
+                    border-bottom: 1px solid $border-color;
                     padding-bottom: 10px;
                     margin-bottom: 20px;
 
@@ -2928,7 +3440,7 @@ $secondary-color: #ffa69e;
                                 width: 100%;
                                 padding-bottom: 10px;
                                 margin-bottom: 10px;
-                                border-bottom: 1px solid #eee;
+                                border-bottom: 1px solid $border-color;
 
                                 h3{
                                     font-size: 20px;
@@ -2958,17 +3470,17 @@ $secondary-color: #ffa69e;
         .page-row{
 
             .jobs-create-container, .jobs-my_jobs-container{
-                background: white;
-                border-radius: 5px;
+                background: $surface;
+                border-radius: $radius;
                 box-shadow: $box-shadow;
-                border: 1px solid #eee;
+                border: 1px solid $border-color;
                 padding: 20px;
                 margin-bottom: 20px;
 
                 .jobs-create-inner{
 
                     .jobs-create-header{
-                        border-bottom: 1px solid #eee;
+                        border-bottom: 1px solid $border-color;
                         padding-bottom: 10px;
 
                         h2{
@@ -3004,8 +3516,8 @@ $secondary-color: #ffa69e;
                                         input, textarea{
                                             width: 100%;
                                             padding: 10px;
-                                            border: 1px solid #e0e0e0;
-                                            border-radius: 5px;
+                                            border: 1px solid $border-color;
+                                            border-radius: $radius;
                                         }
 
                                         textarea{
@@ -3028,10 +3540,10 @@ $secondary-color: #ffa69e;
 
                 // Filter
                 .jobs-page-content-left-filter{
-                    background: white;
-                    border-radius: 5px;
+                    background: $surface;
+                    border-radius: $radius;
                     box-shadow: $box-shadow;
-                    border: 1px solid #eee;
+                    border: 1px solid $border-color;
                     padding: 20px;
                     margin-bottom: 20px;
     
@@ -3039,7 +3551,7 @@ $secondary-color: #ffa69e;
     
                         .dashboard-content-filters-header{
                             margin-bottom: 20px;
-                            border-bottom: 1px solid #eee;
+                            border-bottom: 1px solid $border-color;
     
                             h2{
                                 position: relative;
@@ -3063,7 +3575,7 @@ $secondary-color: #ffa69e;
                                 }
     
                                 p.dates{
-                                    color: #aaa;
+                                    color: $muted;
                                 }
     
                                 &:last-child{
@@ -3085,10 +3597,10 @@ $secondary-color: #ffa69e;
 
                 // All jobs
                 .jobs-page-content-middle{
-                    background: white;
-                    border-radius: 5px;
+                    background: $surface;
+                    border-radius: $radius;
                     box-shadow: $box-shadow;
-                    border: 1px solid #eee;
+                    border: 1px solid $border-color;
                     padding: 0px;
                     margin-bottom: 20px;
     
@@ -3096,7 +3608,7 @@ $secondary-color: #ffa69e;
     
                         .jobs-page-content-middle-inner-header{
                             padding: 20px;
-                            border-bottom: 1px solid #eee;
+                            border-bottom: 1px solid $border-color;
     
                             h2{
                                 position: relative;
@@ -3110,41 +3622,60 @@ $secondary-color: #ffa69e;
                                 cursor: pointer;
                                 display: flex;
                                 justify-content: flex-start;
-                                gap: 10px;
-                                border-bottom: 1px solid #eee;
+                                align-items: flex-start;
+                                gap: 14px;
+                                border-bottom: 1px solid $border-color;
                                 padding-bottom: 20px;
                                 padding: 20px;
-    
+                                transition: background 0.15s ease;
+
                                 &:last-child{
                                     margin-bottom: 0px;
+                                    border-bottom: none;
                                 }
-    
+
+                                &:hover{
+                                    background: $surface-soft;
+                                }
+
                                 .job-image{
                                     text-align: left;
-                                    margin-bottom: 20px;
-    
+                                    flex-shrink: 0;
+
                                     img{
-                                        max-width: 100px;
-                                        border-radius: 50%;
+                                        width: 56px;
+                                        height: 56px;
+                                        object-fit: cover;
+                                        border-radius: $radius-sm;
+                                        border: 1px solid $border-color;
+                                        background: $surface-soft;
                                     }
                                 }
-    
+
                                 .job-inner{
+                                    min-width: 0;
+                                    width: 100%;
 
                                     .job-inner-header{
                                         width: 100%;
                                         padding-bottom: 10px;
                                         margin-bottom: 10px;
-                                        border-bottom: 1px solid #eee;
-    
+                                        border-bottom: 1px solid $border-color;
+                                        display: flex;
+                                        flex-wrap: wrap;
+                                        align-items: center;
+                                        gap: 8px;
+
                                         h3{
-                                            font-size: 20px;
+                                            font-size: 19px;
                                             margin-bottom: 0px;
+                                            flex-basis: 100%;
                                         }
-    
+
                                         p{
-                                            font-size: 16px;
+                                            font-size: 15px;
                                             margin-bottom: 0px;
+                                            color: $ink-soft;
                                         }
                                     }
 
@@ -3152,13 +3683,28 @@ $secondary-color: #ffa69e;
                                         margin-bottom: 10px;
 
                                         p{
-                                            font-size: 16px;
+                                            font-size: 15px;
                                             margin-bottom: 0px;
+                                            color: $ink-soft;
+                                        }
+                                    }
+
+                                    .job-inner-meta{
+                                        display: flex;
+                                        flex-wrap: wrap;
+                                        align-items: center;
+                                        gap: 6px 14px;
+                                        font-size: 13px;
+                                        color: $muted;
+
+                                        .job-inner-meta-salary{
+                                            font-weight: 700;
+                                            color: $success-color;
                                         }
                                     }
                                 }
                             }
-    
+
                             p.no_jobs{
                                 font-size: 16px;
                                 margin-bottom: 0px;
@@ -3176,7 +3722,7 @@ $secondary-color: #ffa69e;
     display: flex;
     justify-content: flex-start;
     gap: 10px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid $border-color;
     padding-bottom: 20px;
     padding: 20px;
 
@@ -3200,7 +3746,7 @@ $secondary-color: #ffa69e;
             width: 100%;
             padding-bottom: 10px;
             margin-bottom: 10px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid $border-color;
 
             h3{
                 font-size: 20px;
@@ -3226,13 +3772,8 @@ $secondary-color: #ffa69e;
 
 .jobs-page-content-box-body-experience{
 
-    h3{
-
-
-    }
-
     .profile-page-about-experience-content-item{
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid $border-color;
         margin-bottom: 10px;
         padding-bottom: 10px;
 
@@ -3249,13 +3790,8 @@ $secondary-color: #ffa69e;
 
 .jobs-page-content-box-body-education{
 
-    h3{
-
-
-    }
-
     .profile-page-about-education-content-item{
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid $border-color;
         margin-bottom: 10px;
         padding-bottom: 10px;
 
@@ -3279,8 +3815,8 @@ Posts
 */
 .post{
     width: 100%;
-    background: white;
-    border-radius: 5px;
+    background: $surface;
+    border-radius: $radius;
     box-shadow: $box-shadow;
     margin-bottom: 15px;
 
@@ -3291,7 +3827,7 @@ Posts
 
             .post-author{
                 display: flex;
-                border-bottom: 1px solid #eee;
+                border-bottom: 1px solid $border-color;
 
                 .post-author-image{
                     text-align: left;
@@ -3312,7 +3848,7 @@ Posts
                         margin-bottom: 0px;
 
                         a{
-                            color: #333;
+                            color: $ink;
                             text-decoration: none;
                         }
                     }
@@ -3321,19 +3857,15 @@ Posts
                         font-size: 1em;
                         font-weight: 400;
                         margin-bottom: 0px;
-                        color: #aaa;
+                        color: $muted;
 
                         a{
-                            color: #aaa;
+                            color: $muted;
                             text-decoration: none;
                         }
                     }
                 }
             }
-        }
-
-        .post-content{
-
         }
 
         .post-stats{
@@ -3350,7 +3882,7 @@ Posts
                     padding: 10px;
                     padding-left: 0px;
 
-                    color: #aaa;
+                    color: $muted;
                 }
             }
         }
@@ -3369,14 +3901,14 @@ Posts
                     display: flex;
                     gap: 5px;
                     align-items: center;
-                    color: #aaa;
+                    color: $muted;
 
                     &:hover{
                         color: $primary-color;
                     }
 
                     a{
-                        color: #aaa;
+                        color: $muted;
                         text-decoration: none;
 
                         &.post-unlike-btn{
@@ -3393,7 +3925,7 @@ Posts
                 .post-bottom-right-delete{
 
                     a{
-                        color: #aaa;
+                        color: $muted;
                         text-decoration: none;
                     }
                 }
@@ -3402,7 +3934,7 @@ Posts
 
         .post-comment-maker{
             margin-top: 20px;
-            border-top: 1px solid #eee;
+            border-top: 1px solid $border-color;
 
             form{
 
@@ -3424,7 +3956,7 @@ Posts
                     display: flex;
                     gap: 20px;
                     padding-top: 15px;
-                    border-top: 1px solid #eee;
+                    border-top: 1px solid $border-color;
 
                     .post-comment-inner{
 
@@ -3453,7 +3985,7 @@ Posts
                                     margin-bottom: 0px;
 
                                     a{
-                                        color: #333;
+                                        color: $ink;
                                         text-decoration: none;
                                     }
                                 }
@@ -3462,10 +3994,10 @@ Posts
                                     font-size: 1em;
                                     font-weight: 400;
                                     margin-bottom: 0px;
-                                    color: #aaa;
+                                    color: $muted;
 
                                     a{
-                                        color: #aaa;
+                                        color: $muted;
                                         text-decoration: none;
                                     }
                                 }
@@ -3494,10 +4026,10 @@ Posts
                                     padding: 10px;
                                     padding-left: 0px;
 
-                                    color: #aaa;
+                                    color: $muted;
 
                                     a{
-                                        color: #aaa;
+                                        color: $muted;
                                         text-decoration: none;
 
                                         &.post-unlike-btn{
@@ -3515,6 +4047,198 @@ Posts
 }
 
 /**
+* Sidebar widgets — reusable supplementary content cards
+* (used on the feed/timeline and jobs pages)
+*/
+.sidebar-widget{
+    background: $surface;
+    border-radius: $radius;
+    box-shadow: $box-shadow;
+    border: 1px solid $border-color;
+    padding: 20px;
+    margin-bottom: 20px;
+
+    .sidebar-widget-header{
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid $border-color;
+
+        h2{
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        p{
+            font-size: 13px;
+            color: $muted;
+            margin-bottom: 0px;
+        }
+    }
+
+    &:last-child{
+        margin-bottom: 0px;
+    }
+}
+
+.widget-links{
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+
+    li{
+        margin-bottom: 4px;
+
+        a{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: $radius-sm;
+            text-decoration: none;
+            color: $ink;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.15s ease, color 0.15s ease;
+
+            i{
+                width: 18px;
+                text-align: center;
+                color: $primary-color;
+            }
+
+            &:hover{
+                background: $surface-soft;
+                color: $primary-color;
+            }
+        }
+    }
+
+    li:last-child{
+        margin-bottom: 0px;
+    }
+}
+
+.suggested-user{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+
+    img{
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .suggested-user-info{
+        flex: 1;
+        min-width: 0;
+
+        h3{
+            font-size: 14px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            a{
+                color: $ink;
+                text-decoration: none;
+
+                &:hover{
+                    color: $primary-color;
+                }
+            }
+        }
+
+        p{
+            font-size: 12px;
+            color: $muted;
+            margin-bottom: 0px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .btn{
+        flex-shrink: 0;
+    }
+
+    &:last-child{
+        margin-bottom: 0px;
+    }
+}
+
+.widget-categories{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    a{
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 14px;
+        border-radius: $radius-pill;
+        background: $surface-soft;
+        color: $ink;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+
+        .count{
+            color: $muted;
+            font-weight: 700;
+        }
+
+        &:hover{
+            background: $background-gradient;
+            color: white;
+            transform: translateY(-2px);
+
+            .count{
+                color: rgba(255, 255, 255, 0.8);
+            }
+        }
+    }
+}
+
+/**
+* Stat strip — small inline metrics under a page header
+*/
+.stat-strip{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+
+    .stat-chip{
+        display: inline-flex;
+        align-items: baseline;
+        gap: 6px;
+        padding: 8px 18px;
+        border-radius: $radius-pill;
+        background: rgba(255, 255, 255, 0.16);
+        backdrop-filter: blur(6px);
+
+        strong{
+            font-family: $font-heading;
+            font-size: 18px;
+            color: white;
+        }
+
+        span{
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.85);
+        }
+    }
+}
+
+/**
 * Page: Messages
 */
 .page-messages{
@@ -3524,14 +4248,14 @@ Posts
         .row{
 
             .page-coversations-left{
-                background: white;
+                background: $surface;
                 box-shadow: $box-shadow;
                 
                 .conversations-left-head{
                     padding: 10px;
 
                     .conversations-left-head-inner{
-                        border-bottom: 1px solid #eee;
+                        border-bottom: 1px solid $border-color;
                         padding-top: 15px;
                         padding-bottom: 15px;
 
@@ -3603,14 +4327,14 @@ Posts
             .page-conversations-right{
 
                 .conversations-right-inner{
-                    background: white;
+                    background: $surface;
                     box-shadow: $box-shadow;
                     padding: 10px;
 
                     .conversations-right-head{
     
                         .conversations-right-head-inner{
-                            border-bottom: 1px solid #eee;
+                            border-bottom: 1px solid $border-color;
                             padding-top: 15px;
                             padding-bottom: 15px;
     
@@ -3677,10 +4401,10 @@ Posts
                                         }
 
                                         .conversations-right-body-message-right-body{
-                                            background: white;
+                                            background: $surface;
                                             padding: 10px;
 
-                                            border-radius: 5px;
+                                            border-radius: $radius;
                                             box-shadow: $box-shadow;
                                         }
                                     }
@@ -3735,7 +4459,7 @@ Posts
                                         }
 
                                         .conversations-right-body-message-right-body{
-                                            background: white;
+                                            background: $surface;
                                         }
                                     }
                                 }
@@ -3755,8 +4479,8 @@ Posts
                                 textarea{
                                     width: 100%;
                                     padding: 10px;
-                                    border-radius: 5px;
-                                    border: 1px solid #eee;
+                                    border-radius: $radius;
+                                    border: 1px solid $border-color;
                                 }
                             }
 
@@ -3765,5 +4489,439 @@ Posts
                 }
             }
         }
+    }
+}
+
+/**
+* Page: Landing
+*/
+.landing-page{
+    overflow: hidden;
+
+    .landing-eyebrow{
+        display: inline-block;
+        padding: 6px 16px;
+        border-radius: $radius-pill;
+        background: rgba(109, 40, 217, 0.1);
+        color: $primary-color;
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+    }
+
+    .landing-section-header{
+        text-align: center;
+        max-width: 640px;
+        margin: 0 auto 50px;
+
+        h2{
+            font-size: 34px;
+            margin-top: 10px;
+        }
+    }
+
+    /* Hero */
+    .landing-hero{
+        position: relative;
+        padding: 100px 0px 120px;
+
+        .landing-hero-blob{
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.35;
+            z-index: 0;
+        }
+
+        .landing-hero-blob-1{
+            width: 420px;
+            height: 420px;
+            background: $primary-color;
+            top: -120px;
+            right: -100px;
+        }
+
+        .landing-hero-blob-2{
+            width: 360px;
+            height: 360px;
+            background: $accent-color;
+            bottom: -140px;
+            left: -80px;
+        }
+
+        .landing-hero-inner{
+            position: relative;
+            z-index: 1;
+        }
+
+        .landing-hero-content{
+
+            h1{
+                font-size: 52px;
+                line-height: 1.1em;
+                margin-bottom: 24px;
+            }
+
+            p{
+                font-size: 18px;
+                color: $ink-soft;
+                line-height: 1.6em;
+                margin-bottom: 32px;
+                max-width: 480px;
+            }
+
+            .landing-hero-actions{
+                display: flex;
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+        }
+
+        .landing-hero-card{
+            display: flex;
+            justify-content: center;
+
+            .landing-swipe-card{
+                background: $surface;
+                border-radius: $radius-lg;
+                box-shadow: $box-shadow-lg;
+                border: 1px solid $border-color;
+                padding: 28px;
+                width: 100%;
+                max-width: 360px;
+                transform: rotate(3deg);
+                transition: transform 0.3s ease;
+
+                &:hover{
+                    transform: rotate(0deg);
+                }
+
+                .landing-swipe-card-top{
+                    display: flex;
+                    align-items: center;
+                    gap: 14px;
+                    margin-bottom: 20px;
+
+                    .landing-swipe-card-avatar{
+                        width: 52px;
+                        height: 52px;
+                        border-radius: 50%;
+                        background: $background-gradient;
+                        flex-shrink: 0;
+                    }
+
+                    .landing-swipe-card-title{
+
+                        h3{
+                            font-size: 18px;
+                            margin-bottom: 2px;
+                        }
+
+                        p{
+                            color: $muted;
+                            font-size: 14px;
+                        }
+                    }
+                }
+
+                .landing-swipe-card-tags{
+                    margin-bottom: 24px;
+
+                    .badge{
+                        margin-bottom: 8px;
+                    }
+                }
+
+                .landing-swipe-card-actions{
+                    display: flex;
+                    justify-content: center;
+                    gap: 20px;
+
+                    .landing-swipe-pill{
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 56px;
+                        height: 56px;
+                        border-radius: 50%;
+                        font-size: 22px;
+                        box-shadow: $box-shadow-sm;
+                        cursor: pointer;
+                        transition: transform 0.15s ease;
+
+                        &:hover{
+                            transform: translateY(-3px) scale(1.05);
+                        }
+
+                        &.dislike{
+                            background: $surface;
+                            color: $muted;
+                            border: 1px solid $border-color;
+                        }
+
+                        &.like{
+                            background: $background-gradient;
+                            color: white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /* Steps */
+    .landing-steps{
+        padding: 40px 0px 100px;
+
+        .landing-step{
+            text-align: center;
+            padding: 0px 20px;
+            margin-bottom: 30px;
+
+            .landing-step-number{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                background: $background-gradient;
+                color: white;
+                font-family: $font-heading;
+                font-weight: 700;
+                font-size: 20px;
+                margin: 0 auto 20px;
+            }
+
+            h3{
+                font-size: 20px;
+                margin-bottom: 12px;
+            }
+
+            p{
+                color: $ink-soft;
+                line-height: 1.6em;
+            }
+        }
+    }
+
+    /* Audiences */
+    .landing-audiences{
+        padding: 20px 0px 100px;
+
+        .landing-audience-card{
+            background: $surface;
+            border: 1px solid $border-color;
+            border-radius: $radius-lg;
+            box-shadow: $box-shadow-sm;
+            padding: 40px;
+            height: 100%;
+            margin-bottom: 30px;
+
+            .landing-audience-icon{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 56px;
+                height: 56px;
+                border-radius: $radius;
+                background: rgba(109, 40, 217, 0.1);
+                color: $primary-color;
+                font-size: 22px;
+                margin-bottom: 20px;
+            }
+
+            h3{
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+            ul{
+                list-style: none;
+                padding: 0px;
+                margin: 0px 0px 28px;
+
+                li{
+                    padding: 8px 0px;
+                    color: $ink-soft;
+
+                    i{
+                        color: $success-color;
+                        margin-right: 10px;
+                    }
+                }
+            }
+
+            &.employer{
+
+                .landing-audience-icon{
+                    background: rgba(255, 107, 87, 0.12);
+                    color: $accent-dark;
+                }
+            }
+        }
+    }
+
+    /* CTA band */
+    .landing-cta{
+        padding: 20px 0px 100px;
+
+        .landing-cta-inner{
+            background: $background-gradient;
+            border-radius: $radius-lg;
+            padding: 70px 40px;
+            text-align: center;
+            color: white;
+            box-shadow: $box-shadow-lg;
+
+            h2{
+                color: white;
+                font-size: 32px;
+                margin-bottom: 12px;
+            }
+
+            p{
+                font-size: 17px;
+                opacity: 0.9;
+                margin-bottom: 30px;
+            }
+
+            .btn.primary{
+                background: white;
+                color: $primary-color;
+                box-shadow: none;
+
+                &:hover{
+                    background: $surface-soft;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 991px){
+
+        .landing-hero{
+            padding: 60px 0px 80px;
+            text-align: center;
+
+            .landing-hero-content{
+
+                p{
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+
+                .landing-hero-actions{
+                    justify-content: center;
+                }
+            }
+
+            .landing-hero-card{
+                margin-top: 50px;
+            }
+        }
+
+        .landing-hero-content h1{
+            font-size: 38px;
+        }
+    }
+}
+
+/**
+* Page: Marketing (About / Job Seekers / Employers / Contact / Privacy / Terms)
+*/
+.marketing-page{
+
+    .marketing-content{
+        max-width: 760px;
+        margin: 0 auto 60px;
+
+        &.marketing-prose{
+
+            h2{
+                font-size: 24px;
+                margin-top: 40px;
+                margin-bottom: 14px;
+
+                &:first-child{
+                    margin-top: 0px;
+                }
+            }
+
+            p{
+                color: $ink-soft;
+                line-height: 1.7em;
+                font-size: 16px;
+                margin-bottom: 4px;
+            }
+
+            a{
+                color: $primary-color;
+                font-weight: 600;
+            }
+        }
+    }
+
+    .marketing-lead{
+        font-size: 19px !important;
+        color: $ink !important;
+        line-height: 1.6em;
+        margin-bottom: 30px !important;
+    }
+
+    .marketing-form-card{
+        background: $surface;
+        border: 1px solid $border-color;
+        border-radius: $radius-lg;
+        box-shadow: $box-shadow-sm;
+        padding: 40px;
+        max-width: 640px;
+        margin: 0 auto;
+    }
+}
+
+/**
+* Global responsive safety net
+* Deeply-nested legacy selectors elsewhere in this file carry high
+* specificity, so !important here is a deliberate final override layer
+* rather than a general-purpose habit.
+*/
+@media (max-width: 767px){
+
+    .header-main-row{
+        gap: 10px;
+    }
+
+    .header-navigation-inner ul{
+        flex-wrap: wrap;
+        gap: 12px !important;
+        justify-content: flex-end;
+    }
+
+    .page-header-title h1,
+    .dashboard-page-header-content h1,
+    .profile-page-header-content-title h1,
+    .jobs-page-header-content-title h1,
+    .onboarding-content-header h1{
+        font-size: 28px !important;
+    }
+
+    .page-header-subtext h2,
+    .dashboard-page-header-content p,
+    .profile-page-header-content-subtitle h2,
+    .jobs-page-header-content-subtitle h2,
+    .onboarding-content-header p{
+        font-size: 16px !important;
+    }
+
+    .footer-top{
+        text-align: center;
+        justify-content: center !important;
+    }
+
+    .footer-brand .footer-social{
+        justify-content: center;
     }
 }

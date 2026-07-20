@@ -1,25 +1,22 @@
 <header class="header-main">
-    <div class="header-main-inner container">
-        <div class="header-main-row row">
-            <div class="header-branding col-lg-2">
+    <div class="header-main-inner">
+        <div class="header-main-row">
+            <div class="header-branding">
                 <div class="header-branding-inner">
-                    <a href="{{ route('dashboard.jobs') }}">
-                        <img src="{{ asset('images/logo.png') }}" alt="Logo" />
+                    <a href="{{ Auth::check() ? route('dashboard.jobs') : route('home') }}">
+                        <span class="logo-mark">J</span><span class="logo-word">obSwipe</span>
                     </a>
                 </div>
             </div>
-            <div class="header-search col-lg-6">
+            <div class="header-search">
                 <div class="header-search-inner">
                     <form action="{{ route('search.index') }}" method="get">
-                        <?php
-                            // Get the query
-                            $query = request()->input('query');
-                        ?>
-                        <input type="text" name="query" id="query" placeholder="Search for jobs, companies, and more" value="{{ $query }}">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" name="query" id="query" placeholder="Search for jobs, companies, and more" value="{{ request()->input('query') }}">
                     </form>
                 </div>
             </div>
-            <div class="header-navigation col-lg-4">
+            <div class="header-navigation">
                 <div class="header-navigation-inner">
                     <ul>
                         @if (Auth::check())
@@ -43,7 +40,7 @@
                         @else
                             <!-- If user is not logged in -->
                             <li><a href="{{ route('home') }}">Home</a></li>
-                            <li><a href="">About</a></li>
+                            <li><a href="{{ route('marketing.about') }}">About</a></li>
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                             <!-- Dropdown menu -->
@@ -88,7 +85,7 @@
                         @else
                             <!-- If user is not logged in -->
                             <li><a href="{{ route('home') }}">Home</a></li>
-                            <li><a href="">About</a></li>
+                            <li><a href="{{ route('marketing.about') }}">About</a></li>
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @endif

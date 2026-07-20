@@ -6,36 +6,47 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="<?php echo csrf_token(); ?>">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- SEO -->
-    <meta name="robots" content="index, follow">
-    <meta name="description" content="<?php echo env('APP_DESCRIPTION'); ?>">
-    <meta name="keywords" content="<?php echo env('APP_KEYWORDS'); ?>">
-    <meta name="author" content="<?php echo env('APP_AUTHOR'); ?>">
+    <meta name="robots" content="noindex, nofollow">
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="<?php echo $title; ?> | <?php echo env('APP_NAME'); ?>">
-    <meta property="og:description" content="<?php echo env('APP_DESCRIPTION'); ?>">
-    <meta property="og:image" content="<?php echo env('APP_URL'); ?>/images/logo.png">
-    <meta property="og:url" content="<?php echo env('APP_URL'); ?>">
-    <meta property="og:site_name" content="<?php echo env('APP_NAME'); ?>">
-    <meta property="og:type" content="website">
+    <title>{{ $title }} | {{ env('APP_NAME') }}</title>
 
-    <title><?php echo $title; ?> | <?php echo env('APP_NAME'); ?></title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 </head>
 <body>
-<div class="header-hold">
-    @include('includes.header')
-    @include('includes.alerts')
+<div class="onboarding-topbar">
+    <div class="onboarding-topbar-inner">
+        <a href="{{ route('home') }}" class="onboarding-topbar-brand">
+            <span class="logo-mark">J</span><span class="logo-word">obSwipe</span>
+        </a>
+
+        @isset($onboardingStep)
+            <div class="onboarding-topbar-progress">
+                <span class="onboarding-topbar-progress-label">Step {{ $onboardingStep }} of {{ $onboardingStepCount ?? 2 }}</span>
+                <div class="onboarding-topbar-progress-track">
+                    @for ($i = 1; $i <= ($onboardingStepCount ?? 2); $i++)
+                        <span class="onboarding-topbar-progress-segment {{ $i <= $onboardingStep ? 'filled' : '' }}"></span>
+                    @endfor
+                </div>
+            </div>
+        @endisset
+
+        <form action="{{ route('logout') }}" method="post" class="onboarding-topbar-exit">
+            @csrf
+            <button type="submit">Log out</button>
+        </form>
+    </div>
 </div>
+
 <div class="content-hold">
     @yield('content')
-</div>
-<div class="footer-hold">   
-    @include('includes.footer')
 </div>
 
 <!-- Scripts -->

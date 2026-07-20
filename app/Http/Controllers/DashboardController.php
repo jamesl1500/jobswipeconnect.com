@@ -2,39 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Posts;
+use App\Models\User;
+use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
-    //
-    public function jobsFeeds()
+    public function jobsFeeds(): View
     {
         return view('pages.dashboard.jobs');
     }
 
-    public function postsFeed()
+    public function postsFeed(): View
     {
-        // Get logged in users followings
-        $followings = auth()->user()->followings;
+        $followingIds = auth()->user()->followings()->pluck('following_id');
 
-        // Get posts from the logged in users followings
-        $posts = [];
+        $posts = Posts::whereIn('user_id', $followingIds)
+            ->orWhere('user_id', auth()->id())
+            ->latest()
+            ->get();
 
-        foreach ($followings as $following) {
-            if (!empty($following->posts)) {
-                $posts[] = $following->posts;
-            }
-        }
+        $suggestedUsers = User::whereNot('id', auth()->id())
+            ->whereNotIn('id', $followingIds)
+            ->inRandomOrder()
+            ->limit(5)
+            ->get();
 
-        // Add logged in users posts to the posts array
-        $posts[] = auth()->user()->posts;
-
-        // Order the posts by created_at date
-        $posts = collect($posts)->flatten()->sortByDesc('created_at');
-
-        // Get rid of the empty array at index "0"
-        $posts = $posts->values()->all();
-
-        return view('pages.dashboard.feed', ['posts' => $posts]);
+        return view('pages.dashboard.feed', [
+            'posts' => $posts,
+            'suggestedUsers' => $suggestedUsers,
+        ]);
     }
 }

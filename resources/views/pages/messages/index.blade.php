@@ -25,12 +25,12 @@
                     </div>
                     <div class="conversations-left-all">
                         <ul>
-                        <?php 
+                        @php
                             // Get users conversations
                             $conversations = Auth::user()->conversations()->orderBy('updated_at', 'desc')->get();
-
-                            // Loop through conversations
-                            foreach($conversations as $conversation) {
+                        @endphp
+                        @foreach($conversations as $conversation)
+                            @php
                                 // Get other user
                                 $otherUser = $conversation_m->GetOtherConversationMember($conversation->conversation_uid, Auth::user()->id);
 
@@ -42,27 +42,25 @@
 
                                 // Get conversation unique id
                                 $uid = $conversation_m->GetConversationUniqueId($conversation->conversation_uid);
-                                ?>
+                            @endphp
                                     <li class="conversation-list-item">
                                         <div class="conversations-left-all-inner">
                                             <div class="conversations-left-all-left">
                                                 <div class="conversations-left-all-left-inner">
-                                                    <a href="/p/<?php echo $otherUserInfo->username; ?>">
-                                                        <img src="/storage/<?php echo $otherUserInfo->profile_picture; ?>" alt="<?php echo $otherUserInfo->name; ?>">
+                                                    <a href="/p/{{ $otherUserInfo->username }}">
+                                                        <img src="/storage/{{ $otherUserInfo->profile_picture }}" alt="{{ $otherUserInfo->name }}">
                                                     </a>
                                                 </div>
                                             </div>
                                             <div class="conversations-left-all-right">
                                                 <a href="{{ route('messages.conversation', $uid) }}">
-                                                    <h3><?php echo $otherUserInfo->name; ?></h3>
-                                                    <p><?php echo $lastMessage->conversation_message_content; ?></p>
+                                                    <h3>{{ $otherUserInfo->name }}</h3>
+                                                    <p>{{ $lastMessage->conversation_message_content }}</p>
                                                 </a>
                                             </div>
                                         </div>
                                     </li>
-                                <?php
-                            }
-                        ?>
+                        @endforeach
                         </ul>
                     </div>
                 </div>

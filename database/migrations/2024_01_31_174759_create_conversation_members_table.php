@@ -16,7 +16,7 @@ class CreateConversationMembersTable extends Migration
         Schema::create('conversation_members', function (Blueprint $table) {
             $table->id();
             $table->string('conversation_member_uid');
-            $table->foreignId("conversation_id");
+            $table->foreignId("conversation_uid");
             $table->foreignId("user_uid");
 
             $table->enum("type",["job_poster","applicant"])->default("applicant");

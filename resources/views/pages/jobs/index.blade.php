@@ -12,6 +12,10 @@
             <div class="page-header-subtext">
                 <h2>Find your next job here!</h2>
             </div>
+            <div class="stat-strip">
+                <div class="stat-chip"><strong>{{ number_format($totalJobsCount) }}</strong> <span>open roles</span></div>
+                <div class="stat-chip"><strong>{{ number_format($totalCompaniesCount) }}</strong> <span>companies hiring</span></div>
+            </div>
         </div>
     </div>
     <div class="jobs-page-inline-navigation">
@@ -105,7 +109,7 @@
                     <div class="jobs-page-content-middle-inner">
                         <div class="jobs-page-content-middle-inner-header">
                             <h2>Jobs</h2>
-                            <p>Here are the latest jobs</p>
+                            <p>{{ $jobs->total() }} {{ Str::plural('job', $jobs->total()) }} found</p>
                         </div>
                         <div class="jobs-page-content-middle-inner-jobs">
                             @if($jobs->count() > 0)
@@ -120,16 +124,21 @@
                                         </div>
                                         <div class="job-inner">
                                             <div class="job-inner-header">
-                                                <h3>{{ $job->title }}
-                                                    @if($job->employment_location_type == "remote")
-                                                    <span class="badge badge-primary" style="position: relative;top: -1px;">Remote</span>
-                                                @endif
-                                                </h3>
+                                                <h3>{{ $job->title }}</h3>
                                                 <p>{{ $company->name }}</p>
+                                                <span class="badge badge-primary">{{ $job->employment_location_type == 'remote' ? 'Remote' : ucwords($job->employment_location_type) }}</span>
+                                                <span class="badge">{{ ucwords(str_replace('-', ' ', $job->job_status)) }}</span>
                                             </div>
                                             <div class="job-inner-content">
-                                                <p>{{ ucwords($job->experience_level) }} | {{ ucwords($job->education_level) }} | {{ ucwords($job->job_status) }}</p>
-                                                <p>{{ ucwords($job->job_category) }}</p>
+                                                <p>{{ ucwords($job->experience_level) }} &middot; {{ ucwords($job->education_level) }} &middot; {{ ucwords($job->job_category) }}</p>
+                                            </div>
+                                            <div class="job-inner-meta">
+                                                @if($job->salary)
+                                                    <span class="job-inner-meta-salary">{{ $job->salary }}</span>
+                                                @endif
+                                                @if($job->created_at)
+                                                    <span>Posted {{ $job->created_at->diffForHumans() }}</span>
+                                                @endif
                                             </div>
                                             <div class="job-inner-footer">
                                                 <a href="{{ route('jobs.show', $job->id) }}" class="btn primary">View Job</a>
@@ -160,35 +169,36 @@
                 </div>
 
                 <!-- Right links -->
-                <div class="jobs-page-content-right-links col-lg-3">
-                    @if(auth()->user())
-                        <div class="jobs-page-content-right-links">
-                            <div class="jobs-page-content-right-links-inner-header">
-                                <h2>Links</h2>
-                                <p>Links to other pages</p>
+                <div class="col-lg-3">
+                    @auth
+                        <div class="sidebar-widget">
+                            <div class="sidebar-widget-header">
+                                <h2>Quick links</h2>
                             </div>
-                            <div class="jobs-page-content-right-links-inner-links">
-                                <ul>
-                                    @if(auth()->user()->role == 'job-poster')
-                                        <li><a href="{{ route('jobs.create') }}">Create Jobs</a></li>
-                                        <li><a href="{{ route('companies.my_companies') }}">My Companies</a></li>
-                                    @else
-                                        <li><a href="{{ route('companies.index') }}">Companies</a></li>
-                                        <li><a href="{{ route('jobs.liked_jobs') }}">Liked Jobs</a></li>
-                                    @endif
-                                </ul>
-                            </div>
+                            <ul class="widget-links">
+                                @if(auth()->user()->role == 'job-poster')
+                                    <li><a href="{{ route('jobs.create') }}"><i class="fas fa-plus"></i> Post a job</a></li>
+                                    <li><a href="{{ route('companies.my_companies') }}"><i class="fas fa-building"></i> My companies</a></li>
+                                @else
+                                    <li><a href="{{ route('companies.index') }}"><i class="fas fa-building"></i> Companies</a></li>
+                                    <li><a href="{{ route('jobs.liked_jobs') }}"><i class="fas fa-heart"></i> Liked jobs</a></li>
+                                @endif
+                                <li><a href="{{ route('dashboard.jobs') }}"><i class="fas fa-bolt"></i> Job matching</a></li>
+                            </ul>
                         </div>
-                    @endif
+                    @endauth
 
-                    <!-- Advertisements -->
-                    <div class="jobs-page-content-right-links-advertisements">
-                        <div class="jobs-page-content-right-links-advertisements-header">
-                            <h2>Advertisements</h2>
-                            <p>Advertisements go here</p>
+                    <div class="sidebar-widget">
+                        <div class="sidebar-widget-header">
+                            <h2>Popular categories</h2>
+                            <p>Browse jobs by category</p>
                         </div>
-                        <div class="jobs-page-content-right-links-advertisements-inner">
-                            <p>Advertisements go here</p>
+                        <div class="widget-categories">
+                            @foreach($popularCategories as $category)
+                                <a href="{{ route('jobs.index', ['job_category' => $category->job_category]) }}">
+                                    {{ ucwords($category->job_category) }} <span class="count">{{ $category->jobs_count }}</span>
+                                </a>
+                            @endforeach
                         </div>
                     </div>
                 </div>

@@ -1,20 +1,25 @@
 <?php
+
 namespace App\Libraries;
+
+use App\Models\PrivacySettings as PrivacySettingsModel;
+use App\Models\User;
 
 class PrivacySettings
 {
-    protected $user;
+    protected ?User $user;
 
     public function __construct()
     {
         $this->user = auth()->user();
     }
 
-    public function returnAllPrivacySettings($uid = null)
+    public function returnAllPrivacySettings(?int $uid = null): ?PrivacySettingsModel
     {
         if ($uid) {
-            return \App\Models\PrivacySettings::where('user_id', $uid)->first();
+            return PrivacySettingsModel::where('user_id', $uid)->first();
         }
-        return \App\Models\PrivacySettings::where('user_id', auth()->user()->id)->first();
+
+        return PrivacySettingsModel::where('user_id', auth()->user()->id)->first();
     }
 }

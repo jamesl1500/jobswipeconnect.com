@@ -23,12 +23,9 @@
             <div class="col-lg-8 profile-page-about-content-middle">
                 <div class="profile-page-content-box">
                     @if(count($posts) > 0)
-                        <?php
-                            foreach($posts as $post)
-                            {
-                                echo view('components.post', ['post' => $post]);
-                            }
-                        ?>
+                        @foreach($posts as $post)
+                            @include('components.post', ['post' => $post])
+                        @endforeach
                     @else
                         <div class="no-posts">
                             <h3>No posts found!</h3>

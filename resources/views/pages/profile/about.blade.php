@@ -1,7 +1,3 @@
-<?php
-    $privacy_settings = new \App\Libraries\PrivacySettings;
-    $ps = $privacy_settings->returnAllPrivacySettings($user->id);
-?>
 @php($title = "About " . $user->name . " | Profile")
 @extends('layouts.both')
 
@@ -50,22 +46,15 @@
                         @endif
                     </div>
                     <div class="profile-page-about-skills-content">
-                        <?php
-                        if($user->skills) {
-                            // Turn string with comma seperated values into array
-                            $skills = explode(',', $user->skills);
-
-                            foreach($skills as $skill) {
-                                ?>
+                        @if($user->skills)
+                            @foreach(explode(',', $user->skills) as $skill)
                                 <div class="profile-page-about-skills-content-item">
-                                    <p><?php echo ucwords($skill); ?></p>
+                                    <p>{{ ucwords($skill) }}</p>
                                 </div>
-                                <?php
-                            }
-                        } else {
-                            echo '<p class="no_skills">No skills added</p>';
-                        }
-                        ?>
+                            @endforeach
+                        @else
+                            <p class="no_skills">No skills added</p>
+                        @endif
                     </div>
                 </div>
 
@@ -77,33 +66,25 @@
                             <button class="btn primary" data-bs-toggle="modal" data-bs-target="#addExperienceModal">Add Experience</button>
                         @endif
                     </div>
-                    <div class="profile-page-about-experience-content <?php if(auth()->user() && auth()->user()->id == $user->id){ ?>sortable<?php } ?>" data-action="{{ route('profile.about.updateExperienceOrder.post', ['username' => $user->username]) }}">
-                        <?php
-                        if(count($user->experiences) > 0) {
-                            foreach($user->experiences as $experience) {
-                                ?>
-                                <div class="profile-page-about-experience-content-item" id="expid-<?php echo $experience->id; ?>" data-id="{{ $experience->id }}" data-position="{{ $experience->position }}" draggable="true" >
-                                    <h3 id="exp_title_{{ $experience->id }}"><?php echo $experience->title; ?></h3>
-                                    <p id="exp_subtext_{{ $experience->id }}"><?php echo $experience->company; ?> &middot; <?php echo ucwords($experience->employment_type); ?></p>
-                                    <p id="exp_dates_{{ $experience->id }}" class="dates"><?php echo $experience->start_date; ?> - <?php if($experience->is_current_job){ ?> Current <?php } else { echo $experience->end_date; } ?></p>
-                                    <p id="exp_description_{{ $experience->id }}"><?php echo $experience->description; ?></p>
+                    <div class="profile-page-about-experience-content {{ auth()->user() && auth()->user()->id == $user->id ? 'sortable' : '' }}" data-action="{{ route('profile.about.updateExperienceOrder.post', ['username' => $user->username]) }}">
+                        @if(count($user->experiences) > 0)
+                            @foreach($user->experiences as $experience)
+                                <div class="profile-page-about-experience-content-item" id="expid-{{ $experience->id }}" data-id="{{ $experience->id }}" data-position="{{ $experience->position }}" draggable="true" >
+                                    <h3 id="exp_title_{{ $experience->id }}">{!! $experience->title !!}</h3>
+                                    <p id="exp_subtext_{{ $experience->id }}">{!! $experience->company !!} &middot; {{ ucwords($experience->employment_type) }}</p>
+                                    <p id="exp_dates_{{ $experience->id }}" class="dates">{!! $experience->start_date !!} - @if($experience->is_current_job) Current @else {{ $experience->end_date }} @endif</p>
+                                    <p id="exp_description_{{ $experience->id }}">{!! $experience->description !!}</p>
                                     <div class="experience-actions">
-                                        <?php
-                                        if(auth()->user() && $user->id == auth()->user()->id) {
-                                            ?>
+                                        @if(auth()->user() && $user->id == auth()->user()->id)
                                             <button class="btn skinny primary edit-experience" data-expid="{{ $experience->id }}" data-action="{{ route('profile.about.get_experience.post', $user->username) }}" data-bs-toggle="modal" data-bs-target="#editExperienceModal">Edit</button>
-                                            <button class="btn skinny primary delete-experience" data-expid="<?php echo $experience->id; ?>" data-action="{{ route('profile.about.delete_experience.post', $user->username) }}">Delete</button>
-                                            <?php
-                                        }
-                                        ?>
+                                            <button class="btn skinny primary delete-experience" data-expid="{{ $experience->id }}" data-action="{{ route('profile.about.delete_experience.post', $user->username) }}">Delete</button>
+                                        @endif
                                     </div>
                                 </div>
-                                <?php
-                            }
-                        } else {
-                            echo '<p class="no_experience">'.$user->name.' hasnt added any experience</p>';
-                        }
-                        ?>
+                            @endforeach
+                        @else
+                            <p class="no_experience">{{ $user->name }} hasnt added any experience</p>
+                        @endif
                     </div>
                 </div>
 
@@ -116,33 +97,25 @@
                         @endif
                     </div>
                     <div class="profile-page-about-education-content">
-                        <?php
-                        if(count($user->educations) > 0) {
-                            foreach($user->educations as $education) {
-                                ?>
-                                <div class="profile-page-about-education-content-item" id="exp-<?php echo $education->id; ?>">
-                                    <h3><?php echo $education->school; ?></h3>
-                                    <p><b><?php echo $education->degree; ?></b></p>
-                                    <p><?php echo $education->field_of_study; ?> &middot; <?php echo ucwords($education->education_level); ?></p>
-                                    <p class="dates"><?php echo $education->start_date; ?> - <?php if($education->is_current_education){ ?> Current <?php } else { echo $education->end_date; } ?></p>
-                                    <p><?php echo $education->description; ?></p>
+                        @if(count($user->educations) > 0)
+                            @foreach($user->educations as $education)
+                                <div class="profile-page-about-education-content-item" id="exp-{{ $education->id }}">
+                                    <h3>{!! $education->school !!}</h3>
+                                    <p><b>{!! $education->degree !!}</b></p>
+                                    <p>{!! $education->field_of_study !!} &middot; {{ ucwords($education->education_level) }}</p>
+                                    <p class="dates">{!! $education->start_date !!} - @if($education->is_current_education) Current @else {{ $education->end_date }} @endif</p>
+                                    <p>{!! $education->description !!}</p>
                                     <div class="education-actions">
-                                        <?php
-                                        if(auth()->user() && $user->id == auth()->user()->id) {
-                                            ?>
+                                        @if(auth()->user() && $user->id == auth()->user()->id)
                                             <button class="btn skinny primary" data-bs-toggle="modal" data-bs-target="#editEducationModal">Edit</button>
-                                            <button class="btn skinny primary delete-education" data-eduid="<?php echo $education->id; ?>" data-action="{{ route('profile.about.delete_education.post', $user->username) }}">Delete</button>
-                                            <?php
-                                        }
-                                        ?>
+                                            <button class="btn skinny primary delete-education" data-eduid="{{ $education->id }}" data-action="{{ route('profile.about.delete_education.post', $user->username) }}">Delete</button>
+                                        @endif
                                     </div>
                                 </div>
-                                <?php
-                            }
-                        } else {
-                            echo '<p class="no_education">'.$user->name.' hasnt added any education</p>';
-                        }
-                        ?>
+                            @endforeach
+                        @else
+                            <p class="no_education">{{ $user->name }} hasnt added any education</p>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -150,7 +123,7 @@
         </div>
     </div>
 
-    <?php if(auth()->user() && $user->id == auth()->user()->id) { ?>
+    @if(auth()->user() && $user->id == auth()->user()->id)
         <!-- Edit Cover Letter Modal -->
         <div class="modal" id="editCoverLetterModal" tabindex="-1" aria-labelledby="editCoverLetterModal" aria-hidden="true">
             <div class="modal-dialog">
@@ -391,6 +364,6 @@
                 </div>
             </div>
         </div>
-    <?php } ?>
+    @endif
 </div>
 @endsection

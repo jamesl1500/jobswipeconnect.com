@@ -2,28 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User; // Import the User model
-
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    //
-    public function index($username)
+    public function index(string $username): View
     {
-        /**
-         * Check if user exists
-         */
         $user = User::where('username', $username)->first();
 
         if (!$user) {
-            return abort(404);
+            abort(404);
         }
 
-        /**
-         * Add profile view
-         */
-        if(auth()->check() && auth()->id() !== $user->id){
+        // Record a profile view when someone other than the owner visits
+        if (auth()->check() && auth()->id() !== $user->id) {
             $user->profileViews()->create([
                 'ip_address' => request()->ip(),
                 'profile_id' => $user->id,
@@ -31,9 +27,6 @@ class ProfileController extends Controller
             ]);
         }
 
-        /**
-         * Get the user's posts
-         */
         $posts = $user->posts()->latest()->get();
 
         return view('pages.profile.profile', [
@@ -42,19 +35,12 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * About profile page
-     * ---------------------
-     */
-    public function about($username)
+    public function about(string $username): View
     {
-        /**
-         * Check if user exists
-         */
         $user = User::where('username', $username)->first();
 
         if (!$user) {
-            return abort(404);
+            abort(404);
         }
 
         return view('pages.profile.about', [
@@ -62,89 +48,50 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * EditCoverLetter Post
-     * ---------------------
-     * Save the cover letter
-     */
-    public function editCoverLetterPost(Request $request, $username)
+    public function editCoverLetterPost(Request $request, string $username): RedirectResponse
     {
-        /**
-         * Check if user exists
-         */
         $user = User::where('username', $username)->first();
 
         if (!$user) {
-            return abort(404);
+            abort(404);
         }
 
-        /**
-         * Validate the request
-         */
         $request->validate([
             'cover_letter' => 'required|string|max:5000',
         ]);
 
-        /**
-         * Save the cover letter
-         */
         $user->cover_letter = $request->cover_letter;
         $user->save();
 
         return redirect()->route('profile.about', $username)->with('success', 'Cover letter saved successfully');
     }
 
-    /**
-     * EditSkills Post
-     * ---------------------
-     * Save the skills
-     */
-    public function editSkillsPost(Request $request, $username)
+    public function editSkillsPost(Request $request, string $username): RedirectResponse
     {
-        /**
-         * Check if user exists
-         */
         $user = User::where('username', $username)->first();
 
         if (!$user) {
-            return abort(404);
+            abort(404);
         }
 
-        /**
-         * Validate the request
-         */
         $request->validate([
             'skills' => 'required|string|max:5000',
         ]);
 
-        /**
-         * Save the skills
-         */
         $user->skills = $request->skills;
         $user->save();
 
         return redirect()->route('profile.about', $username)->with('success', 'Skills saved successfully');
     }
 
-    /**
-     * AddExperience post
-     * --------------------
-     * Save the experience
-     */
-    public function addExperiencePost(Request $request, $username)
+    public function addExperiencePost(Request $request, string $username): RedirectResponse
     {
-        /**
-         * Check if user exists
-         */
         $user = User::where('username', $username)->first();
 
         if (!$user) {
-            return abort(404);
+            abort(404);
         }
 
-        /**
-         * Validate the request
-         */
         $request->validate([
             'title' => 'required|string|max:255',
             'company' => 'required|string|max:255',
@@ -155,9 +102,6 @@ class ProfileController extends Controller
             'employment_type' => 'required|in:full-time,part-time,internship,freelance,contract,temporary,remote',
         ]);
 
-        /**
-         * Save the experience
-         */
         $user->experiences()->create([
             'title' => $request->title,
             'company' => $request->company,
@@ -175,65 +119,39 @@ class ProfileController extends Controller
         return redirect()->route('profile.about', $username)->with('success', 'Experience saved successfully');
     }
 
-    /**
-     * Delete Experience Post
-     * ---------------------
-     * Delete the experience
-     */
-    public function deleteExperiencePost(Request $request, $username)
+    public function deleteExperiencePost(Request $request, string $username): JsonResponse
     {
-        /**
-         * Check if user exists
-         */
         $user = User::where('username', $username)->first();
 
         if (!$user) {
-            return abort(404);
+            abort(404);
         }
 
-        /**
-         * Validate the request
-         */
         $request->validate([
             'expid' => 'required|exists:experiences,id',
         ]);
 
         // Make sure logged in user is the owner of the experience
         if ($user->id !== auth()->id()) {
-            return abort(403);
+            abort(403);
         }
 
-        /**
-         * Delete the experience
-         */
         $user->experiences()->where('id', $request->expid)->delete();
 
-       // Return json response
         return response()->json([
             'message' => 'Experience deleted successfully',
             'code'    => 200,
         ]);
     }
 
-    /**
-     * AddEducation post
-     * --------------------
-     * Save the education
-     */
-    public function addEducationPost(Request $request, $username)
+    public function addEducationPost(Request $request, string $username): RedirectResponse
     {
-        /**
-         * Check if user exists
-         */
         $user = User::where('username', $username)->first();
 
         if (!$user) {
-            return abort(404);
+            abort(404);
         }
 
-        /**
-         * Validate the request
-         */
         $request->validate([
             'school' => 'required|string|max:255',
             'degree' => 'required|string|max:255',
@@ -245,67 +163,42 @@ class ProfileController extends Controller
             'education_level' => 'required|in:high-school,diploma,certificate,associate,bachelor,master,other',
         ]);
 
-        /**
-         * Save the education
-         */
         $user->educations()->create($request->all());
 
         return redirect()->route('profile.about', $username)->with('success', 'Education saved successfully');
     }
 
-    /**
-     * Delete Education Post
-     * ---------------------
-     * Delete the education
-     */
-    public function deleteEducationPost(Request $request, $username)
+    public function deleteEducationPost(Request $request, string $username): JsonResponse
     {
-        /**
-         * Check if user exists
-         */
         $user = User::where('username', $username)->first();
 
         if (!$user) {
-            return abort(404);
+            abort(404);
         }
 
-        /**
-         * Validate the request
-         */
         $request->validate([
             'eduid' => 'required|exists:educations,id',
         ]);
 
         // Make sure logged in user is the owner of the education
         if ($user->id !== auth()->id()) {
-            return abort(403);
+            abort(403);
         }
 
-        /**
-         * Delete the education
-         */
         $user->educations()->where('id', $request->eduid)->delete();
 
-        // Return json response
         return response()->json([
             'message' => 'Education deleted successfully',
             'code'    => 200,
         ]);
     }
-    
-    /**
-     * Resume profile page
-     * ---------------------
-     */
-    public function resume($username)
+
+    public function resume(string $username): View
     {
-        /**
-         * Check if user exists
-         */
         $user = User::where('username', $username)->first();
 
         if (!$user) {
-            return abort(404);
+            abort(404);
         }
 
         return view('pages.profile.resume', [
@@ -313,46 +206,26 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * Save resume
-     * ---------------------
-     */
-    public function resumePost(Request $request, $username)
+    public function resumePost(Request $request, string $username): RedirectResponse
     {
-        /**
-         * Check if user exists
-         */
         $user = User::where('username', $username)->first();
 
         if (!$user) {
-            return abort(404);
+            abort(404);
         }
 
-        /**
-         * Validate the request
-         */
         $request->validate([
             'resume' => 'required|file|mimes:pdf|max:2048',
         ]);
 
-        /**
-         * Save the resume
-         */
         $user->resume = $request->file('resume')->store('resumes', 'public');
         $user->save();
 
         return redirect()->route('profile.resume', $username)->with('success', 'Resume saved successfully');
     }
 
-    /**
-     * Get Experience Post
-     * ---------------------
-     * Get the experience
-     */
-    public function getExperiencePost(Request $request, $username){
-        /**
-         * Check if user exists
-         */
+    public function getExperiencePost(Request $request, string $username): JsonResponse
+    {
         $user = User::where('username', $username)->first();
 
         if (!$user) {
@@ -362,9 +235,6 @@ class ProfileController extends Controller
             ], 404);
         }
 
-        /**
-         * Validate the request
-         */
         $request->validate([
             'expid' => 'required|exists:experiences,id',
         ]);
@@ -377,9 +247,6 @@ class ProfileController extends Controller
             ], 403);
         }
 
-        /**
-         * Get the experience
-         */
         $experience = $user->experiences()->where('id', $request->expid)->first();
 
         return response()->json([
@@ -389,27 +256,14 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * Edit Experience Post
-     * ---------------------
-     * Edit the experience
-     */
-    public function editExperiencePost(Request $request, $username){
-        /**
-         * Check if user exists
-         */
+    public function editExperiencePost(Request $request, string $username): RedirectResponse
+    {
         $user = User::where('username', $username)->first();
 
         if (!$user) {
-            return response()->json([
-                'message' => 'User not found',
-                'code'    => 404,
-            ], 404);
+            abort(404);
         }
 
-        /**
-         * Validate the request
-         */
         $request->validate([
             'edit_experience_id' => 'required|exists:experiences,id',
             'exp_edit_title' => 'required|string|max:255',
@@ -423,15 +277,9 @@ class ProfileController extends Controller
 
         // Make sure logged in user is the owner of the experience
         if ($user->id !== auth()->id()) {
-            return response()->json([
-                'message' => 'Unauthorized',
-                'code'    => 403,
-            ], 403);
+            abort(403);
         }
 
-        /**
-         * Edit the experience
-         */
         $experience = $user->experiences()->where('id', $request->edit_experience_id)->first();
         $experience->update([
             'title' => $request->exp_edit_title,
@@ -446,15 +294,8 @@ class ProfileController extends Controller
         return redirect()->route('profile.about', $username)->with('success', 'Experience saved successfully');
     }
 
-    /**
-     * Update Experience list order
-     * ---------------------
-     * Update the experience list order
-     */
-    public function updateExperienceOrder(Request $request, $username){
-        /**
-         * Check if user exists
-         */
+    public function updateExperienceOrder(Request $request, string $username): JsonResponse
+    {
         $user = User::where('username', $username)->first();
 
         if (!$user) {
@@ -464,9 +305,6 @@ class ProfileController extends Controller
             ], 404);
         }
 
-        /**
-         * Validate the request
-         */
         $request->validate([
             'expid' => 'required|array',
         ]);
@@ -479,7 +317,6 @@ class ProfileController extends Controller
             ], 403);
         }
 
-        // Update the experience list order
         foreach ($request->expid as $key => $expid) {
             $user->experiences()->where('id', $expid)->update(['position' => $key + 1]);
         }

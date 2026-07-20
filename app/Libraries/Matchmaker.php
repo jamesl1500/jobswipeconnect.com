@@ -1,21 +1,21 @@
 <?php
+
 namespace App\Libraries;
+
+use App\Models\JobApplicants;
+use App\Models\Jobs;
+use App\Models\User;
 
 class Matchmaker
 {
-    public function __construct()
-    {
-        // 
-    }
-
     /**
-     * getMatchedJobPostings
+     * getMatchedJobSeekers
      * ---------------------
      * Returns matched job postings in a random way
      */
-    public function getMatchedJobSeekers($filters = [])
+    public function getMatchedJobSeekers(array $filters = []): ?User
     {
-        $methods = [ 'getRandomJobSeekers', 'getJobSeekersWhoApplied', 'getJobSeekersByFilters' ];
+        $methods = ['getRandomJobSeekers', 'getJobSeekersWhoApplied', 'getJobSeekersByFilters'];
         $method = $methods[array_rand($methods)];
 
         return $this->$method($filters);
@@ -26,24 +26,28 @@ class Matchmaker
      * ---------------------
      * Returns job seekers based on filters
      */
-    public function getJobSeekersByFilters($filters)
+    public function getJobSeekersByFilters(array $filters): ?User
     {
-        $job_seekers = \App\Models\User::inRandomOrder()
-        ->where('role', '=', 'job-seeker')
-        ->where('id', '!=', auth()->user()->id)
-        // If the skills are not empty, find users with the skills
-        ->when($filters['skills'], function ($query, $skills) {
-            return $query->where('skills', 'like', '%' . $skills . '%');
-        })
-        // If the experience is not empty, find users with the experience
-        ->when($filters['experience'], function ($query, $experience) {
-            return $query->whereHas('experiences', function ($query) use ($experience) {
-                $query->where('title', 'like', '%' . $experience . '%');
-           });
-        })
-        ->limit(1)->first();
-
-        return $job_seekers;
+        return User::inRandomOrder()
+            ->where('role', '=', 'job-seeker')
+            ->where('id', '!=', auth()->user()->id)
+            // If the skills are not empty, find users with the skills
+            ->when($filters['skills'], function ($query, $skills) {
+                return $query->where('skills', 'like', '%' . $skills . '%');
+            })
+            // If the experience is not empty, find users with the experience
+            ->when($filters['experience'], function ($query, $experience) {
+                return $query->whereHas('experiences', function ($query) use ($experience) {
+                    $query->where('title', 'like', '%' . $experience . '%');
+                });
+            })
+            // If the education is not empty, find users with that education level
+            ->when($filters['education'] ?? null, function ($query, $education) {
+                return $query->whereHas('educations', function ($query) use ($education) {
+                    $query->where('education_level', $education);
+                });
+            })
+            ->limit(1)->first();
     }
 
     /**
@@ -51,13 +55,11 @@ class Matchmaker
      * ---------------------
      * Returns random job seekers
      */
-    public function getRandomJobSeekers()
+    public function getRandomJobSeekers(): ?User
     {
-        $job_seekers = \App\Models\User::inRandomOrder()
-        ->where('role', 'job-seeker')
-        ->where('id', '!=', auth()->user()->id)->limit(1)->first();
-
-        return $job_seekers;
+        return User::inRandomOrder()
+            ->where('role', 'job-seeker')
+            ->where('id', '!=', auth()->user()->id)->limit(1)->first();
     }
 
     /**
@@ -65,20 +67,18 @@ class Matchmaker
      * ---------------------
      * Returns job seekers who applied to our jobs
      */
-    public function getJobSeekersWhoApplied()
+    public function getJobSeekersWhoApplied(): ?User
     {
         $owned_jobs = auth()->user()->jobs->pluck('id')->toArray();
 
-        $job_seekers = \App\Models\User::inRandomOrder()
-        ->where('role', '=', 'job-seeker')
-        // Find and return job seekers who have applied to our jobs
-        ->whereHas('jobApplicants', function ($query) use ($owned_jobs) {
-            $query->whereIn('job_id', $owned_jobs);
-        })
-        ->where('id', '!=', auth()->user()->id)
-        ->limit(1)->first();
-
-        return $job_seekers;
+        return User::inRandomOrder()
+            ->where('role', '=', 'job-seeker')
+            // Find and return job seekers who have applied to our jobs
+            ->whereHas('jobApplicants', function ($query) use ($owned_jobs) {
+                $query->whereIn('job_id', $owned_jobs);
+            })
+            ->where('id', '!=', auth()->user()->id)
+            ->limit(1)->first();
     }
 
     /**
@@ -86,14 +86,22 @@ class Matchmaker
      * ---------------------
      * Returns all job postings
      */
-    public function getJobPostings($filters)
+    public function getJobPostings(array $filters): ?Jobs
     {
-        $jobs = [];
+        $query = Jobs::query()
+            ->where('user_id', '!=', auth()->user()->id)
+            // Don't resurface jobs the user has already applied to
+            ->whereDoesntHave('applicants', function ($query) {
+                $query->where('user_id', auth()->user()->id);
+            })
+            // Don't resurface jobs the user has already liked or disliked
+            ->whereDoesntHave('seekerMatchLikes', function ($query) {
+                $query->where('job_seeker_id', auth()->user()->id);
+            });
 
         // See if filters are set
         if ($filters['job_title'] != "" || $filters['job_type'] != "" || $filters['job_location'] != "" || $filters['job_category'] != "" || $filters['location_type'] != "") {
-            // If a filter is set add a where clause to the query
-            $jobs = \App\Models\Jobs::inRandomOrder()
+            $query
                 ->when($filters['job_title'], function ($query, $job_title) {
                     return $query->where('title', 'like', '%' . $job_title . '%');
                 })
@@ -108,23 +116,36 @@ class Matchmaker
                 })
                 ->when($filters['location_type'], function ($query, $location_type) {
                     return $query->where('employment_location_type', $location_type);
-                })
-                // Join job_applications to make sure logged user has not applied
-                ->leftJoin('job_applicants', function ($join) {
-                    $join->on('jobs.id', '=', 'job_applicants.job_id')
-                        ->where('job_applicants.user_id', '!=', auth()->user()->id);
-                })
-                // Join job_seeker_match_likes to make sure logged user has not liked
-                ->leftJoin('job_seeker_match_likes', function ($join) {
-                    $join->on('jobs.id', '=', 'job_seeker_match_likes.job_id')
-                        ->where('job_seeker_match_likes.job_seeker_id', '!=', auth()->user()->id);
-                })
-                ->limit(1)->first();
-        } else {
-            // Get all jobs at random limit 1
-            $jobs = \App\Models\Jobs::inRandomOrder()->where('user_id', '!=', auth()->user()->id)->limit(1)->first();
+                });
         }
 
-        return $jobs;
+        return $query->inRandomOrder()->limit(1)->first();
+    }
+
+    /**
+     * resolveJobForJobSeeker
+     * ---------------------
+     * Resolves which of the authenticated job poster's jobs a candidate should be
+     * matched against: prefers a job the candidate actually applied to, falling
+     * back to the poster's most recent job posting. Returns null if the poster
+     * has no job postings to match against.
+     */
+    public function resolveJobForJobSeeker(User $job_seeker): ?Jobs
+    {
+        $owned_job_ids = auth()->user()->jobs()->pluck('id');
+
+        if ($owned_job_ids->isEmpty()) {
+            return null;
+        }
+
+        $applied_job_id = JobApplicants::where('user_id', $job_seeker->id)
+            ->whereIn('job_id', $owned_job_ids)
+            ->value('job_id');
+
+        if ($applied_job_id) {
+            return Jobs::find($applied_job_id);
+        }
+
+        return auth()->user()->jobs()->latest()->first();
     }
 }

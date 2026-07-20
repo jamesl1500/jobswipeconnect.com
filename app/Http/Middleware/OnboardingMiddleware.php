@@ -3,34 +3,31 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class OnboardingMiddleware
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     * @param  Closure(Request): (Response|RedirectResponse)  $next
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Response|RedirectResponse
     {
-        // Redirect back to verify notice page if user has not verified their email
-        if (!$request->user()->hasVerifiedEmail()) {
+        if (! $request->user()->hasVerifiedEmail()) {
             return redirect()->route('verification.notice');
         }
 
-        // See if user has completed onboarding step 1
-        if (!$request->user()->hasCompletedOnboardingStep1()) {
+        if (! $request->user()->hasCompletedOnboardingStep1()) {
             return redirect()->route('onboarding.step1');
         }
 
-        // See if user has completed onboarding step 2
-        if ($request->user()->role == "job-seeker" && !$request->user()->hasCompletedOnboardingStep2()) {
+        if ($request->user()->role === 'job-seeker' && ! $request->user()->hasCompletedOnboardingStep2()) {
             return redirect()->route('onboarding.step2');
         }
-        
+
         return $next($request);
     }
 }

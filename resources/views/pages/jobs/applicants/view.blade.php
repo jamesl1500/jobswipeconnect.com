@@ -103,6 +103,10 @@
                                 <h3>Cover Letter</h3>
                                 <p>{{ $applicant->cover_letter }}</p>
                             </div>
+                            <div class="jobs-page-content-box-body-skills">
+                                <h3>Skills</h3>
+                                <p>{{ $applicant->skills }}</p>
+                            </div>
                             <div class="jobs-page-content-box-body-experience">
                                 <h3>Experience</h3>
                                 <?php

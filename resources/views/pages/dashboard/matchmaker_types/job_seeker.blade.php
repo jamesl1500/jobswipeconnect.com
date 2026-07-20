@@ -1,34 +1,30 @@
-<?php
+@php
 use App\Libraries\Matchmaker;
-
 use App\Models\Companies;
 
 $matchmaker = new Matchmaker();
 
-// Lets get all filter query strings from url
-$job_title = request()->job_title;
-$job_category = request()->job_category;
-$job_location = request()->job_location;
-$job_type = request()->job_type;
-$location_type = request()->location_type;
-
-// Create array of filters
+// Create array of filters from query string
 $filters = [
-    'job_title' => $job_title,
-    'job_category' => $job_category,
-    'job_location' => $job_location,
-    'job_type' => $job_type,
-    'location_type' => $location_type
+    'job_title' => request()->job_title,
+    'job_category' => request()->job_category,
+    'job_location' => request()->job_location,
+    'job_type' => request()->job_type,
+    'location_type' => request()->location_type
 ];
 
 // Since this is a job seeker, we will get all the job postings
 $job_posting = $matchmaker->getJobPostings($filters);
 
 // Get company details
-$company_id = $job_posting->company_id;
-$company = Companies::where('id', $company_id)->first();
-?>
+$company = $job_posting ? Companies::where('id', $job_posting->company_id)->first() : null;
+@endphp
 <div class="matchmaker job-seeker-version">
+    @if(!$job_posting)
+    <div class="matchmaker-empty">
+        <p>No more job postings match your filters right now. Check back later!</p>
+    </div>
+    @else
     <div class="matchmaker-inner">
         <div class="company-info-top">
             <div class="company-logo">
@@ -51,11 +47,11 @@ $company = Companies::where('id', $company_id)->first();
             <!-- if description is too long, we will cut it off and add a read more link -->
             <h5>Description</h5>
 
-            <?php if(strlen($job_posting->description) > 350){ ?>
+            @if(strlen($job_posting->description) > 350)
                 <p>{{ substr($job_posting->description, 0, 350) }}... <a href="">Read More</a></p>
-            <?php }else{ ?>
+            @else
                 <p>{{ $job_posting->description }}</p>
-            <?php } ?>
+            @endif
             <p><b>Skills:</b> {{ $job_posting->skills }}</p>
         </div>
         <div class="apply-now">
@@ -108,7 +104,8 @@ $company = Companies::where('id', $company_id)->first();
                         </div>
                     </div>
                 </div>
-            </div>    
+            </div>
         </div>
     </div>
+    @endif
 </div>

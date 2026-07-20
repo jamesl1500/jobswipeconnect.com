@@ -6,10 +6,10 @@
     <div class="auth-page-header page-header">
         <div class="container page-header-container">
             <div class="page-header-title">
-                <h1>Forgot Password</h1>
+                <h1>Verify Email</h1>
             </div>
             <div class="page-header-subtext">
-                <h2>Let's get you back into your account!</h2>
+                <h2>Let's verify your email address to get started!</h2>
             </div>
         </div>
     </div>

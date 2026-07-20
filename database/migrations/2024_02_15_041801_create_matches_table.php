@@ -16,6 +16,7 @@ class CreateMatchesTable extends Migration
         Schema::create('matches', function (Blueprint $table) {
             $table->id();
             $table->foreignId("job_seeker_id")->constrained("users")->onDelete("cascade");
+            $table->foreignId("job_poster_id")->constrained("users")->onDelete("cascade");
             $table->foreignId("job_id")->constrained()->onDelete("cascade");
 
             $table->enum("status",["pending","accepted","rejected"])->default("pending");

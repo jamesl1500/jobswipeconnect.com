@@ -2,6 +2,7 @@
 @extends('layouts.authorized')
 
 @section('content')
+    @php($role = auth()->user()->role)
     <div class="dashboard-page page">
         <div class="dashboard-header page-header">
             <div class="container page-header-container">
@@ -17,15 +18,11 @@
             <div class="container">
                 <div class="dashboard-page-inline-navigation-inner">
                     <ul>
-                        <?php
-                            $role = auth()->user()->role;
-
-                            if($role == "job-seeker") {
-                        ?>
+                        @if(auth()->user()->role == "job-seeker")
                             <li><a href="{{ route('dashboard.jobs') }}">Job Matching</a></li>
-                        <?php }else{ ?>
+                        @else
                             <li><a href="{{ route('dashboard.jobs') }}">Applicant Matching</a></li>
-                        <?php } ?>
+                        @endif
 
                         <li class="active"><a href="{{ route('dashboard.feed') }}">Feed</a></li>
                     </ul>
@@ -52,11 +49,11 @@
                                     <div class="dashboard-current-user-stats-inner">
                                         <div class="dashboard-current-user-stats-item profile-views">
                                             <h3>Profile views</h3>
-                                            <p><?php echo count(Auth()->user()->profileViews); ?></p>
+                                            <p>{{ count(Auth()->user()->profileViews) }}</p>
                                         </div>
                                         <div class="dashboard-current-user-stats-item followers">
                                             <h3>Followers</h3>
-                                            <p><?php echo count(Auth()->user()->followings); ?></p>
+                                            <p>{{ count(Auth()->user()->followings) }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -113,23 +110,70 @@
                         </div>
                         <div class="dashboard-content-posts">
                             <div class="dashboard-content-posts-inner">
-                                <?php
-                                    if(count($posts) > 0)
-                                    {
-                                        foreach($posts as $post => $post_value) {
-                                            echo view('components.post', ['post' => $post_value]);
-                                        }
-                                    }else{
-                                        echo "<p>No posts found!</p>";
-                                    }
-                                ?>
+                                @if(count($posts) > 0)
+                                    @foreach($posts as $post_value)
+                                        @include('components.post', ['post' => $post_value])
+                                    @endforeach
+                                @else
+                                    <div class="simple-alert warning">
+                                        <div class="title">
+                                            <h1>Your timeline is quiet</h1>
+                                        </div>
+                                        <div class="subtitle">
+                                            <h2>Follow people or share an update above to get things moving.</h2>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="dashboard-content col-lg-3">
                     <div class="dashboard-content-inner">
+                        <div class="sidebar-widget">
+                            <div class="sidebar-widget-header">
+                                <h2>People to follow</h2>
+                                <p>Grow your network on JobSwipe</p>
+                            </div>
+                            @if(count($suggestedUsers) > 0)
+                                @foreach($suggestedUsers as $suggested)
+                                    <div class="suggested-user">
+                                        <a href="{{ route('profile.index', ['username' => $suggested->username]) }}">
+                                            <img src="{{ asset('storage/' . $suggested->profile_picture) }}" alt="{{ $suggested->name }}">
+                                        </a>
+                                        <div class="suggested-user-info">
+                                            <h3><a href="{{ route('profile.index', ['username' => $suggested->username]) }}">{{ $suggested->name }}</a></h3>
+                                            <p>{{ '@' . $suggested->username }}</p>
+                                        </div>
+                                        <form action="{{ route('follow') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="user_id" value="{{ $suggested->id }}">
+                                            <button type="submit" class="btn primary skinny">Follow</button>
+                                        </form>
+                                    </div>
+                                @endforeach
+                            @else
+                                <p>You're following everyone on JobSwipe already!</p>
+                            @endif
+                        </div>
 
+                        <div class="sidebar-widget">
+                            <div class="sidebar-widget-header">
+                                <h2>Quick links</h2>
+                            </div>
+                            <ul class="widget-links">
+                                @if($role == 'job-seeker')
+                                    <li><a href="{{ route('jobs.index') }}"><i class="fas fa-briefcase"></i> Browse jobs</a></li>
+                                    <li><a href="{{ route('jobs.liked_jobs') }}"><i class="fas fa-heart"></i> Liked jobs</a></li>
+                                @else
+                                    <li><a href="{{ route('jobs.create') }}"><i class="fas fa-plus"></i> Post a job</a></li>
+                                    <li><a href="{{ route('jobs.my_jobs') }}"><i class="fas fa-briefcase"></i> My jobs</a></li>
+                                @endif
+                                <li><a href="{{ route('companies.index') }}"><i class="fas fa-building"></i> Companies</a></li>
+                                <li><a href="{{ route('messages.index') }}"><i class="fas fa-comment-dots"></i> Messages</a></li>
+                                <li><a href="{{ route('settings.index') }}"><i class="fas fa-gear"></i> Settings</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
            </div>

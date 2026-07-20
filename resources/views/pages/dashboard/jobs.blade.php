@@ -2,6 +2,7 @@
 @extends('layouts.authorized')
 
 @section('content')
+    @php($role = auth()->user()->role)
     <div class="dashboard-page page">
         <div class="dashboard-header page-header">
             <div class="container page-header-container">
@@ -9,15 +10,11 @@
                     <h1>Dashboard</h1>
                 </div>
                 <div class="page-header-subtext">
-                    <?php
-                        $role = auth()->user()->role;
-
-                        if($role == "job-seeker") {
-                    ?>
+                    @if($role == "job-seeker")
                     <h2>Match with jobs, and make new connections</h2>
-                    <?php }else{ ?>
+                    @else
                     <h2>Match with applicants, and make new connections</h2>
-                    <?php } ?>
+                    @endif
                 </div>
             </div>
         </div>
@@ -25,15 +22,11 @@
             <div class="container">
                 <div class="dashboard-page-inline-navigation-inner">
                     <ul>
-                        <?php
-                            $role = auth()->user()->role;
-
-                            if($role == "job-seeker") {
-                        ?>
+                        @if($role == "job-seeker")
                             <li class="active"><a href="{{ route('dashboard.jobs') }}">Job Matching</a></li>
-                        <?php }else{ ?>
+                        @else
                             <li class="active"><a href="{{ route('dashboard.jobs') }}">Applicant Matching</a></li>
-                        <?php } ?>
+                        @endif
 
                         <li><a href="{{ route('dashboard.feed') }}">Feed</a></li>
                     </ul>
@@ -49,18 +42,14 @@
                             <div class="dashboard-content-filters-inner">
                                 <div class="dashboard-content-filters-header">
                                     <h2>Filters</h2>
-                                    <?php
-                                        $role = auth()->user()->role;
-
-                                        if($role == "job-seeker") {
-                                    ?>
+                                    @if($role == "job-seeker")
                                         <p>Filter jobs by title, type, location, and category</p>
-                                    <?php }else{ ?>
+                                    @else
                                         <p>Filter applicants by education, skills, and experience</p>
-                                    <?php } ?>
+                                    @endif
                                 </div>
                                 <div class="dashboard-content-filters-form">
-                                    <?php if($role == "job-seeker"){ ?>}
+                                    @if($role == "job-seeker")
                                         <form action="{{ route('dashboard.jobs') }}" method="get">
                                             <div class="form-group">
                                                 <div class="form-input">
@@ -93,7 +82,7 @@
                                                     <select name="location_type" id="location_type">
                                                         <option value="">Select location type</option>
                                                         <option value="remote" {{ request()->location_type == 'remote' ? 'selected' : '' }}>Remote</option>
-                                                        <option value="on-site" {{ request()->location_type == 'on-site' ? 'selected' : '' }}>On Site</option>
+                                                        <option value="On Site" {{ request()->location_type == 'On Site' ? 'selected' : '' }}>On Site</option>
                                                         <option value="hybrid" {{ request()->location_type == 'hybrid' ? 'selected' : '' }}>Hybrid</option>
                                                     </select>
                                                 </div>
@@ -103,13 +92,10 @@
                                                     <label for="job_category">Job Category</label>
                                                     <select name="job_category" id="job_category">
                                                         <option value="">Select job category</option>
-                                                        <?php
-                                                            $categories = ["accounting","administrative","advertising","banking","business","community","construction","customer-service","design","education","engineering","finance","healthcare","hospitality","human-resources","information-technology","legal","management","manufacturing","marketing","media","non-profit","real-estate","retail","sales","science","security","skilled-labor","transportation","other"];
-
-                                                            foreach($categories as $category) {
-                                                                echo "<option value='$category' " . (request()->job_category == $category ? 'selected' : '') . ">" . ucwords($category) . "</option>";
-                                                            }
-                                                        ?>
+                                                        @php($categories = ["accounting","administrative","advertising","banking","business","community","construction","customer-service","design","education","engineering","finance","healthcare","hospitality","human-resources","information-technology","legal","management","manufacturing","marketing","media","non-profit","real-estate","retail","sales","science","security","skilled-labor","transportation","other"])
+                                                        @foreach($categories as $category)
+                                                            <option value="{{ $category }}" {{ request()->job_category == $category ? 'selected' : '' }}>{{ ucwords($category) }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -117,7 +103,7 @@
                                                 <button type="submit" class="btn primary">Filter</button>
                                             </div>
                                         </form>
-                                    <?php }else{ ?>
+                                    @else
                                         <form action="{{ route('dashboard.jobs') }}" method="get">
                                             <div class="form-group">
                                                 <div class="form-input">
@@ -125,10 +111,10 @@
                                                     <select name="education" id="education">
                                                         <option value="">Select education</option>
                                                         <option value="high-school" {{ request()->education == 'high-school' ? 'selected' : '' }}>High School</option>
-                                                        <option value="associates" {{ request()->education == 'associates' ? 'selected' : '' }}>Associates</option>
-                                                        <option value="bachelors" {{ request()->education == 'bachelors' ? 'selected' : '' }}>Bachelors</option>
-                                                        <option value="masters" {{ request()->education == 'masters' ? 'selected' : '' }}>Masters</option>
-                                                        <option value="phd" {{ request()->education == 'phd' ? 'selected' : '' }}>PhD</option>
+                                                        <option value="associate" {{ request()->education == 'associate' ? 'selected' : '' }}>Associate's Degree</option>
+                                                        <option value="bachelor" {{ request()->education == 'bachelor' ? 'selected' : '' }}>Bachelor's Degree</option>
+                                                        <option value="master" {{ request()->education == 'master' ? 'selected' : '' }}>Master's Degree</option>
+                                                        <option value="doctorate" {{ request()->education == 'doctorate' ? 'selected' : '' }}>Doctorate (PhD)</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -148,7 +134,7 @@
                                                 <button type="submit" class="btn primary">Filter</button>
                                             </div>
                                         </form>
-                                    <?php } ?>
+                                    @endif
                                 </div>
                             </div>
                         </div>

@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Companies;
+use App\Models\Conversations;
+use App\Models\Jobs;
+use App\Models\JobApplicants;
+use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class JobsController extends Controller
 {
-    //
-    public function index()
+    public function index(): View
     {
         $jobs = [];
 
@@ -23,7 +29,7 @@ class JobsController extends Controller
         // See if filters are set
         if ($filters['job_title'] != "" || $filters['job_type'] != "" || $filters['job_location'] != "" || $filters['job_category'] != "" || $filters['location_type'] != "") {
             // If a filter is set add a where clause to the query
-            $jobs = \App\Models\Jobs::inRandomOrder()
+            $jobs = Jobs::inRandomOrder()
                 ->when($filters['job_title'], function ($query, $job_title) {
                     return $query->where('title', 'like', '%' . $job_title . '%');
                 })
@@ -39,39 +45,37 @@ class JobsController extends Controller
                 ->when($filters['location_type'], function ($query, $location_type) {
                     return $query->where('employment_location_type', $location_type);
                 })->paginate(5);
+        } elseif (auth()->user()) {
+            $jobs = Jobs::inRandomOrder()->where('user_id', '!=', auth()->user()->id)->paginate(5);
         } else {
-            // Get all jobs at random limit 1
-            if(auth()->user()){
-                $jobs = \App\Models\Jobs::inRandomOrder()->where('user_id', '!=', auth()->user()->id)->paginate(5);
-            }else{
-                $jobs = \App\Models\Jobs::inRandomOrder()->paginate(5);
-            }
+            $jobs = Jobs::inRandomOrder()->paginate(5);
         }
 
-        // Return the view
+        $popularCategories = Jobs::query()
+            ->selectRaw('job_category, count(*) as jobs_count')
+            ->groupBy('job_category')
+            ->orderByDesc('jobs_count')
+            ->limit(6)
+            ->get();
+
         return view('pages.jobs.index', [
             'jobs' => $jobs,
+            'popularCategories' => $popularCategories,
+            'totalJobsCount' => Jobs::count(),
+            'totalCompaniesCount' => Companies::count(),
         ]);
     }
 
-    /**
-     * Show | Job
-     * -------------------------------------
-     * Show the job details
-     */
-    public function show($id)
+    public function show(int $id): RedirectResponse|View
     {
-        $job = \App\Models\Jobs::find($id);
+        $job = Jobs::find($id);
 
-        // Make sure the job exists
         if (!$job) {
             return redirect()->route('jobs.index')->with('error', 'Job not found');
         }
 
-        // Get the company details
-        $company = \App\Models\Companies::find($job->company_id);
+        $company = Companies::find($job->company_id);
 
-        // Make sure the company exists
         if (!$company) {
             return redirect()->route('jobs.index')->with('error', 'Company not found');
         }
@@ -82,35 +86,25 @@ class JobsController extends Controller
         ]);
     }
 
-    /**
-     * Applicants | Job
-     * -------------------------------------
-     * Show the job details
-     */
-    public function applicants($id)
+    public function applicants(int $id): RedirectResponse|View
     {
-        $job = \App\Models\Jobs::find($id);
+        $job = Jobs::find($id);
 
-        // Make sure the job exists
         if (!$job) {
             return redirect()->route('jobs.index')->with('error', 'Job not found');
         }
 
-        // Make sure the user is the owner of the job
         if ($job->user_id != auth()->user()->id) {
             return redirect()->route('jobs.index')->with('error', 'You are not authorized to view this page');
         }
 
-        // Get the company details
-        $company = \App\Models\Companies::find($job->company_id);
+        $company = Companies::find($job->company_id);
 
-        // Make sure the company exists
         if (!$company) {
             return redirect()->route('jobs.index')->with('error', 'Company not found');
         }
 
-        // Get applicants for the job
-        $applicants = \App\Models\JobApplicants::where('job_id', $job->id)->paginate(10);
+        $applicants = JobApplicants::where('job_id', $job->id)->paginate(10);
 
         return view('pages.jobs.show.applicants', [
             'job' => $job,
@@ -119,37 +113,25 @@ class JobsController extends Controller
         ]);
     }
 
-    
-
-     /**
-     * Interviewing | Applicants | Job
-     * -------------------------------------
-     * Show interviewing applicants for the job
-     */
-    public function applicantsInterviewing($id)
+    public function applicantsInterviewing(int $id): RedirectResponse|View
     {
-        $job = \App\Models\Jobs::find($id);
+        $job = Jobs::find($id);
 
-        // Make sure the job exists
         if (!$job) {
             return redirect()->route('jobs.index')->with('error', 'Job not found');
         }
 
-        // Make sure the user is the owner of the job
         if ($job->user_id != auth()->user()->id) {
             return redirect()->route('jobs.index')->with('error', 'You are not authorized to view this page');
         }
 
-        // Get the company details
-        $company = \App\Models\Companies::find($job->company_id);
+        $company = Companies::find($job->company_id);
 
-        // Make sure the company exists
         if (!$company) {
             return redirect()->route('jobs.index')->with('error', 'Company not found');
         }
 
-        // Get applicants for the job
-        $applicants = \App\Models\JobApplicants::where('job_id', $job->id)->where('status', 'interviewing')->paginate(10);
+        $applicants = JobApplicants::where('job_id', $job->id)->where('status', 'interviewing')->paginate(10);
 
         return view('pages.jobs.applicants.interviewing', [
             'job' => $job,
@@ -158,35 +140,25 @@ class JobsController extends Controller
         ]);
     }
 
-    /**
-     * Hired | Applicants | Job
-     * -------------------------------------
-     * Show interviewing applicants for the job
-     */
-    public function applicantsHired($id)
+    public function applicantsHired(int $id): RedirectResponse|View
     {
-        $job = \App\Models\Jobs::find($id);
+        $job = Jobs::find($id);
 
-        // Make sure the job exists
         if (!$job) {
             return redirect()->route('jobs.index')->with('error', 'Job not found');
         }
 
-        // Make sure the user is the owner of the job
         if ($job->user_id != auth()->user()->id) {
             return redirect()->route('jobs.index')->with('error', 'You are not authorized to view this page');
         }
 
-        // Get the company details
-        $company = \App\Models\Companies::find($job->company_id);
+        $company = Companies::find($job->company_id);
 
-        // Make sure the company exists
         if (!$company) {
             return redirect()->route('jobs.index')->with('error', 'Company not found');
         }
 
-        // Get applicants for the job
-        $applicants = \App\Models\JobApplicants::where('job_id', $job->id)->where('status', 'hired')->paginate(10);
+        $applicants = JobApplicants::where('job_id', $job->id)->where('status', 'hired')->paginate(10);
 
         return view('pages.jobs.applicants.hires', [
             'job' => $job,
@@ -195,35 +167,25 @@ class JobsController extends Controller
         ]);
     }
 
-    /**
-     * Rejected | Applicants | Job
-     * -------------------------------------
-     * Show interviewing applicants for the job
-     */
-    public function applicantsRejected($id)
+    public function applicantsRejected(int $id): RedirectResponse|View
     {
-        $job = \App\Models\Jobs::find($id);
+        $job = Jobs::find($id);
 
-        // Make sure the job exists
         if (!$job) {
             return redirect()->route('jobs.index')->with('error', 'Job not found');
         }
 
-        // Make sure the user is the owner of the job
         if ($job->user_id != auth()->user()->id) {
             return redirect()->route('jobs.index')->with('error', 'You are not authorized to view this page');
         }
 
-        // Get the company details
-        $company = \App\Models\Companies::find($job->company_id);
+        $company = Companies::find($job->company_id);
 
-        // Make sure the company exists
         if (!$company) {
             return redirect()->route('jobs.index')->with('error', 'Company not found');
         }
 
-        // Get applicants for the job
-        $applicants = \App\Models\JobApplicants::where('job_id', $job->id)->where('status', 'rejected')->paginate(10);
+        $applicants = JobApplicants::where('job_id', $job->id)->where('status', 'rejected')->paginate(10);
 
         return view('pages.jobs.applicants.rejected', [
             'job' => $job,
@@ -232,28 +194,16 @@ class JobsController extends Controller
         ]);
     }
 
-    /**
-     * Create | Job
-     * -------------------------------------
-     * Show the job creation form
-     */
-    public function create()
+    public function create(): View
     {
         return view('pages.jobs.create');
     }
 
-    /**
-     * Store | Job
-     * -------------------------------------
-     * Store the job details
-     */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        // Validate the request
         $request->validate([
             'name' => 'required',
             'description' => 'required|min:10',
-            'skills' => 'required|min:10',
             'requirements' => 'required',
             'responsibilities' => 'required',
             'employment_location_type' => 'required',
@@ -269,8 +219,7 @@ class JobsController extends Controller
             'benefits' => 'required',
         ]);
 
-        // Create the job
-        $job = \App\Models\Jobs::create([
+        $job = Jobs::create([
             'title' => $request->name,
             'description' => $request->description,
             'skills' => $request->skills,
@@ -281,7 +230,6 @@ class JobsController extends Controller
             'job_salary_type' => $request->job_salary_type,
             'experience_level' => $request->experience_level,
             'education_level' => $request->education_level,
-            'skills' => $request->skills,
             'job_status' => $request->job_status,
             'company_id' => $request->company_id,
             'job_category' => $request->job_category,
@@ -291,39 +239,26 @@ class JobsController extends Controller
             'created_at' => now(),
         ]);
 
-        // Redirect to the job details page
         return redirect()->route('jobs.show', $job->id)->with('success', 'Job created successfully');
     }
 
-    /**
-     * My Jobs 
-     * -------------------------------------
-     * Show the jobs created by the user
-     */
-    public function myJobs()
+    public function myJobs(): View
     {
-        $jobs = \App\Models\Jobs::where('user_id', auth()->user()->id)->paginate(5);
+        $jobs = Jobs::where('user_id', auth()->user()->id)->paginate(5);
 
         return view('pages.jobs.my_jobs', [
             'jobs' => $jobs,
         ]);
     }
 
-    /**
-     * Edit | Index | Job
-     * -------------------------------------
-     * Show the job edit form
-     */
-    public function edit($id)
+    public function edit(int $id): RedirectResponse|View
     {
-        $job = \App\Models\Jobs::find($id);
+        $job = Jobs::find($id);
 
-        // Make sure the job exists
         if (!$job) {
             return redirect()->route('jobs.index')->with('error', 'Job not found');
         }
 
-        // Make sure job belongs to the user
         if ($job->user_id != auth()->user()->id) {
             return redirect()->route('jobs.index')->with('error', 'You are not authorized to view this page');
         }
@@ -333,21 +268,14 @@ class JobsController extends Controller
         ]);
     }
 
-    /**
-     * Edit Responsibilities | Job
-     * -------------------------------------
-     * Show the job edit responsibilities form
-     */
-    public function editResponsibilities($id)
+    public function editResponsibilities(int $id): RedirectResponse|View
     {
-        $job = \App\Models\Jobs::find($id);
+        $job = Jobs::find($id);
 
-        // Make sure the job exists
         if (!$job) {
             return redirect()->route('jobs.index')->with('error', 'Job not found');
         }
 
-        // Make sure job belongs to the user
         if ($job->user_id != auth()->user()->id) {
             return redirect()->route('jobs.index')->with('error', 'You are not authorized to view this page');
         }
@@ -357,51 +285,34 @@ class JobsController extends Controller
         ]);
     }
 
-    /**
-     * Update Responsibilities | Job
-     * -------------------------------------
-     * Update the job responsibilities
-     */
-    public function updateResponsibilities(Request $request, $id)
+    public function updateResponsibilities(Request $request, int $id): RedirectResponse
     {
-        // Validate the request
         $request->validate([
             'responsibilities' => 'required|min:10',
         ]);
 
-        // Get the job
-        $job = \App\Models\Jobs::find($id);
+        $job = Jobs::find($id);
 
-        // Make sure the job exists
         if (!$job) {
             return redirect()->route('jobs.index')->with('error', 'Job not found');
         }
 
-        // Update the job
         $job->update([
             'responsibilities' => $request->responsibilities,
             'updated_at' => now(),
         ]);
 
-        // Redirect to the job details page
         return redirect()->route('jobs.edit.responsibilities', $job->id)->with('success', 'Job updated successfully');
     }
 
-    /**
-     * Edit Requirements | Job
-     * -------------------------------------
-     * Show the job edit requirements form
-     */
-    public function editRequirements($id)
+    public function editRequirements(int $id): RedirectResponse|View
     {
-        $job = \App\Models\Jobs::find($id);
+        $job = Jobs::find($id);
 
-        // Make sure the job exists
         if (!$job) {
             return redirect()->route('jobs.index')->with('error', 'Job not found');
         }
 
-        // Make sure job belongs to the user
         if ($job->user_id != auth()->user()->id) {
             return redirect()->route('jobs.index')->with('error', 'You are not authorized to view this page');
         }
@@ -411,51 +322,34 @@ class JobsController extends Controller
         ]);
     }
 
-    /**
-     * Update Requirements | Job
-     * -------------------------------------
-     * Update the job requirements
-     */
-    public function updateRequirements(Request $request, $id)
+    public function updateRequirements(Request $request, int $id): RedirectResponse
     {
-        // Validate the request
         $request->validate([
             'requirements' => 'required|min:10',
         ]);
 
-        // Get the job
-        $job = \App\Models\Jobs::find($id);
+        $job = Jobs::find($id);
 
-        // Make sure the job exists
         if (!$job) {
             return redirect()->route('jobs.index')->with('error', 'Job not found');
         }
 
-        // Update the job
         $job->update([
             'requirements' => $request->requirements,
             'updated_at' => now(),
         ]);
 
-        // Redirect to the job details page
         return redirect()->route('jobs.edit.requirements', $job->id)->with('success', 'Job updated successfully');
     }
 
-    /**
-     * Edit Benefits | Job
-     * -------------------------------------
-     * Show the job edit benefits form
-     */
-    public function editBenefits($id)
+    public function editBenefits(int $id): RedirectResponse|View
     {
-        $job = \App\Models\Jobs::find($id);
+        $job = Jobs::find($id);
 
-        // Make sure the job exists
         if (!$job) {
             return redirect()->route('jobs.index')->with('error', 'Job not found');
         }
 
-        // Make sure job belongs to the user
         if ($job->user_id != auth()->user()->id) {
             return redirect()->route('jobs.index')->with('error', 'You are not authorized to view this page');
         }
@@ -465,48 +359,31 @@ class JobsController extends Controller
         ]);
     }
 
-    /**
-     * Update Benefits | Job
-     * -------------------------------------
-     * Update the job benefits
-     */
-    public function updateBenefits(Request $request, $id)
+    public function updateBenefits(Request $request, int $id): RedirectResponse
     {
-        // Validate the request
         $request->validate([
             'benefits' => 'required|min:10',
         ]);
 
-        // Get the job
-        $job = \App\Models\Jobs::find($id);
+        $job = Jobs::find($id);
 
-        // Make sure the job exists
         if (!$job) {
             return redirect()->route('jobs.index')->with('error', 'Job not found');
         }
 
-        // Update the job
         $job->update([
             'benefits' => $request->benefits,
             'updated_at' => now(),
         ]);
 
-        // Redirect to the job details page
         return redirect()->route('jobs.edit.benefits', $job->id)->with('success', 'Job updated successfully');
     }
 
-    /**
-     * Update | Job
-     * -------------------------------------
-     * Update the job details
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): RedirectResponse
     {
-        // Validate the request
         $request->validate([
             'title' => 'required',
             'description' => 'required|min:10',
-            'skills' => 'required|min:10',
             'employment_location_type' => 'required',
             'salary' => 'required',
             'job_salary_type' => 'required',
@@ -519,15 +396,12 @@ class JobsController extends Controller
             'location' => 'required',
         ]);
 
-        // Get the job
-        $job = \App\Models\Jobs::find($id);
+        $job = Jobs::find($id);
 
-        // Make sure the job exists
         if (!$job) {
             return redirect()->route('jobs.index')->with('error', 'Job not found');
         }
 
-        // Update the job
         $job->update([
             'title' => $request->title,
             'description' => $request->description,
@@ -537,7 +411,6 @@ class JobsController extends Controller
             'job_salary_type' => $request->job_salary_type,
             'experience_level' => $request->experience_level,
             'education_level' => $request->education_level,
-            'skills' => $request->skills,
             'job_status' => $request->job_status,
             'company_id' => $request->company_id,
             'job_category' => $request->job_category,
@@ -545,46 +418,34 @@ class JobsController extends Controller
             'updated_at' => now(),
         ]);
 
-        // Redirect to the job details page
         return redirect()->route('jobs.edit', $job->id)->with('success', 'Job updated successfully');
     }
 
-    /**
-     * Apply | Job
-     * -------------------------------------
-     * Apply for a job
-     */
-    public function apply(Request $request, $id)
+    public function apply(Request $request, int $id): RedirectResponse
     {
-        // Validate resume, cover letter, and skills
         $request->validate([
             'resume' => 'required|min:10',
             'cover_letter' => 'required|min:10',
             'skills' => 'required|min:10',
         ]);
 
-        $job = \App\Models\Jobs::find($id);
+        $job = Jobs::find($id);
 
-        // Make sure the job exists
         if (!$job) {
             return redirect()->route('jobs.index')->with('error', 'Job not found');
         }
 
-        // Make sure the user is not the owner of the job
         if ($job->user_id == auth()->user()->id) {
             return redirect()->route('jobs.index')->with('error', 'You cannot apply for your own job');
         }
 
-        // Check if the user has already applied for the job
-        $applied = \App\Models\JobApplicants::where('job_id', $job->id)->where('user_id', auth()->user()->id)->first();
+        $applied = JobApplicants::where('job_id', $job->id)->where('user_id', auth()->user()->id)->first();
 
-        // If the user has already applied for the job
         if ($applied) {
             return redirect()->route('jobs.index')->with('error', 'You have already applied for this job');
         }
 
-        // Apply for the job
-        $application = \App\Models\JobApplicants::create([
+        JobApplicants::create([
             'job_id' => $job->id,
             'user_id' => auth()->user()->id,
             'status' => 'applied',
@@ -594,37 +455,28 @@ class JobsController extends Controller
             'created_at' => now(),
         ]);
 
-        // Redirect to the job details page
         return redirect()->route('jobs.show', $job->id)->with('success', 'Job application submitted successfully');
     }
 
-    /**
-     * Apply | Page | Job
-     * -------------------------------------
-     * Show the job application form
-     */
-    public function applyPage($id){
-        $job = \App\Models\Jobs::find($id);
+    public function applyPage(int $id): RedirectResponse|View
+    {
+        $job = Jobs::find($id);
 
-        // Make sure the job exists
         if (!$job) {
             return redirect()->route('jobs.index')->with('error', 'Job not found');
         }
 
-        // Make sure the user is not the owner of the job
         if ($job->user_id == auth()->user()->id) {
             return redirect()->route('jobs.index')->with('error', 'You cannot apply for your own job');
         }
 
-        // Check if the user has already applied for the job
-        $applied = \App\Models\JobApplicants::where('job_id', $job->id)->where('user_id', auth()->user()->id)->first();
+        $applied = JobApplicants::where('job_id', $job->id)->where('user_id', auth()->user()->id)->first();
 
-        // If the user has already applied for the job
         if ($applied) {
             return redirect()->route('jobs.index')->with('error', 'You have already applied for this job');
         }
 
-        $company = \App\Models\Companies::find($job->company_id);
+        $company = Companies::find($job->company_id);
 
         return view('pages.jobs.apply', [
             'job' => $job,
@@ -632,29 +484,21 @@ class JobsController extends Controller
         ]);
     }
 
-    /**
-     * My Application
-     * -------------------------------------
-     * Show the user's job application for this job
-     */
-    public function myApplication($id)
+    public function myApplication(int $id): RedirectResponse|View
     {
-        $job = \App\Models\Jobs::find($id);
+        $job = Jobs::find($id);
 
-        // Make sure the job exists
         if (!$job) {
             return redirect()->route('jobs.index')->with('error', 'Job not found');
         }
 
-        $application = \App\Models\JobApplicants::where('job_id', $job->id)->where('user_id', auth()->user()->id)->first();
+        $application = JobApplicants::where('job_id', $job->id)->where('user_id', auth()->user()->id)->first();
 
-        // Make sure the user has applied for the job
         if (!$application) {
             return redirect()->route('jobs.index')->with('error', 'You have not applied for this job');
         }
 
-        // Get the company details
-        $company = \App\Models\Companies::find($job->company_id);
+        $company = Companies::find($job->company_id);
 
         return view('pages.jobs.my_application', [
             'job' => $job,
@@ -663,61 +507,43 @@ class JobsController extends Controller
         ]);
     }
 
-    /**
-     * Withdraw Application
-     * -------------------------------------
-     * Withdraw the user's job application for this job
-     */
-    public function withdrawApplication($id)
+    public function withdrawApplication(int $id): RedirectResponse
     {
-        $job = \App\Models\Jobs::find($id);
+        $job = Jobs::find($id);
 
-        // Make sure the job exists
         if (!$job) {
             return redirect()->route('jobs.index')->with('error', 'Job not found');
         }
 
-        $application = \App\Models\JobApplicants::where('job_id', $job->id)->where('user_id', auth()->user()->id)->first();
+        $application = JobApplicants::where('job_id', $job->id)->where('user_id', auth()->user()->id)->first();
 
-        // Make sure the user has applied for the job
         if (!$application) {
             return redirect()->route('jobs.index')->with('error', 'You have not applied for this job');
         }
 
-        // Withdraw the application
         $application->delete();
 
-        // Redirect to the job details page
         return redirect()->route('jobs.show', $job->id)->with('success', 'Job application withdrawn successfully');
     }
 
-    /** 
-     * Start Interview | Job
-     * -------------------------------------
-     * Start the interview process for the job with an applicant
-     */
-    public function startInterview(Request $request, $id, $applicant_id)
+    public function startInterview(Request $request, int $id, int $applicant_id): RedirectResponse
     {
-        $job = \App\Models\Jobs::find($id);
+        $job = Jobs::find($id);
 
-        // Make sure the job exists
         if (!$job) {
             return redirect()->route('jobs.index')->with('error', 'Job not found');
         }
 
-        $applicant = \App\Models\JobApplicants::find($applicant_id);
+        $applicant = JobApplicants::find($applicant_id);
 
-        // Make sure the applicant exists
         if (!$applicant) {
             return redirect()->route('jobs.index')->with('error', 'Applicant not found');
         }
 
-        // Make sure the user is the owner of the job
         if ($job->user_id != auth()->user()->id) {
             return redirect()->route('jobs.index')->with('error', 'You are not authorized to view this page');
         }
 
-        // Validate the request
         $request->validate([
             'message' => 'required|min:10',
             'interview_date' => 'required',
@@ -725,7 +551,6 @@ class JobsController extends Controller
             'interview_location' => 'required',
         ]);
 
-        // Start the interview
         $applicant->update([
             'status' => 'interviewing',
             'interview_date' => $request->interview_date,
@@ -734,7 +559,7 @@ class JobsController extends Controller
         ]);
 
         // Start conversation with the applicant
-        $conversation = \App\Models\Conversations::create([
+        Conversations::create([
             'user_id' => auth()->user()->id,
             'receiver_id' => $applicant->user_id,
             'job_id' => $job->id,
@@ -742,45 +567,31 @@ class JobsController extends Controller
             'created_at' => now(),
         ]);
 
-
-
-        // Redirect to the job details page
         return redirect()->route('jobs.applicants', $job->id)->with('success', 'Interview started successfully');
     }
 
-    /**
-     * ViewApplicant | Job
-     * -------------------------------------
-     * View the applicant details
-     */
-    public function viewApplicant($id, $applicant_id)
+    public function viewApplicant(int $id, int $applicant_id): RedirectResponse|View
     {
-        $job = \App\Models\Jobs::find($id);
+        $job = Jobs::find($id);
 
-        // Make sure the job exists
         if (!$job) {
             return redirect()->route('jobs.index')->with('error', 'Job not found');
         }
 
-        $applicant = \App\Models\JobApplicants::find($applicant_id);
+        $applicant = JobApplicants::find($applicant_id);
 
-        // Make sure the applicant exists
         if (!$applicant) {
             return redirect()->route('jobs.index')->with('error', 'Applicant not found');
         }
 
-        // Make sure the user is the owner of the job
         if ($job->user_id != auth()->user()->id) {
             return redirect()->route('jobs.index')->with('error', 'You are not authorized to view this page');
         }
 
-        // Get the company details
-        $company = \App\Models\Companies::find($job->company_id);
+        $company = Companies::find($job->company_id);
 
-        // Get user data from applicant
-        $applicant->user = \App\Models\User::find($applicant->user_id);
+        $applicant->user = User::find($applicant->user_id);
 
-        // Make sure user exists
         if (!$applicant->user) {
             return redirect()->route('jobs.index')->with('error', 'User not found');
         }

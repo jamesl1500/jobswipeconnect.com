@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MarketingController;
 use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ProfileController;
@@ -29,6 +30,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+// Marketing pages
+Route::get('/about', [MarketingController::class, 'about'])->name('marketing.about');
+Route::get('/for-job-seekers', [MarketingController::class, 'jobSeekers'])->name('marketing.job_seekers');
+Route::get('/for-employers', [MarketingController::class, 'employers'])->name('marketing.employers');
+Route::get('/contact', [MarketingController::class, 'contact'])->name('marketing.contact');
+Route::post('/contact', [MarketingController::class, 'contactStore'])->name('marketing.contact.post');
+Route::get('/privacy', [MarketingController::class, 'privacy'])->name('marketing.privacy');
+Route::get('/terms', [MarketingController::class, 'terms'])->name('marketing.terms');
 
 Route::get('/dashboard', [DashboardController::class, 'jobsFeeds'])->middleware(['auth', 'verified', 'onboarding'])->name('dashboard.jobs');
 
@@ -173,6 +183,8 @@ Route::get('search/companies', [SearchController::class, 'companies'])->name('se
 // Matchmaker
 Route::post('matchmaker/job_seeker/like', [MatchmakerController::class, 'job_seeker_like'])->middleware(['auth', 'verified', 'onboarding'])->name('matchmaker.job_seeker.like');
 Route::post('matchmaker/job_seeker/dislike', [MatchmakerController::class, 'job_seeker_dislike'])->middleware(['auth', 'verified', 'onboarding'])->name('matchmaker.job_seeker.dislike');
+Route::post('matchmaker/job_poster/like', [MatchmakerController::class, 'job_poster_like'])->middleware(['auth', 'verified', 'onboarding'])->name('matchmaker.job_poster.like');
+Route::post('matchmaker/job_poster/dislike', [MatchmakerController::class, 'job_poster_dislike'])->middleware(['auth', 'verified', 'onboarding'])->name('matchmaker.job_poster.dislike');
 
 // Posts
 Route::post('posts/create', [PostsController::class, 'createPost'])->middleware(['auth', 'verified', 'onboarding'])->name('posts.create');

@@ -34,22 +34,22 @@
                             <h2>Jobs</h2>
                             <p>Find your dream job!</p>
                             <div class="search-jobs-filter-buttons">
-                                <a href="{{ route('search.jobs') }}?query={{ $query }}&employment_location_type=remote" class="btn primary skinny <?php if(request()->get('employment_location_type') == 'remote'){ echo "filled"; }else{ echo "primary-hollow"; } ?>">Remote</a>
-                                <a href="{{ route('search.jobs') }}?query={{ $query }}&employment_location_type=on-site" class="btn primary skinny <?php if(request()->get('employment_location_type') == 'on-site'){ echo "filled"; }else{ echo "primary-hollow"; } ?>">On-Site</a>
-                                <a href="{{ route('search.jobs') }}?query={{ $query }}&employment_location_type=hybrid" class="btn primary skinny <?php if(request()->get('employment_location_type') == 'hybrid'){ echo "filled"; }else{ echo "primary-hollow"; } ?>">Hybrid</a>
+                                <a href="{{ route('search.jobs') }}?query={{ $query }}&employment_location_type=remote" class="btn primary skinny {{ request()->get('employment_location_type') == 'remote' ? 'filled' : 'primary-hollow' }}">Remote</a>
+                                <a href="{{ route('search.jobs') }}?query={{ $query }}&employment_location_type=on-site" class="btn primary skinny {{ request()->get('employment_location_type') == 'on-site' ? 'filled' : 'primary-hollow' }}">On-Site</a>
+                                <a href="{{ route('search.jobs') }}?query={{ $query }}&employment_location_type=hybrid" class="btn primary skinny {{ request()->get('employment_location_type') == 'hybrid' ? 'filled' : 'primary-hollow' }}">Hybrid</a>
                             </div>
                         </div>
                         <div class="jobs-search-main-results">
                             @if($query != "")
                                 @if(count($jobs) > 0)
                                     @foreach($jobs as $job)
-                                    <?php
+                                    @php
                                     // Get Company info
                                     $company = \App\Models\Companies::where('id', $job['company_id'])->first();
 
                                     // Get the jobs posted date
                                     $job_posted_date = \Carbon\Carbon::parse($job['created_at'])->diffForHumans();
-                                    ?>
+                                    @endphp
                                     <div class="job-box">
                                         <div class="job-details">
                                             <div class="job-logo">
@@ -118,20 +118,17 @@
                             </div>
                             <div class="side-block-content">
                                 <ul class="filter-links">
-                                    <?php
-                                    // Get all job categories
-                                    $categories = ["accounting","administrative","advertising","banking","business","community","construction","customer-service","design","education","engineering","finance","healthcare","hospitality","human-resources","information-technology","legal","management","manufacturing","marketing","media","non-profit","real-estate","retail","sales","science","security","skilled-labor","transportation","other"];
-
-                                    // Loop through the categories
-                                    foreach ($categories as $category) {
-                                        // If the category is in the URL, make it active
-                                        if (request()->get('category') == $category) {
-                                            echo '<li class="active"><a href="' . route('search.jobs') . '?query=' . $query . '&category=' . $category . '" class="active">' . ucwords($category) . '</a></li>';
-                                        } else {
-                                            echo '<li><a href="' . route('search.jobs') . '?query=' . $query . '&category=' . $category . '">' . ucwords($category) . '</a></li>';
-                                        }
-                                    }
-                                    ?>
+                                    @php
+                                        // Get all job categories
+                                        $categories = ["accounting","administrative","advertising","banking","business","community","construction","customer-service","design","education","engineering","finance","healthcare","hospitality","human-resources","information-technology","legal","management","manufacturing","marketing","media","non-profit","real-estate","retail","sales","science","security","skilled-labor","transportation","other"];
+                                    @endphp
+                                    @foreach($categories as $category)
+                                        @if(request()->get('category') == $category)
+                                            <li class="active"><a href="{{ route('search.jobs') }}?query={{ $query }}&category={{ $category }}" class="active">{{ ucwords($category) }}</a></li>
+                                        @else
+                                            <li><a href="{{ route('search.jobs') }}?query={{ $query }}&category={{ $category }}">{{ ucwords($category) }}</a></li>
+                                        @endif
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>

@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__laravel-boost__last-error",
+      "mcp__laravel-boost__read-log-entries"
+    ]
+  }
+}

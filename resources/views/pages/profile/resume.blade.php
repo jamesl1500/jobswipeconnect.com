@@ -27,49 +27,25 @@
             <div class="col-lg-6 profile-page-resume-content-middle">
                 <div class="profile-page-content-header">
                     <h1>Resume</h1>
-                    <?php
-                    if(auth()->user() && auth()->user()->id == $user->id) {
-                        echo '<button id="openEditResumeModal" class="btn primary" data-bs-toggle="modal" data-bs-target="#editResumeModal">Edit Resume</button>';
-                    }
-                    ?>
+                    @if(auth()->user() && auth()->user()->id == $user->id)
+                        <button id="openEditResumeModal" class="btn primary" data-bs-toggle="modal" data-bs-target="#editResumeModal">Edit Resume</button>
+                    @endif
                 </div>
                 <div class="profile-page-content-box">
-                    <?php
-                    if($user->resume) {
-                        if($ps->show_resume == 1 || auth()->user() && auth()->user()->id == $user->id) {
-                            // See if resume is a docx or pdf
-                            $ext = pathinfo($user->resume, PATHINFO_EXTENSION);
-
-                            if($ext == 'pdf') {
-                                echo '<iframe src="' . asset('storage/' . $user->resume) . '" width="100%" height="500px"></iframe>';
-                            } else {
-                                echo '<p>' . $user->name . ' has not added a resume yet.</p>';
-                            }
-                        } else if(auth()->user() && auth()->user()->id == $user->id) {
-                            // See if resume is a docx or pdf
-                            $ext = pathinfo($user->resume, PATHINFO_EXTENSION);
-
-                            if($ext == 'pdf') {
-                                echo '<iframe src="' . asset('storage/' . $user->resume) . '" width="100%" height="500px"></iframe>';
-                            } else {
-                                echo '<p>' . $user->name . ' has not added a resume yet.</p>';
-                            }
-                        }else if(auth()->user()){
-                            // See if resume is a docx or pdf
-                            $ext = pathinfo($user->resume, PATHINFO_EXTENSION);
-
-                            if($ext == 'pdf') {
-                                echo '<iframe src="' . asset('storage/' . $user->resume) . '" width="100%" height="500px"></iframe>';
-                            } else {
-                                echo '<p>' . $user->name . ' has not added a resume yet.</p>';
-                            }
-                        } else {
-                            echo '<p>' . $user->name . ' has privated their resume. <a href="/login">Log in</a> to view it</p>';
-                        }
-                    } else {
-                        echo '<p>' . $user->name . ' has not added a resume yet.</p>';
-                    }
-                    ?>
+                    @if($user->resume)
+                        @if($ps->show_resume == 1 || auth()->user())
+                            <?php $ext = pathinfo($user->resume, PATHINFO_EXTENSION); ?>
+                            @if($ext == 'pdf')
+                                <iframe src="{{ asset('storage/' . $user->resume) }}" width="100%" height="500px"></iframe>
+                            @else
+                                <p>{{ $user->name }} has not added a resume yet.</p>
+                            @endif
+                        @else
+                            <p>{{ $user->name }} has privated their resume. <a href="/login">Log in</a> to view it</p>
+                        @endif
+                    @else
+                        <p>{{ $user->name }} has not added a resume yet.</p>
+                    @endif
                 </div>
             </div>
             <div class="col-lg-3 profile-empty-space"></div>

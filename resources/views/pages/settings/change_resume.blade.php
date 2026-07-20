@@ -42,9 +42,7 @@
                         <!-- Current resume -->
                         <div class="form-group">
                             <label for="resume"><b>Current resume</b></label>
-                            <?php
-                                $resume = json_decode(auth()->user()->resume);
-                            ?>
+                            @php($resume = json_decode(auth()->user()->resume))
                             <div class="resume-box">
                                 <div class="resume-box-left">
                                     <p>{{ $resume->extension }}</p>

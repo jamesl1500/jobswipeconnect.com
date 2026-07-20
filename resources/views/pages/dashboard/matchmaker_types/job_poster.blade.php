@@ -1,39 +1,26 @@
-<?php
+@php
 use App\Libraries\Matchmaker;
-
 use App\Models\Companies;
 
 $matchmaker = new Matchmaker();
 
-// Lets get all filter query strings from url
-
-
-// Create array of filters
+// Create array of filters from query string
 $filters = [
-    'skills' => '',
-    'education' => '',
-    'experience' => ''
+    'skills' => $_GET['skills'] ?? '',
+    'education' => $_GET['education'] ?? '',
+    'experience' => $_GET['experience'] ?? ''
 ];
-
-if(isset($_GET['education']))
-{
-    $filters['education'] = $_GET['education'];
-}
-
-if(isset($_GET['experience']))
-{
-    $filters['experience'] = $_GET['experience'];
-}
-
-if(isset($_GET['skills']))
-{
-    $filters['skills'] = $_GET['skills'];
-}
 
 // Since this is a job seeker, we will get all the job postings
 $job_seeker = $matchmaker->getMatchedJobSeekers($filters);
-?>
+$job_for_match = $job_seeker ? $matchmaker->resolveJobForJobSeeker($job_seeker) : null;
+@endphp
 <div class="matchmaker job-poster-version">
+    @if(!$job_seeker || !$job_for_match)
+    <div class="matchmaker-empty">
+        <p>No applicants to review right now — post a job to start matching with candidates.</p>
+    </div>
+    @else
     <div class="matchmaker-inner">
         <div class="matchmaker-tab-bar">
             <!-- Applicant Info -->
@@ -64,59 +51,49 @@ $job_seeker = $matchmaker->getMatchedJobSeekers($filters);
                             <img src="{{ asset('storage/' .  $job_seeker->profile_picture ) }}" alt="{{ $job_seeker->name }}">
                         </div>
                         <div class="matchmaker-applicant-info">
-                            <p class="name"><?php echo $job_seeker->name; ?></p>
-                            <p class="username">@<?php echo $job_seeker->username; ?></p>
+                            <p class="name">{{ $job_seeker->name }}</p>
+                            <p class="username">{{ '@' . $job_seeker->username }}</p>
                         </div>
                     </div>
                     <div class="matchmaker-applicant-middle-experience">
                         <p class="title-m">Experience</p>
-                        <?php
-                        // Get the job seeker's experience
-                        $experience = $job_seeker->experiences()->get();
-
-                        if(count($experience) > 0)
-                        {
-                            foreach($experience as $exp)
-                            {
-                                echo '<div class="matchmaker-applicant-experience">';
-                                echo '<p class="title">' . $exp->title . '</p>';
-                                echo '<p class="company">' . $exp->company . '</p>';
-                                echo '<p class="date">' . $exp->start_date . ' - ' . $exp->end_date . '</p>';
-                                echo '</div>';
-                            }
-                        }
-                        else
-                        {
-                            echo '<div class="matchmaker-applicant-experience">';
-                            echo '<p class="title">No experience found!</p>';
-                            echo '</div>';
-                        }
-                        ?>
+                        @php
+                            // Get the job seeker's experience
+                            $experience = $job_seeker->experiences()->get();
+                        @endphp
+                        @if(count($experience) > 0)
+                            @foreach($experience as $exp)
+                                <div class="matchmaker-applicant-experience">
+                                    <p class="title">{{ $exp->title }}</p>
+                                    <p class="company">{{ $exp->company }}</p>
+                                    <p class="date">{{ $exp->start_date }} - {{ $exp->end_date }}</p>
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="matchmaker-applicant-experience">
+                                <p class="title">No experience found!</p>
+                            </div>
+                        @endif
                     </div>
                     <div class="matchmaker-applicant-middle-education">
                         <p class="title-m">Education</p>
-                        <?php
-                        // Get the job seeker's education
-                        $education = $job_seeker->educations()->get();
-
-                        if(count($education) > 0)
-                        {
-                            foreach($education as $edu)
-                            {
-                                echo '<div class="matchmaker-applicant-education">';
-                                echo '<p class="title">' . $edu->degree . '</p>';
-                                echo '<p class="school">' . $edu->school . '</p>';
-                                echo '<p class="date">' . $edu->start_date . ' - ' . $edu->end_date . '</p>';
-                                echo '</div>';
-                            }
-                        }
-                        else
-                        {
-                            echo '<div class="matchmaker-applicant-education">';
-                            echo '<p class="title">No education found!</p>';
-                            echo '</div>';
-                        }
-                        ?>
+                        @php
+                            // Get the job seeker's education
+                            $education = $job_seeker->educations()->get();
+                        @endphp
+                        @if(count($education) > 0)
+                            @foreach($education as $edu)
+                                <div class="matchmaker-applicant-education">
+                                    <p class="title">{{ $edu->degree }}</p>
+                                    <p class="school">{{ $edu->school }}</p>
+                                    <p class="date">{{ $edu->start_date }} - {{ $edu->end_date }}</p>
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="matchmaker-applicant-education">
+                                <p class="title">No education found!</p>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -137,15 +114,24 @@ $job_seeker = $matchmaker->getMatchedJobSeekers($filters);
                     <p>Cover Letter</p>
                 </div>
                 <div class="matchmaker-tab-content-body">
-                    <p><?php echo $job_seeker->cover_letter; ?></p>
+                    <p>{{ $job_seeker->cover_letter }}</p>
                 </div>
             </div>
         </div>
         <div class="matchmaker-actions">
-            <form action="" method="post">
-                <button type="submit" name="accept" class="btn btn-success">Accept</button>
-                <button type="submit" name="reject" class="btn btn-danger">Reject</button>
+            <form action="{{ route('matchmaker.job_poster.like') }}" method="post">
+                @csrf
+                <input type="hidden" name="job_seeker_id" value="{{ $job_seeker->id }}">
+                <input type="hidden" name="job_id" value="{{ $job_for_match->id }}">
+                <button type="submit" class="btn btn-success">Accept</button>
+            </form>
+            <form action="{{ route('matchmaker.job_poster.dislike') }}" method="post">
+                @csrf
+                <input type="hidden" name="job_seeker_id" value="{{ $job_seeker->id }}">
+                <input type="hidden" name="job_id" value="{{ $job_for_match->id }}">
+                <button type="submit" class="btn btn-danger">Reject</button>
             </form>
         </div>
     </div>
+    @endif
 </div>

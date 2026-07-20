@@ -1,113 +1,120 @@
 <?php
+
 namespace App\Libraries;
 
+use App\Models\Conversation_members;
+use App\Models\Conversation_messages;
+use App\Models\Conversations;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
 
 class Conversation
 {
-    // Define the models
-    protected $conversations_model;
-    protected $conversation_members_model;
-    protected $conversation_messages_model;
+    protected Conversations $conversations_model;
+    protected Conversation_members $conversation_members_model;
+    protected Conversation_messages $conversation_messages_model;
 
     public function __construct()
     {
-        // Load the required models
-        $this->conversations_model = new \App\Models\Conversations();
-        $this->conversation_members_model = new \App\Models\Conversation_members();
-        $this->conversation_messages_model = new \App\Models\Conversation_messages();
+        $this->conversations_model = new Conversations();
+        $this->conversation_members_model = new Conversation_members();
+        $this->conversation_messages_model = new Conversation_messages();
     }
 
     /**
      * GetOtherConversationMember
      */
-    public function GetOtherConversationMember($conversation_id, $user_uid){
-        // Get conversation ID
-        //$conversation = $this->conversations_model->where('conversation_uid', $conversation_id)->first();
-
-        // Get the other member
-        $other_member = $this->conversation_members_model->where('conversation_uid', $conversation_id)->where('user_uid', '!=', $user_uid)->first();
-
-        // Return the other member
-        return $other_member;
+    public function GetOtherConversationMember(int|string $conversation_id, int $user_uid): ?Conversation_members
+    {
+        return $this->conversation_members_model
+            ->where('conversation_uid', $conversation_id)
+            ->where('user_uid', '!=', $user_uid)
+            ->first();
     }
 
     /**
      * CheckIfUserIsConversationMember
-     * 
+     *
      * @param string $conversation_uid
-     * @param string $user_uid
+     * @param int $user_uid
      */
-    public function CheckIfUserIsConversationMember($conversation_uid, $user_uid){
-        // Get the conversation
+    public function CheckIfUserIsConversationMember(string $conversation_uid, int $user_uid): ?Conversation_members
+    {
         $conversation = $this->conversations_model->where('conversation_uid', $conversation_uid)->first();
 
-        // Check if the user is a member
-        $member = $this->conversation_members_model->where('conversation_uid', $conversation->id)->where('user_uid', $user_uid)->first();
-
-        // Return the member
-        return $member;
+        return $this->conversation_members_model
+            ->where('conversation_uid', $conversation->id)
+            ->where('user_uid', $user_uid)
+            ->first();
     }
 
     /**
      * GetConversationMembers
-     * 
+     *
      * @param string $conversation_uid
      */
-    public function GetConversationMembers($conversation_uid){
-        $messages = $this->conversations_model->where('conversation_uid', $conversation_uid)->first()->members()->orderBy('created_at', 'asc')->get();
-
-        // Return the messages
-        return $messages;
+    public function GetConversationMembers(string $conversation_uid): Collection
+    {
+        return $this->conversations_model
+            ->where('conversation_uid', $conversation_uid)
+            ->first()
+            ->members()
+            ->orderBy('created_at', 'asc')
+            ->get();
     }
 
     /**
      * GetConversationMessages
-     * 
+     *
      * @param string $conversation_uid
      */
-    public function GetConversationMessages($conversation_uid){
-        $messages = $this->conversations_model->where('conversation_uid', $conversation_uid)->first()->messages()->orderBy('created_at', 'asc')->get();
-
-        // Return the messages
-        return $messages;
+    public function GetConversationMessages(string $conversation_uid): Collection
+    {
+        return $this->conversations_model
+            ->where('conversation_uid', $conversation_uid)
+            ->first()
+            ->messages()
+            ->orderBy('created_at', 'asc')
+            ->get();
     }
 
     /**
      * GenerateUid
      * -----------
      * Generate a unique ID for a conversation, messages, and members.
-     * 
+     *
      * @return string
      */
-    public function GenerateUid(){
-        // Generate a unique ID
-        $uid = Str::random(35) . time() . Str::random(3);
-
-        // Return the ID
-        return $uid;
+    public function GenerateUid(): string
+    {
+        return Str::random(35) . time() . Str::random(3);
     }
 
     /**
      * CheckIfConversationExists
      * -------------------------
      * Check if a conversation exists between two users.
-     * 
-     * @param string $user_uid_1
-     * @param string $user_uid_2
+     *
+     * @param int $user_uid_1
+     * @param int $user_uid_2
      */
-    public function CheckIfConversationExists($user_uid_1, $user_uid_2){
-        // Check if a conversation exists between the two users
-        return $this->conversations_model->where('conversation_sender', $user_uid_1)->where('conversation_receiver', $user_uid_2)->orWhere('conversation_sender', $user_uid_2)->where('conversation_receiver', $user_uid_1)->first();
+    public function CheckIfConversationExists(int $user_uid_1, int $user_uid_2): ?Conversations
+    {
+        return $this->conversations_model
+            ->where('conversation_sender', $user_uid_1)
+            ->where('conversation_receiver', $user_uid_2)
+            ->orWhere('conversation_sender', $user_uid_2)
+            ->where('conversation_receiver', $user_uid_1)
+            ->first();
     }
 
     /**
      * CheckIfConversationExistsByUid
-     * 
+     *
      * @param string $conversation_uid
      */
-    public function CheckIfConversationExistsByUid($conversation_uid){
-        // Check if a conversation exists between the two users
+    public function CheckIfConversationExistsByUid(string $conversation_uid): ?Conversations
+    {
         return $this->conversations_model->where('conversation_uid', $conversation_uid)->first();
     }
 
@@ -115,18 +122,14 @@ class Conversation
      * GetLastMessage
      * --------------
      * Get the last message in a conversation.
-     * 
+     *
      * @param string $conversation_uid
      */
-    public function GetLastMessage($conversation_uid){
-        // Get the conversation
+    public function GetLastMessage(string $conversation_uid): ?Conversation_messages
+    {
         $conversation = $this->conversations_model->where('id', $conversation_uid)->first();
 
-        // Get the last message
-        $last_message = $conversation->messages()->orderBy('created_at', 'desc')->first();
-
-        // Return the last message
-        return $last_message;
+        return $conversation->messages()->orderBy('created_at', 'desc')->first();
     }
 
     /**
@@ -134,11 +137,10 @@ class Conversation
      * -----------------------
      * Get the unique ID of a conversation.
      */
-    public function GetConversationUniqueId($conversation_id){
-        // Get the conversation
+    public function GetConversationUniqueId(int|string $conversation_id): string
+    {
         $conversation = $this->conversations_model->where('id', $conversation_id)->first();
 
-        // Return the conversation UID
         return $conversation->conversation_uid;
     }
 
@@ -147,11 +149,10 @@ class Conversation
      * ---------------------------
      * Get the numerical ID of a conversation.
      */
-    public function GetConversationNumericalId($conversation_uid){
-        // Get the conversation
+    public function GetConversationNumericalId(string $conversation_uid): int
+    {
         $conversation = $this->conversations_model->where('conversation_uid', $conversation_uid)->first();
 
-        // Return the conversation ID
         return $conversation->id;
     }
 }

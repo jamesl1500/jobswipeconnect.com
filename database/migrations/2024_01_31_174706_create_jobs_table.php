@@ -16,7 +16,9 @@ class CreateJobsTable extends Migration
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->constrained();
-            $table->foreignId("company_id")->constrained();
+            // No ->constrained() here: the companies table is created by a later
+            // migration, so a DB-level FK to it can't be declared at this point.
+            $table->foreignId("company_id");
             $table->string("title");
             $table->string('location');
             $table->string('salary');
@@ -32,7 +34,7 @@ class CreateJobsTable extends Migration
             $table->enum("job_category",["accounting","administrative","advertising","banking","business","community","construction","customer-service","design","education","engineering","finance","healthcare","hospitality","human-resources","information-technology","legal","management","manufacturing","marketing","media","non-profit","real-estate","retail","sales","science","security","skilled-labor","transportation","other"])->default("other");
             $table->enum("job_shift",["morning","afternoon","evening","night","flexible","rotating","other"])->default("morning");
             $table->enum("job_status",["full-time","part-time","contract","temporary","other"])->default("full-time");
-            $table->string('job_salary_from');
+            $table->enum("job_salary_type",["hourly","salaried","commission","other"])->default("salaried");
             $table->timestamps();
         });
     }

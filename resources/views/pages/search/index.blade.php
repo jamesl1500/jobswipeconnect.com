@@ -38,13 +38,13 @@
                             @if($query != "")
                                 @if(count($jobs) > 0)
                                     @foreach($jobs[0] as $job)
-                                    <?php
+                                    @php
                                         // Get Company info
                                         $company = \App\Models\Companies::where('id', $job['company_id'])->first();
 
                                         // Get the jobs posted date
                                         $job_posted_date = \Carbon\Carbon::parse($job['created_at'])->diffForHumans();
-                                    ?>
+                                    @endphp
                                     <div class="job-box" onClick="window.location.assign('{{ route('jobs.show', $job['id']) }}');">
                                         <div class="job-details">
                                             <div class="job-logo">
@@ -65,10 +65,6 @@
                                                     <div class="job-actions" style="padding-top: 10px;">
                                                         <a href="{{ route('jobs.show', $job['id']) }}" class="btn skinny primary">View</a>
                                                         <a href="{{ route('jobs.edit', $job['id']) }}" class="btn skinny primary">Edit</a>
-                                                    </div>
-                                                @elseif(auth()->user())
-                                                    <div class="job-actions" style="padding-top: 10px;">
-                                                        <a href="{{ route('jobs.show', $job['id']) }}" class="btn skinny primary">View</a>
                                                     </div>
                                                 @else
                                                     <div class="job-actions" style="padding-top: 10px;">

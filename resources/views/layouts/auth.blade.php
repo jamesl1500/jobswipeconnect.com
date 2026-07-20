@@ -6,23 +6,28 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="<?php echo csrf_token(); ?>">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- SEO -->
     <meta name="robots" content="index, follow">
-    <meta name="description" content="<?php echo env('APP_DESCRIPTION'); ?>">
-    <meta name="keywords" content="<?php echo env('APP_KEYWORDS'); ?>">
-    <meta name="author" content="<?php echo env('APP_AUTHOR'); ?>">
+    <meta name="description" content="{{ env('APP_DESCRIPTION') }}">
+    <meta name="keywords" content="{{ env('APP_KEYWORDS') }}">
+    <meta name="author" content="{{ env('APP_AUTHOR') }}">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="<?php echo $title; ?> | <?php echo env('APP_NAME'); ?>">
-    <meta property="og:description" content="<?php echo env('APP_DESCRIPTION'); ?>">
-    <meta property="og:image" content="<?php echo env('APP_URL'); ?>/images/logo.png">
-    <meta property="og:url" content="<?php echo env('APP_URL'); ?>">
-    <meta property="og:site_name" content="<?php echo env('APP_NAME'); ?>">
+    <meta property="og:title" content="{{ $title }} | {{ env('APP_NAME') }}">
+    <meta property="og:description" content="{{ env('APP_DESCRIPTION') }}">
+    <meta property="og:image" content="{{ env('APP_URL') }}/images/logo.png">
+    <meta property="og:url" content="{{ env('APP_URL') }}">
+    <meta property="og:site_name" content="{{ env('APP_NAME') }}">
     <meta property="og:type" content="website">
 
-    <title><?php echo $title; ?> | <?php echo env('APP_NAME'); ?></title>
+    <title>{{ $title }} | {{ env('APP_NAME') }}</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 </head>

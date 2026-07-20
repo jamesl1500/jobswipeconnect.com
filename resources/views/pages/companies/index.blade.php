@@ -38,10 +38,10 @@
                         <div class="companies-content-posts">
 
                             <div class="companies-content-posts-inner">
-                                <?php
+                                @php
                                     // Get all companies
                                     $companies = \App\Models\Companies::all();
-                                ?>
+                                @endphp
                                 @foreach ($companies as $company)
                                     <div class="companies-content-post">
                                         <div class="companies-content-post-inner">
@@ -59,10 +59,8 @@
                                                 <div class="companies-content-post-link">
                                                     <a href="{{ route('companies.show', $company->id) }}" class="btn primary">View</a>
 
-                                                    @if (Auth::check())
-                                                        @if (Auth::user()->id == $company->user_id)
-                                                            <a href="{{ route('companies.edit', $company->id) }}" class="btn secondary">Edit</a>
-                                                        @endif
+                                                    @if (Auth::check() && Auth::user()->id == $company->user_id)
+                                                        <a href="{{ route('companies.edit', $company->id) }}" class="btn secondary">Edit</a>
                                                     @endif
                                                 </div>
                                             </div>
@@ -80,15 +78,13 @@
                                 <h3>Remote Workplaces</h3>
                             </div>
                             <div class="side-block-content">
-                                <?php
+                                @php
                                     // Get companies where "schedule_type" is "remote"
                                     $remote_companies = \App\Models\Companies::where('schedule_type', 'remote')->get();
-
-                                    // Loop through the remote companies
-                                    foreach ($remote_companies as $remote_company) {
-                                        echo '<a href="' . route('companies.show', $remote_company->id) . '">' . $remote_company->name . '</a>';
-                                    }
-                                ?>
+                                @endphp
+                                @foreach ($remote_companies as $remote_company)
+                                    <a href="{{ route('companies.show', $remote_company->id) }}">{{ $remote_company->name }}</a>
+                                @endforeach
                             </div>
                         </div>
                     </div>

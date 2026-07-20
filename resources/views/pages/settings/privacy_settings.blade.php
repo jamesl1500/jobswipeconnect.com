@@ -1,7 +1,7 @@
-<?php
+@php
     $privacy_settings = new \App\Libraries\PrivacySettings;
     $ps = $privacy_settings->returnAllPrivacySettings();
-?>
+@endphp
 
 @php($title = 'Settings | Change Email')
 @extends('layouts.authorized')
